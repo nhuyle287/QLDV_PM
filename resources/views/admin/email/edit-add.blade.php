@@ -1,4 +1,14 @@
 @extends('layout.master')
+@section('title')
+    Email
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
 
@@ -141,9 +151,11 @@
                                         </div>
 
                                         <hr>
-                                        <button class="btn btn-info">{{ __('general.save') }}</button>
-                                        <a href="{{ route('admin.emails.index') }}"
-                                           class="btn btn-default">{{ __('general.back') }}</a>
+                                        <div class="event_ float-right">
+                                            <button class="btn btn-default">{{ __('general.save') }}</button>
+                                            <a href="{{ route('admin.emails.index') }}"
+                                               class="btn btn-default">{{ __('general.back') }}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

@@ -1,0 +1,126 @@
+
+body {
+    font-family: "Roboto";
+}
+.background-popup {
+    height: 85%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: none;
+    position: fixed;
+    z-index: 20;
+    top: 3rem;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: scroll;
+
+}
+.rollIn {
+    -webkit-animation-name: rollIn;
+    animation-name: rollIn;
+    margin: auto;
+    padding-bottom: 1rem;
+    border: 1px solid darkgrey;
+}
+.content{
+    background-color: whitesmoke;
+    padding: 0.75rem;
+}
+.head {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 10%;
+}
+
+#infor {
+    list-style-type: none;
+}
+
+.title {
+    text-align: center;
+}
+
+.title p {
+    margin-bottom: 0 !important;
+}
+
+.law {
+    list-style: none;
+    /* Remove HTML bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.law li {
+    padding-left: 16px;
+}
+
+.law li::before {
+    content: "-";
+    /* Insert content that looks like bullets */
+    padding-right: 8px;
+    color: black;
+    /* Or a color you prefer */
+}
+
+.support {
+    list-style: none;
+}
+
+.value_contract {
+    list-style: none;
+    /* Remove HTML bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.value_contract li {
+    padding-left: 16px;
+}
+
+.value_contract li::before {
+    content: "+";
+    /* Insert content that looks like bullets */
+    padding-right: 8px;
+    color: black;
+    /* Or a color you prefer */
+}
+
+table {
+    width: 100%;
+}
+
+table tr,
+table td,
+table th {
+    border: 1px dashed black;
+    padding: 4px;
+}
+
+.service, .service td, .service th {
+    border: 1px solid slategrey;
+}
+
+.register {
+    display: flex;
+    justify-content: space-around;
+}
+
+.schedule_head {
+    text-align: center;
+}
+
+.function,
+.function tr,
+.function th,
+.function td {
+    border: 1px solid slategrey;
+}
+
+.time,
+.time tr,
+.time td,
+.time th {
+    border: 1px solid slategrey;
+}

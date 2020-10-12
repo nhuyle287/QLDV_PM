@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\TypeSoftware;
-use App\Model\TypeStaff;
+use App\Models\TypeSoftware;
+use App\Models\TypeStaff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;

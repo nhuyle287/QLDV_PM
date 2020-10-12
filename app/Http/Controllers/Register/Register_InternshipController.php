@@ -4,25 +4,25 @@
 namespace App\Http\Controllers\Register;
 
 
-use App\Model\Academic_Internships;
-use App\Model\Academic_level;
-use App\Model\Certificate;
-use App\Model\Certificate_Internships;
+use App\Models\Academic_Internships;
+use App\Models\Academic_level;
+use App\Models\Certificate;
+use App\Models\Certificate_Internships;
 
-use App\Model\Internship;
+use App\Models\Internship;
 
-use App\Model\Language;
-use App\Model\Languages_Internships;
+use App\Models\Language;
+use App\Models\Languages_Internships;
 
-use App\Model\Project;
-use App\Model\Project_Internships;
+use App\Models\Project;
+use App\Models\Project_Internships;
 
 use Illuminate\Http\Request;
 
 
 class Register_InternshipController extends RegisterController
 {
-    public function dangky()
+    public function get_register()
     {
         return view('register.register_internship');
     }
@@ -193,11 +193,11 @@ class Register_InternshipController extends RegisterController
         try {
 
 
-            return redirect(route('register.internship.dang_ky'))->with('success', 'Chúc mừng bạn nộp thông tin ứng tuyển thành công');
+            return redirect(route('register.internship.get_register'))->with('success', 'Chúc mừng bạn nộp thông tin ứng tuyển thành công');
         } catch (\Exception $e) {
             // echo($e);
 //            return response()->json(['message' => 'Fail', 'status' => 0]);
-            return redirect(route('register.internship.dang_ky'))->with('fail', 'Nộp thông tin ứng tuyển thất bại');
+            return redirect(route('register.internship.get_register'))->with('fail', 'Nộp thông tin ứng tuyển thất bại');
 
         }
 // return array($request->all());

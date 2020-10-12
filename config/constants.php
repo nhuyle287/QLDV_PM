@@ -2,5 +2,5 @@
 declare(strict_types=1);
 
 return [
-    'pagination' => '6',
+    'pagination' => '12',
 ];

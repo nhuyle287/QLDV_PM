@@ -1,4 +1,11 @@
 @extends('layout.master')
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
     <div class="content">
         <h3 class="page-title" style="font-weight: bold;  font-size: 250%;">Quản Lý Phân Loại Nhân Viên</h3>
@@ -27,11 +34,11 @@
                 <table class="table table-bordered table-striped">
                     <thead >
                     <tr style="background-color: #17a2b8; color: white; ">
-                        <th style="text-align: center; ">STT</th>
+                        <th style="text-align: center; ">ID</th>
                         <th style="text-align: center; ">Tên Loại</th>
                         <th style="text-align: center; ">Mô tả</th>
 
-                        <th style="text-align: center; ">&nbsp;</th>
+                        <th style="text-align: center; ">Chức năng</th>
                     </tr>
                     </thead>
                     <tbody>

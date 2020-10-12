@@ -1,0 +1,242 @@
+body {
+    font-family: "Roboto";
+}
+
+
+.content {
+    padding: 10px;
+}
+
+@media (max-width: 360px) {
+    #title {
+        font-weight: bold;
+        font-size: 150%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 1%;
+    }
+    table td, table th {
+        padding:0.25rem !important;
+        font-size: 0.65rem;
+        vertical-align: middle !important;
+    }
+    #create_btn{
+        margin: 0 0 1.5% !important;
+    }
+    #content {
+        border: 1px solid #0000004d;
+        border-radius: 5px;
+        font-size: 0.5rem;
+    }
+
+    .form_delete{
+        padding: .25rem 0;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+    .button{
+        margin-bottom: 0;
+        font-size: 0.55rem;
+        vertical-align: middle;
+        text-align: center;
+    }
+}
+@media (min-width: 460px) {
+    #title {
+        font-weight: bold;
+        font-size: 150%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 1%;
+    }
+    table td, table th {
+        padding:0.25rem !important;
+        font-size: 0.75rem;
+        vertical-align: middle !important;
+    }
+    #create_btn{
+        margin: 0 0 1.5% !important;
+    }
+    #content {
+        border: 1px solid #0000004d;
+        border-radius: 5px;
+        font-size: 0.5rem;
+    }
+    .form_delete{
+        padding: .25rem 0;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+    .button{
+        margin-bottom: 0;
+        font-size: 0.55rem;
+        vertical-align: middle;
+        text-align: center;
+    }
+}
+@media (min-width: 576px) {
+    #title {
+        font-weight: bold;
+        font-size: 150%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 1%;
+    }
+    table td, table th {
+        padding:0.25rem !important;
+        font-size: 0.75rem;
+        vertical-align: middle !important;
+    }
+    #create_btn{
+        margin: 0 0 1.5% !important;
+        padding: 0;
+    }
+    #content {
+        border: 1px solid #0000004d;
+        border-radius: 5px;
+        font-size: 0.5rem;
+    }
+    .form_delete{
+        padding: .25rem 0;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+    .button{
+        margin-bottom: 0;
+        font-size: 0.55rem;
+        vertical-align: middle;
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) {
+    #title {
+        font-weight: bold;
+        font-size: 200%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 1%;
+    }
+    table td, table th {
+        padding:0.25rem !important;
+        font-size: 0.75rem;
+        vertical-align: middle !important;
+    }
+    #create_btn {
+        margin: 0 2% 1.5% !important;
+        padding: 0;
+    }
+    .panel {
+        margin: 10px 15px;
+    }
+    #content {
+        border: 1px solid #0000004d;
+        border-radius: 5px;
+        font-size: 0.75rem;
+    }
+    .form_delete{
+        padding: .25rem 0;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+    .button{
+        margin-bottom: 0;
+        font-size: 0.75rem;
+        vertical-align: middle;
+        text-align: center;
+    }
+}
+
+@media (min-width: 992px) {
+    #title {
+        font-weight: bold;
+        font-size: 250%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 1%;
+    }
+    table td, table th {
+        padding:0.25rem !important;
+        font-size: 1rem;
+        vertical-align: middle !important;
+    }
+    #create_btn {
+        margin: 0 2% 1.5% !important;
+        padding: 0;
+    }
+    #content {
+        border: 1px solid #0000004d;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    .form_delete{
+        /*padding: .25rem 0;*/
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+    .button{
+        margin-bottom: 0;
+        font-size: 0.75rem;
+        vertical-align: middle;
+        text-align: center;
+        padding: .1rem .25rem;
+    }
+}
+
+@media (min-width:1200px) {
+    #title {
+        font-weight: bold;
+        font-size: 250%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 0;
+    }
+    table td, table th {
+        padding:0.25rem !important;
+        font-size: 1.25rem;
+        vertical-align: middle !important;
+    }
+    #create_btn {
+        margin: 0 1.45% 0.5% !important;
+        padding: 0;
+    }
+    .panel {
+        margin: 10px 15px;
+    }
+    #content {
+        border: 1px solid #0000004d;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    .form_delete{
+        padding: .25rem 0;
+        line-height: 1.5;
+        border-radius: .2rem;
+    }
+    .button{
+        margin-bottom: 0;
+        font-size: 0.75rem;
+        vertical-align: middle;
+        text-align: center;
+    }
+}
+
+
+#search {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#submit {
+    margin-left: 5px;
+}
+
+.alert {
+    margin-left: 20px;
+}
+
+#page {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}

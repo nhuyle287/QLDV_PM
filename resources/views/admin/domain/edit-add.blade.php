@@ -1,4 +1,14 @@
 @extends('layout.master')
+@section('title')
+    Tên miền
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
     <!-- Main content -->
@@ -86,22 +96,22 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <div class="col-xs-12 form-group">
+
+                                                <div class="col-xl-12 form-group">
                                                     <label>Ghi Chú </label>
                                                     <textarea rows="5" type="text" class="form-control"
                                                               name="notes">{{isset($domain->notes) ? old('notes', $domain->notes) : old('notes')}}</textarea>
                                                 </div>
-                                            </div>
-                                            <div class="form-group col-md-6">
 
-                                            </div>
+
                                         </div>
 
                                         <hr>
-                                        <button class="btn btn-info">{{ __('general.save') }}</button>
-                                        <a href="{{ route('admin.domains.index') }}"
-                                           class="btn btn-default">{{ __('general.back') }}</a>
+                                        <div class="event_ float-right">
+                                            <button class="btn btn-default">{{ __('general.save') }}</button>
+                                            <a href="{{ route('admin.domains.index') }}"
+                                               class="btn btn-default">{{ __('general.back') }}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

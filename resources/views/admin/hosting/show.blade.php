@@ -1,5 +1,10 @@
 @extends('layout.master')
-
+@section('title')
+    Hosting
+@stop
+@section('head')
+    <link rel="stylesheet" href="css/event_.css">
+@stop
 @section('content')
 
 
@@ -66,10 +71,13 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
+                        <div class="event_">
+                            <a href="{{ route('admin.hostings.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
+
+                        </div>
                     </div>
                     <!-- /.card -->
 
-                    <a href="{{ route('admin.hostings.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
 
 
                 </div>

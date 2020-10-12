@@ -21,7 +21,7 @@ class CreateRegisterServicesTable extends Migration
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->dateTime('exist_date')->nullable();
-
+            $table->integer('id_staff')->nullable();
             $table->integer('id_customer')->nullable();
             $table->integer('id_domain')->nullable();
             $table->integer('id_hosting')->nullable();

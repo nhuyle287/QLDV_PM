@@ -18,6 +18,9 @@ class AddColumnsStatusToRegisterServicesTable extends Migration
                 if (!Schema::hasColumn('register_services','status')){
                     $table->string('status')->nullable()->after('code');
                 }
+                if (!Schema::hasColumn('register_services','date_using')){
+                    $table->integer('date_using')->nullable()->after('code');
+                }
             });
         }
     }
@@ -33,6 +36,9 @@ class AddColumnsStatusToRegisterServicesTable extends Migration
             Schema::table('register_services', function (Blueprint $table) {
                 if (Schema::hasColumn('register_services','status')){
                     $table->dropColumn('status');
+                }
+                if (!Schema::hasColumn('register_services','date_using')){
+                    $table->dropColumn('date_using');
                 }
             });
         }

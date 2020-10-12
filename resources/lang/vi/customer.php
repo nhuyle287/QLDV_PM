@@ -1,0 +1,22 @@
+<?php
+return [
+    'id' => 'STT',
+    'list' => 'Danh sách khách hàng',
+    'name' => 'Họ và tên',
+    'email' =>' Email',
+    'address' => 'Địa chỉ',
+    'birthday' => 'Ngày sinh',
+    'notes' => 'Ghi chú',
+    'customer' => 'Khách hàng',
+    'first_name' => 'Tên',
+    'last_name' => 'Họ',
+    'create' => 'Tạo khách hàng',
+    'state' => 'Bang',
+    'password' => 'Mật khẩu',
+    'note' => 'Ghi chú',
+    'phone_number' => 'Số điện thoại',
+    'company' => 'Công ty',
+    'fax' => 'Số Fax',
+    'account_number' => 'Số tài khoản',
+    'tax' => 'Số thuế',
+];

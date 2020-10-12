@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Model\Hosting;
-use App\Model\VPS;
+use App\Models\Hosting;
+use App\Models\VPS;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;

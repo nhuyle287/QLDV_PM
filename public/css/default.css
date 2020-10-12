@@ -1,0 +1,40 @@
+.body-content {
+    padding: 2% 3% 3% 3%;
+}
+
+.alert-crud {
+    float: right;
+    max-width: 50%;
+}
+
+.card-header-new {
+    background-color: #17a2b8;
+    color: whitesmoke;
+}
+
+.content-required {
+    color: red;
+}
+
+td p {
+    margin: 0px;
+}
+
+tr p {
+    margin: 0px;
+}
+
+.small-p {
+    color: gray;
+    font-size: 14px;
+}
+
+.form-group-left {
+    float: left;
+    width: 49%;
+}
+
+.form-group-right {
+    float: right;
+    width: 49%;
+}

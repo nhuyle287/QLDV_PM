@@ -1,4 +1,14 @@
 @extends('layout.master')
+@section('title')
+    Đề tài
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 {{--  main    --}}
 <section class="content">
@@ -30,7 +40,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <div class="col-xs-12 form-group">
-                                                <label>Topic Name <span class="aster">*</span></label>
+                                                <label>Tên đề tài <span class="aster">*</span></label>
                                                 <input type="text" class="form-control" name="name"
                                                        value="{{isset($topic->name) ? old('name', $topic->name) : old('name')}}">
                                                 <p class="help-block text-danger"></p>
@@ -43,17 +53,22 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <div class="col-xs-12 form-group">
-                                                <label>Description <span class="aster"></span></label>
-                                                <input type="text" class="form-control " name="description"
-                                                       value="{{isset($topic->description) ? old('description', $topic->description) : old('description')}}">
+                                                <label>Danh mục đề tài <span class="aster">*</span></label>
+
+                                                <select class="form-control" name="category_id">
+                                                    @foreach($category_topic as $category)
+                                                        <option  value="{{$category->category_id}}" @if($topic->id && $topic->category_id==$category->category_id) selected @endif>{{$category->name_category}}</option>
+                                                    @endforeach
+                                                </select>
                                                 <p class="help-block text-danger"></p>
-                                                @if($errors->has('description'))
+                                                @if($errors->has('category_topic'))
                                                     <p class="help-block text-danger">
-                                                        {{ $errors->first('description') }}
+                                                        {{ $errors->first('category_topic') }}
                                                     </p>
                                                 @endif
                                             </div>
                                         </div>
+
                                     </div>
 {{--                                    <div class="row">--}}
 {{--                                        <div class="form-group col-md-6">--}}
@@ -88,26 +103,25 @@
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <div class="col-xs-12 form-group">
-                                                <label>Category Topic <span class="aster">*</span></label>
-
-                                                <select class="form-control" name="category_id">
-                                                    @foreach($category_topic as $category)
-                                                        <option  value="{{$category->category_id}}" @if($topic->id && $topic->category_id==$category->category_id) selected @endif>{{$category->name_category}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label>Mô tả <span class="aster"></span></label>
+                                                <textarea id="description" rows="5" class="form-control " name="description"> {{isset($topic->description) ? old('description', $topic->description) : old('description')}}</textarea>
                                                 <p class="help-block text-danger"></p>
-                                                @if($errors->has('category_topic'))
+                                                @if($errors->has('description'))
                                                     <p class="help-block text-danger">
-                                                        {{ $errors->first('category_topic') }}
+                                                        {{ $errors->first('description') }}
                                                     </p>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <div class="col-xs-12 form-group">
-                                                <label>Support <span class="aster"></span></label>
-                                                <input type="text" class="form-control " name="support"
-                                                       value="{{isset($topic->support) ? old('support', $topic->support) : old('support')}}">
+                                                <label>Hỗ trợ <span class="aster"></span></label>
+                                                <select class="form-control" name="support">
+                                                    @foreach($support_topic as $sup)
+                                                        <option  value="{{$sup}}" @if($topic->id && $sup==$topic->support) selected @endif>{{ucfirst(array_search($sup,$support_topic))}}</option>
+                                                    @endforeach
+                                                </select>
+
                                                 <p class="help-block text-danger"></p>
                                                 @if($errors->has('support'))
                                                     <p class="help-block text-danger">
@@ -124,9 +138,11 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <button class="btn btn-primary">{{ __('general.save') }}</button>
-                                    <a href="{{ route('admin.topic.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
+                                   <div class="envent_ float-right">
+                                       <button class="btn btn-default">{{ __('general.save') }}</button>
+                                       <a href="{{ route('admin.topic.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
 
+                                   </div>
                                 </div>
                             </div>
                         </form>
@@ -141,5 +157,7 @@
     </div>
     <!-- /.container-fluid -->
 </section>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script> CKEDITOR.replace('description'); </script>
 
 @stop

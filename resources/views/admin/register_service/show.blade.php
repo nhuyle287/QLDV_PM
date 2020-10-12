@@ -1,5 +1,23 @@
 @extends('layout.master')
-
+@section('title')
+    Danh sách dịch vụ đang sử dụng
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+        .card-title{
+            font-weight: bold;
+            font-size: 200%;
+        }
+        .event_{
+            display: flex;
+            justify-content: flex-end;
+            margin: 1% 2%;
+        }
+    </style>
+@stop
 @section('content')
 
 
@@ -43,11 +61,11 @@
                                     <th>End Date</th>
                                     <td>{{ $register_service->end_date }}</td>
                                 </tr>
-                                <tr>
+{{--                                <tr>--}}
 
-                                    <th>Exist Date</th>
-                                    <td>{{ $register_service->exist_date }}</td>
-                                </tr>
+{{--                                    <th>Exist Date</th>--}}
+{{--                                    <td>{{ $register_service->exist_date }}</td>--}}
+{{--                                </tr>--}}
                                 <tr>
 
                                     <th>Notes</th>
@@ -57,10 +75,12 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
+                        <div class="event_">
+                            <a href="{{ route('admin.list-services.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
+                        </div>
                     </div>
                     <!-- /.card -->
 
-                    <a href="{{ route('admin.register_services.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
 
 
                 </div>

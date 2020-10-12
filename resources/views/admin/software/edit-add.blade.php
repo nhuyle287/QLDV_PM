@@ -1,4 +1,14 @@
 @extends('layout.master')
+@section('title')
+    Phần mềm
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
     <!-- Main content -->
@@ -142,9 +152,11 @@
                                         </div>
 
                                         <hr>
-                                        <button class="btn btn-primary">{{ __('general.save') }}</button>
-                                        <a href="{{ route('admin.softwares.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
+                                        <div class="event_ float-right">
+                                            <button class="btn btn-default">{{ __('general.save') }}</button>
+                                            <a href="{{ route('admin.softwares.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
 
+                                        </div>
                                     </div>
                                 </div>
                             </form>

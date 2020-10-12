@@ -1,4 +1,14 @@
 @extends('layout.master')
+@section('title')
+    Sổ quỹ
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
 

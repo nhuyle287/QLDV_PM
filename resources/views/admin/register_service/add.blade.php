@@ -1,4 +1,11 @@
 @extends('layout.master')
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
 
@@ -10,7 +17,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h1 class="titleheader">Đăng ký dịch vụ</h1>
-                            <form action="{{route('admin.register_services.post')}}" method="post">
+                            <form action="{{route('admin.list-services.post')}}" method="post">
                                 <p class="help-block text-danger"></p>
                                 @if($errors->has('id_domain'))
                                     <p class="help-block text-danger">
@@ -1432,7 +1439,7 @@
                                         </div>
                                         <hr>
                                         <button class="btn btn-info">{{ __('general.save') }}</button>
-                                        <a href="{{ route('admin.register_services.index') }}"
+                                        <a href="{{ route('admin.list-services.index') }}"
                                            class="btn btn-default">{{ __('general.back') }}</a>
                                     </div>
                                 </div>

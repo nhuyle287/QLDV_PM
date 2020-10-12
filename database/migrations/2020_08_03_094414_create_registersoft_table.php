@@ -20,6 +20,7 @@ class CreateRegistersoftTable extends Migration
             $table->integer('id_customer')->nullable();
             $table->integer('total_price')->nullable();
             $table->string('status')->nullable();
+            $table->integer('date_using')->nullable();
             $table->timestamps();
         });
     }

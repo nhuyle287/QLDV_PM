@@ -1,0 +1,65 @@
+#domains{
+    display:flex ;
+    flex-wrap: wrap;
+    /*justify-content: space-between;*/
+    padding: 2%;
+}
+.card-body{
+    text-align: center  ;
+}
+@media (max-width: 330px) {
+    #title {
+        font-weight: bold;
+        font-size: 150%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 1%;
+    }
+
+    .card{
+        width:80% !important;
+        margin: 3% auto ;
+    }
+}
+@media (min-width: 330px) {
+    #title {
+        font-weight: bold;
+        font-size: 150%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 1%;
+    }
+
+    .card{
+        width:80% !important;
+        margin: 3% auto ;
+    }
+}
+@media (min-width: 460px) {
+    #title {
+        font-weight: bold;
+        font-size: 150%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 1%;
+    }
+    .card{
+        width: 45% !important;
+        margin: 3% 2.5%;
+    }
+}
+
+@media (min-width: 1200px) {
+    #title {
+        font-weight: bold;
+        font-size: 250%;
+        color: #190000;
+        height: 1%;
+        margin-bottom: 0;
+    }
+
+    .card{
+        width: 30% !important;
+        margin: 2% 1.5%;
+    }
+}

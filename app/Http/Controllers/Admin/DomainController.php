@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Model\Customer;
-use App\Model\Domain;
+use App\Models\Customer;
+use App\Models\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use mysql_xdevapi\Exception;

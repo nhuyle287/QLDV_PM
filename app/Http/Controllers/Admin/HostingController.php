@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Model\Domain;
-use App\Model\Hosting;
+use App\Models\Domain;
+use App\Models\Hosting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use function GuzzleHttp\Promise\all;

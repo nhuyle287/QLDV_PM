@@ -4,7 +4,11 @@
 namespace App\Business;
 
 
-use App\Model\Invoice;
+use App\Models\Expenditure;
+use App\Models\Invoice;
+use App\Models\payment;
+use App\Models\Receipt;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
 class InvoiceLogic extends BaseLogic
@@ -12,6 +16,12 @@ class InvoiceLogic extends BaseLogic
     public function model()
     {
         return Invoice::class;
+    }
+    public function totalprice($start){
+        $query=$this->model->whereMonth('invoices.created_at','=',$start)->sum('invoices.total') ;
+        $expenditure=Expenditure::whereMonth('expenditures.created_at','=',$start)->sum('expenditures.price') ;
+        $query=$query-$expenditure;
+        return $query;
     }
     public function getListInvoice()
     {
@@ -38,13 +48,6 @@ class InvoiceLogic extends BaseLogic
             ->whereNull('e.deleted_at')
             ->whereNull('s.deleted_at')
             ->whereNull('w.deleted_at');
-//        if ($search) {
-//            if (isset($search->page) && is_numeric($search->page)) {
-//                $query->offset($search->page * Config::get('constants.pagination'));
-//            }
-//        }
-        //DESC GIẢM DÂN
-        //ASC TĂNG DẦN
         $query->orderBy('invoices.id', 'ASC');
         return $query->paginate(Config::get('constants.pagination'));
     }
@@ -75,6 +78,120 @@ class InvoiceLogic extends BaseLogic
             ->whereNull('w.deleted_at')
             //dựa theo id của registerservices để lấy thông tin
             ->where('invoices.id', $invoice_id)
+            ->first();
+    }
+
+//get phiếu thu
+
+
+    //
+    public function getListServices($search)
+    {
+        if($search!="")
+        {
+            $query = Invoice::
+            leftJoin('customers as c', 'c.id', 'invoices.id_customer')
+                ->leftJoin('register_soft', 'register_soft.id', 'invoices.id_register_soft')
+                ->leftJoin('softwares', 'softwares.id', 'register_soft.id_software')
+                ->leftJoin('register_services', 'register_services.id', 'invoices.id_register_service')
+                ->leftJoin('domains as d', 'd.id', 'register_services.id_domain')
+                ->leftJoin('hostings as h', 'h.id', 'register_services.id_hosting')
+                ->leftJoin('vpss as v', 'v.id', 'register_services.id_vps')
+                ->leftJoin('emails as e', 'e.id', 'register_services.id_email')
+                ->leftJoin('ssls as s', 's.id', 'register_services.id_ssl')
+                ->leftJoin('websites as w', 'w.id', 'register_services.id_website')
+                ->select('invoices.*', 'c.name as customer_name', 'c.address as customer_address', 'c.address as customer_address',
+                    'softwares.name as softwares_name',
+                    'w.name as website_name',
+                    's.name as ssl_name',
+                    'e.name as email_name',
+                    'v.name as vps_name',
+                    'h.name as hosting_name',
+                    'd.name as domain_name')
+                ->whereNull('register_services.deleted_at')
+                ->whereNull('invoices.deleted_at')
+                ->whereNull('c.deleted_at')
+                ->whereNull('d.deleted_at')
+                ->whereNull('h.deleted_at')
+                ->whereNull('v.deleted_at')
+                ->whereNull('e.deleted_at')
+                ->whereNull('s.deleted_at')
+                ->whereNull('w.deleted_at')
+               ->where('c.name', 'LIKE', '%' . $search . '%')
+                ->orwhere('c.phone_number', 'LIKE', '%' . $search . '%')
+                ->orwhere('w.name', 'LIKE', '%' . $search. '%')
+                ->orwhere('s.name', 'LIKE', '%' . $search . '%')
+                ->orwhere('e.name', 'LIKE', '%' . $search . '%')
+                ->orwhere('v.name', 'LIKE', '%' . $search . '%')
+                ->orwhere('h.name', 'LIKE', '%' . $search . '%')
+                ->orwhere('d.name', 'LIKE', '%' . $search . '%');
+        }
+        else
+        {
+            $query = Invoice::
+            leftJoin('customers as c', 'c.id', 'invoices.id_customer')
+                ->leftJoin('register_soft', 'register_soft.id', 'invoices.id_register_soft')
+                ->leftJoin('softwares', 'softwares.id', 'register_soft.id_software')
+                ->leftJoin('register_services', 'register_services.id', 'invoices.id_register_service')
+                ->leftJoin('domains as d', 'd.id', 'register_services.id_domain')
+                ->leftJoin('hostings as h', 'h.id', 'register_services.id_hosting')
+                ->leftJoin('vpss as v', 'v.id', 'register_services.id_vps')
+                ->leftJoin('emails as e', 'e.id', 'register_services.id_email')
+                ->leftJoin('ssls as s', 's.id', 'register_services.id_ssl')
+                ->leftJoin('websites as w', 'w.id', 'register_services.id_website')
+                ->select('invoices.*', 'c.name as customer_name', 'c.address as customer_address', 'c.address as customer_address',
+                    'softwares.name as softwares_name',
+                    'w.name as website_name',
+                    's.name as ssl_name',
+                    'e.name as email_name',
+                    'v.name as vps_name',
+                    'h.name as hosting_name',
+                    'd.name as domain_name')
+                ->whereNull('register_services.deleted_at')
+                ->whereNull('invoices.deleted_at')
+                ->whereNull('c.deleted_at')
+                ->whereNull('d.deleted_at')
+                ->whereNull('h.deleted_at')
+                ->whereNull('v.deleted_at')
+                ->whereNull('e.deleted_at')
+                ->whereNull('s.deleted_at')
+                ->whereNull('w.deleted_at');
+        }
+
+        $query->orderBy('invoices.id', 'ASC');
+        return $query->paginate(Config::get('constants.pagination'));
+    }
+
+    //
+    public function getInvoiceReceipt($register_id)
+    {
+        return $query = Invoice:: leftJoin('customers as c', 'c.id', 'invoices.id_customer')
+            ->leftJoin('register_services', 'register_services.id', 'invoices.id_register_service')
+            ->leftJoin('domains as d', 'd.id', 'register_services.id_domain')
+            ->leftJoin('hostings as h', 'h.id', 'register_services.id_hosting')
+            ->leftJoin('vpss as v', 'v.id', 'register_services.id_vps')
+            ->leftJoin('emails as e', 'e.id', 'register_services.id_email')
+            ->leftJoin('ssls as s', 's.id', 'register_services.id_ssl')
+            ->leftJoin('websites as w', 'w.id', 'register_services.id_website')
+            ->select('invoices.*', 'c.name as customer_name', 'c.address as customer_address',
+                'register_services.start_date as start_date', 'register_services.end_date as end_date',
+                'w.name as website_name',
+                's.name as ssl_name',
+                'e.name as email_name',
+                'v.name as vps_name',
+                'h.name as hosting_name',
+                'd.name as domain_name')
+            ->whereNull('register_services.deleted_at')
+            ->whereNull('invoices.deleted_at')
+            ->whereNull('c.deleted_at')
+            ->whereNull('d.deleted_at')
+            ->whereNull('h.deleted_at')
+            ->whereNull('v.deleted_at')
+            ->whereNull('e.deleted_at')
+            ->whereNull('s.deleted_at')
+            ->whereNull('w.deleted_at')
+            //dựa theo id của registerservices để lấy thông tin
+            ->where('invoices.id', $register_id)
             ->first();
     }
 }

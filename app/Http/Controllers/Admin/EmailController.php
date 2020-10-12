@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Model\Email;
+use App\Models\Email;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -41,7 +41,6 @@ class EmailController extends AdminController
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-
         $email->fill($request->all());
 //        dd($request->all());
         try {

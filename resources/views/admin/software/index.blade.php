@@ -1,7 +1,18 @@
 @extends('layout.master')
+@section('title')
+    Phần mềm
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+    <link rel="stylesheet" href="css/domain.css">
+@stop
 @section('content')
     <div class="content">
-        <h3 class="page-title"  style="font-weight: bold; font-size: 250%;">Quản Lý Phần Mềm</h3>
+        <h3 class="page-title"  id="title">Quản Lý Phần Mềm</h3>
         <div class="row">
             @if(session('success'))
                 <div class="alert alert-success">
@@ -15,42 +26,27 @@
             @endif
         </div>
         <p>
-            <a href="{{route('admin.softwares.create')}}" class="btn btn-success">{{ __('general.create') }}</a>
+            <a href="{{route('admin.softwares.create')}}" class="btn btn-success btn-sm"><i
+                    class="fas fa-plus"></i> {{ __('general.create') }}</a>
         </p>
 
         <div class="panel panel-default">
             <div class="panel-heading">
 
             </div>
-
-            <div class="panel-body table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr style="background-color: #17a2b8; color: white; ">
-                        <th style="text-align: center; ">STT</th>
-                        <th style="text-align: center; ">Tên</th>
-                        <th style="text-align: center; ">Giá</th>
-                        <th style="text-align: center;">Chi nhánh</th>
-                        <th style="text-align: center; ">Nhân viên</th>
-                        <th style="text-align: center; ">Tài khoản</th>
-                        <th style="text-align: center; ">Sản phẩm/Dịch vụ</th>
-                        <th style="text-align: center; ">Số hóa đơn/tháng</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($softwares as $software)
-                        <tr>
-                            <td>{{$software->id}}</td>
-                            <td>{{$software->name}}</td>
-                            <td>{{$software->price}}</td>
-                            <td>{{$software->quantity_branch}}</td>
-                            <td>{{$software->quantity_staff}}</td>
-                            <td>{{$software->quantity_acc}}</td>
-                            <td>{{$software->quantity_product}}</td>
-                            <td>{{$software->quantity_bill}}</td>
-
-                            <td>
+            <div class="grid-container" id="domains">
+                @forelse($softwares as $software)
+                    <div class="card card-sytle">
+                        {{--                                <div class="card-img-top" style="background-image: url({{ 'storage/'. $hosting->images }});" ></div>--}}
+                        <div class="card-body">
+                            <strong style="color: rgba(251,105,1,0.98)" class="card-text">{{$software->name}}</strong>
+                            <p class="card-text">Giá đăng ký: {{$software->price}} VNĐ</p>
+                            <p class="card-text">Chi nhánh: {{$software->quantity_branch}}</p>
+                            <p class="card-text">Nhân viên: {{$software->quantity_staff}}</p>
+                            <p class="card-text">Tài khoản: {{$software->quantity_acc}}</p>
+                            <p class="card-text">Sản phẩm/Dịch vụ: {{$software->quantity_product}}</p>
+                            <p class="card-text">Số hóa đơn/tháng: {{$software->quantity_bill}}</p>
+                            <div style="text-align: center">
                                 <a href="{{route('admin.softwares.show', $software->id)}}"
                                    class="btn btn-xs btn-info">{{ __('general.view') }}</a>
                                 <a href="{{route('admin.softwares.edit', [$software->id])}}"
@@ -60,21 +56,15 @@
                                     @csrf
                                     <button type="submit" class="btn btn-xs btn-danger">{{ __('general.delete') }}</button>
                                 </form>
-
-                            </td>
-
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="9" class="text-center">{{ __('general.nodata') }}</td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
-                <div class="text-right">
-                    {{--                    hien thi phan trang--}}
-                    {{ $softwares->links() }}
-                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                @endforelse
+            </div>
+            <div class="text-right" >
+                {{--hien thi phan trang--}}
+                {{ $softwares->links() }}
             </div>
         </div>
     </div>

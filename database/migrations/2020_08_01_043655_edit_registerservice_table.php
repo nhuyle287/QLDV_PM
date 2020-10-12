@@ -13,9 +13,14 @@ class EditRegisterserviceTable extends Migration
      */
     public function up()
     {
-        Schema::table('register_services', function (Blueprint $table) {
-           $table->string('exist_date')->change();
-        });
+        if (Schema::hasTable('register_services')) {
+
+            Schema::table('register_services', function (Blueprint $table) {
+                $table->string('exist_date')->change();
+            });
+
+        }
+
     }
 
     /**
@@ -25,6 +30,12 @@ class EditRegisterserviceTable extends Migration
      */
     public function down()
     {
-        //
+//        if (Schema::hasTable('register_services')){
+//            Schema::table('register_services', function (Blueprint $table) {
+//                Schema::table('register_services', function (Blueprint $table) {
+//                    $table->dropColumn('exist_date');
+//                });
+//            });
+//        }
     }
 }

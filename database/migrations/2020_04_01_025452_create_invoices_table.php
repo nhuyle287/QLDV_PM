@@ -20,9 +20,14 @@ class CreateInvoicesTable extends Migration
             $table->string('price')->nullable();
             $table->string('VAT_price')->nullable();
             $table->string('total')->nullable();
+            $table->integer('id_staff')->nullable();
             $table->integer('id_customer')->nullable();
             $table->integer('id_register_service')->nullable();
-
+            $table->integer('id_register_soft')->nullable();
+            $table->string('status')->nullable();
+            $table->dateTime('date')->nullable();
+            $table->string('order_type')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

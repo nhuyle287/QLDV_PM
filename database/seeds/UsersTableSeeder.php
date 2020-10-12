@@ -12,11 +12,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->truncate();
-        App\Model\User::create([
+        DB::table('users')->insert(array
+        (array(
             'name' => 'admin',
             'email' =>'admin@gmail.com',
-            'password' => bcrypt('12345678')
-        ]);
+            'password' => bcrypt('12345678'),
+            'role_id' => '1'
+        )
+        ));
+
     }
 }

@@ -1,5 +1,14 @@
 @extends('layout.master')
-
+@section('title')
+    Sản phẩm
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
     <div class="content">

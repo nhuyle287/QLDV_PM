@@ -4,7 +4,7 @@
 namespace App\Business;
 
 
-use App\Model\Product;
+use App\Models\Product;
 use Illuminate\Support\Facades\Config;
 
 class ProductLogic extends BaseLogic
