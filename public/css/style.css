@@ -1,0 +1,45 @@
+
+.registerservice {
+
+    font-family: Candara;
+    color: 	#333333;
+
+}
+.titleheader{
+    font-family: Candara !important;
+    color: 	#000000;
+}
+.registerservice1{
+
+    font-family: Candara;
+    color: 	#333333;
+    font-size: 1.25rem;
+    margin-bottom: 25px;
+}
+.card .abcdef{
+    background-color: LightGray;
+    border-radius: 10px;
+    border: none;
+}
+.card-header{
+    border-bottom: 0px !important;
+}
+.backgroundinputregister{
+    background-color: LightGray !important;
+}
+.thstyleform{
+    text-align: center; font-family: 'Candara';
+    vertical-align: middle !important;
+}
+.pstyleform1{
+    color: #0c525d !important;
+    font-size: 90%;
+
+}
+.table_header{
+font-family: Candara;
+    text-align: center;
+    background-color: #17a2b8;
+    color: white;
+}
+.
