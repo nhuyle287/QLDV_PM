@@ -88,22 +88,20 @@ class RegisterServicesLogic extends BaseLogic
              ->whereNull('s.deleted_at')
              ->whereNull('w.deleted_at');
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('w.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('s.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('e.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('v.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('h.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('d.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('w.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('s.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('e.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('v.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('h.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('d.name', 'LIKE', '%' . $request->key . '%');
             }
-            if (isset($request->page) && is_numeric($request->page)) {
-                $query->offset($request->page * Config::get('constants.pagination'));
-            }
+
         }
         $query->orderBy('register_services.id', 'ASC');
-        return $query->paginate(Config::get('constants.pagination'));
+        return $query->paginate($request->amount);
     }
 
 
@@ -289,6 +287,32 @@ class RegisterServicesLogic extends BaseLogic
                 $query->where('c.name', 'LIKE', '%' . $request->name . '%');
                 $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
                 $query->orwhere('v.name', 'LIKE', '%' . $request->name . '%');
+            }
+            if (isset($request->page) && is_numeric($request->page)) {
+                $query->offset($request->page * Config::get('constants.pagination'));
+            }
+        }
+        $query->orderBy('register_services.id', 'ASC');
+        return $query->paginate(Config::get('constants.pagination'));
+    }
+    //ssl
+    public function Searchssl(Request $request)
+    {
+        $query = $this->model
+            ->join('customers as c', 'c.id', 'register_services.id_customer')
+            ->join('ssls as s', 's.id', 'register_services.id_ssl')
+            ->select('register_services.*', 'c.name as customer_name','c.email as customer_email',
+                's.name as ssl_name'
+            )
+            ->where('register_services.transaction', '!=', "0")
+            ->whereNull('register_services.deleted_at')
+            ->whereNull('c.deleted_at')
+            ->whereNull('s.deleted_at')        ;
+        if ($request) {
+            if (isset($request->name)) {
+                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
+                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
+                $query->orwhere('s.name', 'LIKE', '%' . $request->name . '%');
             }
             if (isset($request->page) && is_numeric($request->page)) {
                 $query->offset($request->page * Config::get('constants.pagination'));

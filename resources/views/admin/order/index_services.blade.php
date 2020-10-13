@@ -229,7 +229,7 @@
                                                                 data-toggle="modal"
                                                                 data-target="#myModal"> {{ucfirst(array_search($register_service->transaction,$transaction_services))}}</button>
                                                     @endif
-                                                    @if($register_service->transaction === '1')
+                                                    @if($register_service->transaction === '0')
                                                         <button id="btnStatus" type="button" class="btn btn-sm btn-secondary"
                                                                 data-id="{{$register_service->id}}"
                                                                 data-transaction="{{$register_service->transaction}}"

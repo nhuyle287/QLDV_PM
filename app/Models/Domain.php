@@ -36,4 +36,14 @@ class Domain extends Model
 
         ];
     }
+
+    public function getAll($key, $paginate) {
+        $domain = Domain::where('domains.name', 'like', '%'.$key.'%')
+//            ->orwhere('domains.fee_register', 'like', '%'.$key.'%')
+//            ->orwhere('domains.fee_remain', 'like', '%'.$key.'%')
+            ->select('domains.*')
+            ->paginate($paginate);
+        return $domain;
+    }
+
 }

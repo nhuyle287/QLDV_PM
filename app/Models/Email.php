@@ -38,9 +38,15 @@ class Email extends Model
             'email_list.required' => 'Vui lòng nhập danh sách Email',
             'parked_domains.required' => 'Vui lòng nhập số lượng Parked-domains',
 
-
-
-
         ];
+    }
+
+    public function getAll($key, $paginate) {
+        $email = Email::where('emails.name', 'like', '%'.$key.'%')
+//            ->orwhere('domains.fee_register', 'like', '%'.$key.'%')
+//            ->orwhere('domains.fee_remain', 'like', '%'.$key.'%')
+            ->select('emails.*')
+            ->paginate($paginate);
+        return $email;
     }
 }

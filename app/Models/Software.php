@@ -38,4 +38,10 @@ class Software extends Model
             'quantity_bill.required' => 'Vui lòng nhập số lượng hóa đơn/tháng',
             ];
     }
+    public function getAll($key, $paginate) {
+        $software = Software::where('softwares.name', 'like', '%'.$key.'%')
+            ->select('softwares.*')
+            ->paginate($paginate);
+        return $software;
+    }
 }

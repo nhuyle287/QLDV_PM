@@ -14,8 +14,27 @@ class SslController extends AdminController
     //
     public function index()
     {
-        $ssls = Ssl::paginate(Config::get('constants.pagination'));
+        $this->authorize('ssl-access');
+
+        $key = isset($request->key) ? $request->key : '';
+        $ssl = new Ssl();
+        $ssls = $ssl->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $ssls = $ssl->getAll($key, $request->amount);
+        }
+
         return view('admin.ssl.index', compact('ssls'));
+    }
+
+    public function searchRow(Request $request)
+    {
+        $ssl = new Ssl();
+        $ssls = $ssl->getAll($request->key, 10);
+        if ($request->amount !== null) {
+            $ssls = $ssl->getAll($request->key, $request->amount);
+        }
+        return view('admin.ssl.search-row',compact('ssls'));
     }
 
     public function show(Request $request)

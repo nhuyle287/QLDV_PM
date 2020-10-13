@@ -188,64 +188,66 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
     //domain management
     Route::prefix('/domains')->group(function(): void{
         Route::get('/', 'DomainController@index')->name('admin.domains.index');
-        Route::get('/{id}/show', 'DomainController@show')->name('admin.domains.show');
+        Route::post('/', 'DomainController@searchRow')->name('admin.domains.search-row');
         Route::get('/create', 'DomainController@entry')->name('admin.domains.create');
         Route::get('/{id}/edit', 'DomainController@entry')->name('admin.domains.edit');
         Route::post('/store', 'DomainController@store')->name('admin.domains.store');
-        Route::post('/{id}/destroy', 'DomainController@destroy')->name('admin.domains.destroy');
+        Route::post('/destroy', 'DomainController@destroy')->name('admin.domains.destroy');
     });
     //hosting management
     Route::prefix('/hostings')->group(function(): void{
         Route::get('/', 'HostingController@index')->name('admin.hostings.index');
-        Route::get('/{id}/show', 'HostingController@show')->name('admin.hostings.show');
+        Route::post('/', 'HostingController@searchRow')->name('admin.hostings.search-row');
         Route::get('/create', 'HostingController@entry')->name('admin.hostings.create');
         Route::get('/{id}/edit', 'HostingController@entry')->name('admin.hostings.edit');
         Route::post('/store', 'HostingController@store')->name('admin.hostings.store');
-        Route::post('/{id}/destroy', 'HostingController@destroy')->name('admin.hostings.destroy');
+        Route::post('/destroy', 'HostingController@destroy')->name('admin.hostings.destroy');
     });
     //vps management
     Route::prefix('/vpss')->group(function(): void{
         Route::get('/', 'VPSController@index')->name('admin.vpss.index');
-        Route::get('/{id}/show', 'VPSController@show')->name('admin.vpss.show');
+        Route::post('/', 'VPSController@searchRow')->name('admin.vpss.search-row');
         Route::get('/create', 'VPSController@entry')->name('admin.vpss.create');
         Route::get('/{id}/edit', 'VPSController@entry')->name('admin.vpss.edit');
         Route::post('/store', 'VPSController@store')->name('admin.vpss.store');
-        Route::post('/{id}/destroy', 'VPSController@destroy')->name('admin.vpss.destroy');
+        Route::post('/destroy', 'VPSController@destroy')->name('admin.vpss.destroy');
     });
     //email management
     Route::prefix('/emails')->group(function(): void{
         Route::get('/', 'EmailController@index')->name('admin.emails.index');
-        Route::get('/{id}/show', 'EmailController@show')->name('admin.emails.show');
+        Route::post('/', 'EmailController@searchRow')->name('admin.emails.search-row');
         Route::get('/create', 'EmailController@entry')->name('admin.emails.create');
         Route::get('/{id}/edit', 'EmailController@entry')->name('admin.emails.edit');
         Route::post('/store', 'EmailController@store')->name('admin.emails.store');
-        Route::post('/{id}/destroy', 'EmailController@destroy')->name('admin.emails.destroy');
+        Route::post('/destroy', 'EmailController@destroy')->name('admin.emails.destroy');
     });
     //ssl management
     Route::prefix('/ssls')->group(function(): void{
         Route::get('/', 'SslController@index')->name('admin.ssls.index');
-        Route::get('/{id}/show', 'SslController@show')->name('admin.ssls.show');
+        Route::post('/', 'SslController@searchRow')->name('admin.ssls.search-row');
         Route::get('/create', 'SslController@entry')->name('admin.ssls.create');
         Route::get('/{id}/edit', 'SslController@entry')->name('admin.ssls.edit');
         Route::post('/store', 'SslController@store')->name('admin.ssls.store');
-        Route::post('/{id}/destroy', 'SslController@destroy')->name('admin.ssls.destroy');
+        Route::post('/destroy', 'SslController@destroy')->name('admin.ssls.destroy');
     });
     //website management
     Route::prefix('/websites')->group(function(): void{
         Route::get('/', 'WebsiteController@index')->name('admin.websites.index');
-        Route::get('/{id}/show', 'WebsiteController@show')->name('admin.websites.show');
+        Route::post('/', 'WebsiteController@searchRow')->name('admin.websites.search-row');
         Route::get('/create', 'WebsiteController@entry')->name('admin.websites.create');
         Route::get('/{id}/edit', 'WebsiteController@entry')->name('admin.websites.edit');
         Route::post('/store', 'WebsiteController@store')->name('admin.websites.store');
-        Route::post('/{id}/destroy', 'WebsiteController@destroy')->name('admin.websites.destroy');
+        Route::post('/destroy', 'WebsiteController@destroy')->name('admin.websites.destroy');
     });
     //register service management
     Route::prefix('/list-services')->group(function(): void{
         Route::get('/index', 'RegisterServiceController@index')->name('admin.list-services.index');
-        Route::get('/{id}/show', 'RegisterServiceController@show')->name('admin.list-services.show');
+        Route::post('/', 'RegisterServiceController@searchRow')->name('admin.list-services.search-row');
+        Route::post('/filter','RegisterServiceController@getFilter')->name('admin.list-services.filter');
         Route::get('/{id}/edit', 'RegisterServiceController@entry')->name('admin.list-services.edit');
         Route::post('/store', 'RegisterServiceController@store')->name('admin.list-services.store');
-        Route::post('/{id}/destroy', 'RegisterServiceController@destroy')->name('admin.list-services.destroy');
+        Route::post('/destroy', 'RegisterServiceController@destroy')->name('admin.list-services.destroy');
+        Route::post('/destroy-select', 'RegisterServiceController@destroySelect')->name('admin.list-services.destroy-select');
         //register
         Route::get('/registerdomain', 'RegisterServiceController@registerdomain')->name('admin.list-services.registerdomain');
         Route::get('/registerhosting', 'RegisterServiceController@registerhosting')->name('admin.list-services.registerhosting');
@@ -273,12 +275,12 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
     //register software management
     Route::prefix('/register-softs')->group(function(): void{
         Route::get('/', 'RegisterSoftController@index')->name('admin.register-softs.index');
-        Route::get('/{id}/show', 'RegisterSoftController@show')->name('admin.register-softs.show');
+
         Route::get('/{id}/edit', 'RegisterSoftController@entry')->name('admin.register-softs.edit');
         Route::get('/create', 'RegisterSoftController@entry')->name('admin.register-softs.create');
         Route::post('/store', 'RegisterSoftController@store')->name('admin.register-softs.store');
 
-        Route::post('/{id}/destroy', 'RegisterSoftController@destroy')->name('admin.register-softs.destroy');
+        Route::post('/destroy', 'RegisterSoftController@destroy')->name('admin.register-softs.destroy');
         //search
         Route::GET('/search', 'RegisterSoftController@action')->name('admin.register-softs.action');
         //Extend
@@ -289,11 +291,11 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
     //softwares management
     Route::prefix('/softwares')->group(function(): void{
         Route::get('/', 'SoftwareController@index')->name('admin.softwares.index');
-        Route::get('/{id}/show', 'SoftwareController@show')->name('admin.softwares.show');
+        Route::post('/', 'SoftwareController@searchRow')->name('admin.softwares.search-row');
         Route::get('/create', 'SoftwareController@entry')->name('admin.softwares.create');
         Route::get('/{id}/edit', 'SoftwareController@entry')->name('admin.softwares.edit');
         Route::post('/store', 'SoftwareController@store')->name('admin.softwares.store');
-        Route::post('/{id}/destroy', 'SoftwareController@destroy')->name('admin.softwares.destroy');
+        Route::post('/destroy', 'SoftwareController@destroy')->name('admin.softwares.destroy');
     });
     //typesoftwares management
     Route::prefix('/typesoftwares')->group(function(): void{
@@ -326,19 +328,17 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
         Route::get('/create', 'InvoiceController@entry')->name('admin.invoices.create');
         Route::get('/{id}/edit', 'InvoiceController@entry')->name('admin.invoices.edit');
         Route::post('/store', 'InvoiceController@store')->name('admin.invoices.store');
-
-        //
-        Route::get('/invoiceservices', 'InvoiceController@invoiceservices')->name('admin.invoices.invoiceservices');
-        Route::get('/invoicesoft', 'InvoiceController@invoicesoft')->name('admin.invoices.invoicesoft');
-
+//Sổ quỹ
         Route::get('/receipts', 'InvoiceController@receipts')->name('admin.invoices.receipts');
+        Route::post('/', 'InvoiceController@searchRow')->name('admin.invoices.search-row');
+
         //lập phiếu thu
         Route::get('/addreceipts', 'InvoiceController@addreceipts')->name('admin.invoices.addreceipts');
         Route::post('/receiptsstore', 'InvoiceController@receiptsstore')->name('admin.invoices.receiptsstore');
+        Route::post('/destroy-select', 'InvoiceController@destroySelect')->name('admin.invoices.destroy-select');
 
 
 
-        Route::get('/{id}/invocereceipt', 'InvoiceController@invocereceipt')->name('admin.invoices.invocereceipt');
 
 
     });
@@ -405,9 +405,6 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
         return view('template.print');
     })->name('admin.print');
 //    Route::view('/print', 'template.print');
-
-
-
 });
 
 

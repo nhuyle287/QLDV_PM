@@ -7,6 +7,13 @@
 .card-body{
     text-align: center  ;
 }
+.card-{
+    background-color: #fff;
+}
+.card {
+    border: 0.05rem solid grey;
+    box-shadow: 0.35rem 0.35rem 0.15rem gray;
+}
 @media (max-width: 330px) {
     #title {
         font-weight: bold;

@@ -36,4 +36,10 @@ class Ssl extends Model
             'sans.required' => 'Vui lòng nhập Sans',
         ];
     }
+    public function getAll($key, $paginate) {
+        $sll = Ssl::where('ssls.name', 'like', '%'.$key.'%')
+            ->select('ssls.*')
+            ->paginate($paginate);
+        return $sll;
+    }
 }

@@ -12,11 +12,29 @@ use function GuzzleHttp\Promise\all;
 class DomainController extends AdminController
 {
     public function index(){
-        //paginate lấy tất cả đối tượng rồi phân trang theo constant.pagination trong config
-        $domains = Domain::paginate(Config::get('constants.pagination'));
-        //return view('admin.domain.index',compact('domains')); -> đi vào views->admin->domain->show để hiển thị ra cho ng dùng
+        $this->authorize('domain-access');
+
+        $key = isset($request->key) ? $request->key : '';
+        $domain = new Domain();
+        $domains = $domain->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $domains = $domain->getAll($key, $request->amount);
+        }
+
         return view('admin.domain.index',compact('domains'));
     }
+
+    public function searchRow(Request $request)
+    {
+        $domain = new Domain();
+        $domains = $domain->getAll($request->key, 10);
+        if ($request->amount !== null) {
+            $domains = $domain->getAll($request->key, $request->amount);
+        }
+        return view('admin.domain.search-row',compact('domains'));
+    }
+
     public function show(Request $request){
         $domain = Domain::find($request->id);
         return view('admin.domain.show', compact('domain'));

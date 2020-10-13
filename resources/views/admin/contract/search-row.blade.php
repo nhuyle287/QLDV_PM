@@ -19,7 +19,7 @@
                 <td>{{ $contract->name }}</td>
                 <td>{{date('d-m-Y', strtotime($contract->date_create))}}</td>
                 <td class="test">
-                    <a  class="btn btn-xs btn-info" >
+                    <a onclick="show({{$contract->id}})" class="btn btn-xs btn-info" >
                         {{ __('general.view') }}
                     </a>
 

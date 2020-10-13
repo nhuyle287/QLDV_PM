@@ -175,13 +175,5 @@
                 </form>
             </div>
         </div>
-        <!-- /.card -->
-
-
-        <!-- /.col -->
-
-        <!-- /.row -->
-
-        <!-- /.container-fluid -->
     </section>
 @stop

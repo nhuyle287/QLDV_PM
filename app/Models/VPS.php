@@ -47,4 +47,10 @@ class VPS extends Model
 
         ];
     }
+    public function getAll($key, $paginate) {
+        $vps = VPS::where('vpss.name', 'like', '%'.$key.'%')
+            ->select('vpss.*')
+            ->paginate($paginate);
+        return $vps;
+    }
 }

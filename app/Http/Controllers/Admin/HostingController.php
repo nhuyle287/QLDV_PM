@@ -13,9 +13,29 @@ class HostingController extends AdminController
 {
     //
     public function index(){
-        $hostings = Hosting::paginate(Config::get('constants.pagination'));
+        $this->authorize('hosting-access');
+
+        $key = isset($request->key) ? $request->key : '';
+        $hosting = new Hosting();
+        $hostings = $hosting->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $hostings = $hosting->getAll($key, $request->amount);
+        }
+
         return view('admin.hosting.index', compact('hostings'));
     }
+
+    public function searchRow(Request $request)
+    {
+        $hosting = new Hosting();
+        $hostings = $hosting->getAll($request->key, 10);
+        if ($request->amount !== null) {
+            $hostings = $hosting->getAll($request->key, $request->amount);
+        }
+        return view('admin.hosting.search-row',compact('hostings'));
+    }
+
     public function show(Request $request){
         $hosting = Hosting::find($request->id);
         return view('admin.hosting.show', compact('hosting'));

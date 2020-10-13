@@ -18,6 +18,7 @@ use App\Models\Hosting;
 use App\Models\Invoice;
 use App\Models\Receipt;
 use App\Models\RegisterService;
+use App\Models\RegisterSoft;
 use App\Models\Ssl;
 
 use App\Models\User;
@@ -39,95 +40,150 @@ class RegisterServiceController extends AdminController
 
     public function index(Request $request)
     {
+        $this->authorize('list-service-management-access');
 //        dd($request->all());
         $logic_register_soft = new RegisterSoftLogic();
         $register_softs = $logic_register_soft->Search($request);
         $logic_register_services = new RegisterServicesLogic();
         $register_services = $logic_register_services->Search($request);
-        $count=count($register_services);
-//        dd($count);
-        return view('admin.register_service.index', compact('register_services', 'register_softs','count'));
+        $count = count($register_services);
+//
+//        dd($register_services);
+        return view('admin.register_service.index', compact('register_services', 'register_softs', 'count'));
     }
-//domain using
-    public function domainusing(Request $request)
+
+    public function searchRow(Request $request)
     {
-
-        $logic_register_services = new RegisterServicesLogic();
-        $register_services = $logic_register_services->Searchdomain($request);
-        $count=count($register_services);
-        $logic_register_soft = new RegisterSoftLogic();
-        $register_softs = null;
-        return view('admin.register_service.using_domain', compact('register_services', 'register_softs','count'));
-    }
-//hosting using
-    public function hostingusing(Request $request)
-    {
-
-        $logic_register_services = new RegisterServicesLogic();
-        $register_services = $logic_register_services->Searchhosting($request);
-        $count=count($register_services);
-
-        $logic_register_soft = new RegisterSoftLogic();
-        $register_softs = null;
-        return view('admin.register_service.using_hosting', compact('register_services', 'register_softs','count'));
-    }
-// VPS using
-    public function vpsusing(Request $request)
-    {
-
-        $logic_register_services = new RegisterServicesLogic();
-        $register_services = $logic_register_services->Searchvps($request);
-        $count=count($register_services);
-
-        $logic_register_soft = new RegisterSoftLogic();
-        $register_softs = null;
-        return view('admin.register_service.using_vps', compact('register_services', 'register_softs','count'));
-    }
-//email using
-    public function emailusing(Request $request)
-    {
-
-        $logic_register_services = new RegisterServicesLogic();
-        $register_services = $logic_register_services->Searchemail($request);
-        $count=count($register_services);
-
-        $logic_register_soft = new RegisterSoftLogic();
-        $register_softs = null;
-        return view('admin.register_service.using_email', compact('register_services', 'register_softs','count'));
-    }
-//website using
-    public function websiteusing(Request $request)
-    {
-
-        $logic_register_services = new RegisterServicesLogic();
-        $register_services = $logic_register_services->Searchwebsite($request);
-        $count=count($register_services);
-        $logic_register_soft = new RegisterSoftLogic();
-        $register_softs = null;
-        return view('admin.register_service.using_website', compact('register_services', 'register_softs','count'));
-    }
-//soft
-    public function softusing(Request $request)
-    {
-        $logic_register_services = new RegisterServicesLogic();
-        $register_services =null;
-        $count=0;
+//        dd($request->all());
         $logic_register_soft = new RegisterSoftLogic();
         $register_softs = $logic_register_soft->Search($request);
-
-        return view('admin.register_service.using_soft', compact( 'register_softs','register_services','count'));
+        $logic_register_services = new RegisterServicesLogic();
+        $register_services = $logic_register_services->Search($request);
+        $count = count($register_services);
+//
+//        dd($register_services);
+        return view('admin.register_service.search-row', compact('register_services', 'register_softs', 'count'));
     }
 
-
-
-//    Fix bug
-    public function show(Request $request)
+    public function getFilter(Request $request)
     {
-        $logic_register_services = new  RegisterServicesLogic();
-        $register_service = $logic_register_services->getIndexRegisterServices($request->id);
-        $customer_name = $register_service->customer_name;
-        return view('admin.register_service.show', compact('register_service', 'customer_name'));
+        $filter = $request->filter;
+        switch ($filter) {
+            case 0:
+
+                    $logic_register_soft = new RegisterSoftLogic();
+                    $register_softs = $logic_register_soft->Search($request);
+                    $logic_register_services = new RegisterServicesLogic();
+                    $register_services = $logic_register_services->Search($request);
+                    $count = count($register_services);
+                    break;
+
+            case 1:
+            {
+                $logic_register_services = new RegisterServicesLogic();
+                $register_services = $logic_register_services->Searchdomain($request);
+                $count = count($register_services);
+                $logic_register_soft = new RegisterSoftLogic();
+                $register_softs = null;
+                break;
+            }
+            case 2:
+            {
+                $logic_register_services = new RegisterServicesLogic();
+                $register_services = $logic_register_services->Searchvps($request);
+                $count = count($register_services);
+
+                $logic_register_soft = new RegisterSoftLogic();
+                $register_softs = null;
+                break;
+            }
+            case 3:
+            {
+                $logic_register_services = new RegisterServicesLogic();
+                $register_services = $logic_register_services->Searchssl($request);
+                $count = count($register_services);
+
+                $logic_register_soft = new RegisterSoftLogic();
+                $register_softs = null;
+                break;
+            }
+            case 4:
+            {
+                $logic_register_services = new RegisterServicesLogic();
+                $register_services = $logic_register_services->Searchhosting($request);
+                $count = count($register_services);
+
+                $logic_register_soft = new RegisterSoftLogic();
+                $register_softs = null;
+                break;
+            }
+            case 5:
+            {
+                $logic_register_services = new RegisterServicesLogic();
+                $register_services = $logic_register_services->Searchemail($request);
+                $count = count($register_services);
+
+                $logic_register_soft = new RegisterSoftLogic();
+                $register_softs = null;
+                break;
+            }
+            case 6:
+            {
+                $logic_register_services = new RegisterServicesLogic();
+                $register_services = $logic_register_services->Searchwebsite($request);
+                $count = count($register_services);
+                $logic_register_soft = new RegisterSoftLogic();
+                $register_softs = null;
+                break;
+            }
+            case 7:
+            {
+                $logic_register_services = new RegisterServicesLogic();
+                $register_services = null;
+                $count = 0;
+                $logic_register_soft = new RegisterSoftLogic();
+                $register_softs = $logic_register_soft->Search($request);
+                break;
+            }
+            default:
+            {
+                $logic_register_soft = new RegisterSoftLogic();
+                $register_softs = $logic_register_soft->Search($request);
+                $logic_register_services = new RegisterServicesLogic();
+                $register_services = $logic_register_services->Search($request);
+                $count = count($register_services);
+                break;
+            }
+        }
+        return view('admin.register_service.search-row', compact('register_services', 'register_softs', 'count'));
     }
+
+    public function destroySelect(Request $request)
+    {
+        try {
+            $allsofts = explode(',', $request->allValsDeletesoft[0]);
+            $allvals = explode(',', $request->allValsDelete[0]);
+            if ($allsofts[0] !== "") {
+                foreach ($allsofts as $item) {
+                    $register_soft = RegisterSoft::find($item);
+                    $register_soft->delete();
+                }
+                if ($allvals[0] !== "") {
+                    $register_service = RegisterService::find($item);
+                    $register_service->delete();
+                }
+                return redirect()->back()->with('success', __('general.delete_success'));
+            } else {
+                return redirect()->back()->with('fail', 'Vui lòng chọn dòng cần xóa');
+            }
+
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('fail', __('general.delete_fail'));
+        }
+    }
+
+
+
 
 // Đăng ký dịch vụ
 
@@ -274,7 +330,7 @@ class RegisterServiceController extends AdminController
         $register_service->id_customer = $request->id_customer;
         $register_service->transaction = 0;
         $exist_date = date(strtotime($end_date)) - time();
-        $register_service->id_staff=Auth::id();
+        $register_service->id_staff = Auth::id();
         if ($exist_date < 0) {
             $years = floor(ABS($exist_date) / (365 * 60 * 60 * 24));
             $months = floor((ABS($exist_date) - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
@@ -487,14 +543,14 @@ class RegisterServiceController extends AdminController
 // search
     public function search(Request $request)
     {
-        dd($request->all());
+//        dd($request->all());
         $logic_register_soft = new RegisterSoftLogic();
         $register_softs = $logic_register_soft->search($request);
         $logic_register_services = new RegisterServicesLogic();
         $register_services = $logic_register_services->Search($request);
         $register_services->appends(['name' => $request->name]);
-        $count=count($register_services);
-        return view('admin.register_service.index', compact('register_services', 'register_softs','count'));
+        $count = count($register_services);
+        return view('admin.register_service.index', compact('register_services', 'register_softs', 'count'));
     }
 
 //gia hạn dịch vụ
@@ -560,7 +616,7 @@ class RegisterServiceController extends AdminController
             $request['exist_date'] = "Còn $days-$months-$years";
 
         }
-        $request['id_staff']=Auth::id();
+        $request['id_staff'] = Auth::id();
         $register_service->fill($request->all());
 
 
@@ -700,7 +756,7 @@ class RegisterServiceController extends AdminController
             $request['exist_date'] = "Còn $days-$months-$years";
 
         }
-        $request['id_staff']=Auth::id();
+        $request['id_staff'] = Auth::id();
         $register_service->fill($request->all());
 
 

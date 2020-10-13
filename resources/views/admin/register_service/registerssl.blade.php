@@ -293,6 +293,12 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <div class="event_">
+                            <button class="btn btn-default">{{ __('general.save') }}</button>
+                            <a href="{{ route('admin.list-services.index') }}"
+                               class="btn btn-default">{{ __('general.back') }}</a>
+                        </div>
                     </div>
 
 

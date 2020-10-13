@@ -36,6 +36,50 @@ class Invoice extends Model
         ];
     }
 
+    public function get_receipt($key, $paginate)
+    {
+        $query = Invoice::
+        leftJoin('customers as c', 'c.id', 'invoices.id_customer')
+            ->leftJoin('register_soft', 'register_soft.id', 'invoices.id_register_soft')
+            ->leftJoin('softwares', 'softwares.id', 'register_soft.id_software')
+            ->leftJoin('register_services', 'register_services.id', 'invoices.id_register_service')
+            ->leftJoin('domains as d', 'd.id', 'register_services.id_domain')
+            ->leftJoin('hostings as h', 'h.id', 'register_services.id_hosting')
+            ->leftJoin('vpss as v', 'v.id', 'register_services.id_vps')
+            ->leftJoin('emails as e', 'e.id', 'register_services.id_email')
+            ->leftJoin('ssls as s', 's.id', 'register_services.id_ssl')
+            ->leftJoin('websites as w', 'w.id', 'register_services.id_website')
+            ->select('invoices.*', 'c.name as customer_name', 'c.address as customer_address', 'c.address as customer_address',
+                'softwares.name as softwares_name',
+                'w.name as website_name',
+                's.name as ssl_name',
+                'e.name as email_name',
+                'v.name as vps_name',
+                'h.name as hosting_name',
+                'd.name as domain_name')
+            ->whereNull('register_services.deleted_at')
+            ->whereNull('invoices.deleted_at')
+            ->whereNull('c.deleted_at')
+            ->whereNull('d.deleted_at')
+            ->whereNull('h.deleted_at')
+            ->whereNull('v.deleted_at')
+            ->whereNull('e.deleted_at')
+            ->whereNull('s.deleted_at')
+            ->whereNull('w.deleted_at')
+            ->where('c.name', 'LIKE', '%' . $key . '%')
+            ->orwhere('c.phone_number', 'LIKE', '%' . $key . '%')
+            ->orwhere('w.name', 'LIKE', '%' . $key. '%')
+            ->orwhere('s.name', 'LIKE', '%' . $key . '%')
+            ->orwhere('e.name', 'LIKE', '%' . $key . '%')
+            ->orwhere('v.name', 'LIKE', '%' . $key . '%')
+            ->orwhere('h.name', 'LIKE', '%' . $key . '%')
+            ->orwhere('d.name', 'LIKE', '%' . $key . '%')
+            ->paginate($paginate);
+        return $query;
+    }
+
+
+
     public function get_revenue($key, $paginate)
     {
         $register_services = db::table('invoices')

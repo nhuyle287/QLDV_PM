@@ -13,9 +13,28 @@ class VPSController extends AdminController
 {
     //
     public function index(){
-        $vpss = VPS::paginate(Config::get('constants.pagination'));
+        $this->authorize('vps-access');
+
+        $key = isset($request->key) ? $request->key : '';
+        $vps = new VPS();
+        $vpss = $vps->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $vpss = $vps->getAll($key, $request->amount);
+        }
         return view('admin.vps.index',compact('vpss'));
     }
+
+    public function searchRow(Request $request)
+    {
+        $vps = new VPS();
+        $vpss = $vps->getAll($request->key, 10);
+        if ($request->amount !== null) {
+            $vpss = $vps->getAll($request->key, $request->amount);
+        }
+        return view('admin.vps.search-row',compact('vpss'));
+    }
+
     public function show(Request $request){
         $vps = VPS::find($request->id);
         return view('admin.vps.show',compact('vps'));

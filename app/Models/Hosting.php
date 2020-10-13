@@ -42,9 +42,15 @@ class Hosting extends Model
             'adddon_domain.required' => 'Vui lòng nhập số lượng Addon_Domain',
             'park_domain.required' => 'Vui lòng nhập số lượng Park_Domain',
 
-
-
-
         ];
+    }
+
+    public function getAll($key, $paginate) {
+        $hosting = Hosting::where('hostings.name', 'like', '%'.$key.'%')
+//            ->orwhere('domains.fee_register', 'like', '%'.$key.'%')
+//            ->orwhere('domains.fee_remain', 'like', '%'.$key.'%')
+            ->select('hostings.*')
+            ->paginate($paginate);
+        return $hosting;
     }
 }

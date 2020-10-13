@@ -28,4 +28,10 @@ class Website extends Model
             'price.required' => 'Vui Lòng Nhập Giá',
         ];
     }
+    public function getAll($key, $paginate) {
+        $website = Website::where('websites.name', 'like', '%'.$key.'%')
+            ->select('websites.*')
+            ->paginate($paginate);
+        return $website;
+    }
 }

@@ -209,6 +209,13 @@
                                                 </div>
                                             </div>
                                             @can('order-software-update')
+                                                @if($register_soft->transaction==0)
+                                                    <button id="btnStatus" type="button" class="btn btn-sm btn-secondary"
+                                                            data-id="{{$register_soft->id}}"
+                                                            data-transaction="{{$register_soft->transaction}}"
+                                                            data-toggle="modal"
+                                                            data-target="#myModal"> {{ucfirst(array_search($register_soft->transaction,$transaction_soft))}}</button>
+                                                @endif
                                                 @if($register_soft->transaction==1)
                                                     <button id="btnStatus" type="button" class="btn btn-sm btn-danger"
                                                             data-id="{{$register_soft->id}}"

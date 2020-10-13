@@ -33,11 +33,8 @@ class TypeSoftware extends Model
 
     public function get_all($key, $paginate)
     {
-        $type_software = db::table('typesoftwares')
+        $type_software = TypeSoftware::where('typesoftwares.name', 'like', '%' . $key . '%')
             ->select('typesoftwares.*')
-            ->whereNull('typesoftwares.deleted_at')
-            ->where('typesoftwares .name', 'LIKE', '%' . $key . '%')
-            ->orderBy('typesoftwares.id', 'ASC')
             ->paginate($paginate);
         return $type_software;
     }

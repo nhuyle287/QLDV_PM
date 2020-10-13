@@ -33,16 +33,14 @@ class RegisterSoftLogic extends BaseLogic
         ;
 
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('sw.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('sw.name', 'LIKE', '%' . $request->key . '%');
             }
-            if (isset($request->page) && is_numeric($request->page)) {
-                $query->offset($request->page * Config::get('constants.pagination'));
-            }
+
         }
         $query->orderBy('register_soft.id','ASC');
-        return $query->paginate(Config::get('constants.pagination'));
+        return $query->paginate($request->amount);
     }
 
     public function getlistregistersoft($key, $paginate){

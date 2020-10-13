@@ -108,7 +108,6 @@ body {
         text-align: center;
     }
 }
-
 @media (min-width: 768px) {
     #title {
         font-weight: bold;
@@ -146,7 +145,6 @@ body {
         text-align: center;
     }
 }
-
 @media (min-width: 992px) {
     #title {
         font-weight: bold;
@@ -182,7 +180,6 @@ body {
         padding: .1rem .25rem;
     }
 }
-
 @media (min-width:1200px) {
     #title {
         font-weight: bold;
