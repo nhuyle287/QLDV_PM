@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Model\RegisterService;
+use App\Models\RegisterService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 

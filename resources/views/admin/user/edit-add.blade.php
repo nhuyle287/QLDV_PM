@@ -1,94 +1,55 @@
 @extends('layout.master')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('../css/default.css') }}">
+@endsection
 @section('content')
-    <div class="content">
-        <h3 class="page-title">{{ __('sidebar.users') }}</h3>
-        <form action="{{route('admin.users.store')}}" method="post">
-            <input type="hidden" name="id" value="{{isset($user->id) ? $user->id: ''}}">
-            @csrf
-            <div class="row">
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{session('success')}}
-                    </div>
-                @endif
-                @if(session('fail'))
-                    <div class="alert alert-danger">
-                        {{session('fail')}}
-                    </div>
-                @endif
+    <div class="body-content">
+        <div class="card">
+            <div class="card-header card-header-new">
+                {{ __('user.create') }}
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ __('general.create') }}
-                </div>
-
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-12 form-group">
-                            <label>Tên *</label>
-                            <input type="text" class="form-control" name="name"
-                                   value="{{isset($user->name) ? old('name', $user->name) : old('name')}}">
-                            <p class="help-block"></p>
-                            @if($errors->has('name'))
-                                <p class="help-block">
-                                    {{ $errors->first('name') }}
-                                </p>
-                            @endif
+            <div class="card-body">
+                <form method="POST" action="{{ route("admin.users.store") }}" enctype="multipart/form-data">
+                    @csrf
+                    <input style="display: none" name="id" value="{{ isset($user->id) ? $user->id : '' }}">
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label class="required" for="name">{{ __('user.name') }} <label class="content-required">*</label></label>
+                            <input class="form-control" type="text" name="name" id="name" value="{{ isset($user->name) ? $user->name : '' }}">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 form-group">
-                            <label>Email *</label>
-                            <input type="email" class="form-control" name="email"
-                                   value="{{isset($user->email) ? old('email', $user->email) : old('email')}}">
-                            <p class="help-block"></p>
-                            @if($errors->has('email'))
-                                <p class="help-block">
-                                    {{ $errors->first('email') }}
-                                </p>
-                            @endif
+                        <div class="form-group">
+                            <label class="required" for="email">{{ __('user.email') }} <label class="content-required">*</label></label>
+                            <input class="form-control" type="email" name="email" id="email" value="{{ isset($user->email) ? $user->email : '' }}">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 form-group">
-                            <label>New Password *</label>
-                            <input type="password" class="form-control" name="password">
-                            <p class="help-block"></p>
-                            @if($errors->has('password'))
-                                <p class="help-block">
-                                    {{ $errors->first('password') }}
-                                </p>
-                            @endif
+                        <div class="form-group">
+                            <label class="required" for="password">{{ __('user.password') }} <label class="content-required">*</label></label>
+                            <input class="form-control" type="password" name="password" id="password">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 form-group">
-                            <label>Phân quyền *</label>
-                            <select name="id_role" class="form-control select2">
+                        <div class="form-group">
+                            <label class="required" for="role_id">{{ __('user.role') }} <label class="content-required">*</label></label>
+                            <select class="form-control" id="role_id" name="role_id">
                                 @foreach($roles as $role)
-                                    <option value="{{$role->id}}" @if (isset($user->id_role) && $user->id_role == $role->id) selected @endif>
-                                        {{$role->title}}</option>
+                                    <option value="{{ $role->id }}" {{ ($role->id == (isset($user->role_id) ? $user->role_id : '-1')) ? 'selected' : '' }}>{{ $role->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12 form-group">
-                            <label>Phòng ban *</label>
-                            <select name="id_department" class="form-control select2">
-                                @foreach($departments as $department)
-                                    <option value="{{$department->id}} @if (isset($user->id_department) && $user->id_department == $department->id) selected @endif">
-                                        {{$department->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <a class="btn btn-secondary" href="{{ route('admin.users.index') }}" role="button">{{ __('general.back') }}</a>
+                        <button class="btn btn-danger" type="submit">{{ __('general.save') }}</button>
                     </div>
-                    <hr>
-                    <button class="btn btn-primary">{{ __('general.save') }}</button>
-                    <a href="{{ route('admin.users.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
-                </div>
+                </form>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul style="margin-bottom: 0px">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
-        </form>
+        </div>
     </div>
 @stop

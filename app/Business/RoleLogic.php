@@ -3,7 +3,7 @@
 
 namespace App\Business;
 
-use App\Model\Role;
+use App\Models\Role;
 use Illuminate\Support\Facades\Config;
 
 class RoleLogic extends BaseLogic

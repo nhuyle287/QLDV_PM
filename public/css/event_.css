@@ -1,0 +1,8 @@
+body {
+    font-family: "Roboto";
+}
+.event_{
+    display: flex;
+    justify-content: flex-end;
+    margin: 1% 2%;
+}

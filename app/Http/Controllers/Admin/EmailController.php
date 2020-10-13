@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Model\Email;
+use App\Models\Email;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -12,9 +12,28 @@ class EmailController extends AdminController
 {
     //
     public function index(){
-        $emails = Email::paginate(Config::get('constants.pagination'));
+        $this->authorize('email-access');
+
+        $key = isset($request->key) ? $request->key : '';
+        $email = new Email();
+        $emails = $email->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $emails = $email->getAll($key, $request->amount);
+        }
         return view('admin.email.index',compact('emails'));
     }
+
+    public function searchRow(Request $request)
+    {
+        $email = new Email();
+        $emails = $email->getAll($request->key, 10);
+        if ($request->amount !== null) {
+            $emails = $email->getAll($request->key, $request->amount);
+        }
+        return view('admin.email.search-row',compact('emails'));
+    }
+
     public function show(Request $request){
         $email = Email::find($request->id);
         return view('admin.email.show',compact('email'));
@@ -41,7 +60,6 @@ class EmailController extends AdminController
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-
         $email->fill($request->all());
 //        dd($request->all());
         try {

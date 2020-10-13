@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Business\ProductLogic;
 use App\Business\UserLogic;
-use App\Model\Product;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
@@ -18,7 +18,6 @@ class ProductController extends AdminController
         //dd($products);
         return view('admin.product.index', compact('products'));
     }
-
     public function entry(Request $request){
         return view('admin.product.edit-add');
     }

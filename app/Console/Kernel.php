@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Model\RegisterService;
+use App\Models\RegisterService;
 use Aws\Command;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;

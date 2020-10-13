@@ -1,69 +1,41 @@
 @extends('layout.master')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('../css/default.css') }}">
+@endsection
 @section('content')
-
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="page-title">Phòng Ban</h3>
-                            <form action="{{route('admin.roles.store')}}" method="post">
-                                @csrf
-                                <div class="row">
-                                    @if(session('success'))
-                                        <div class="alert alert-success">
-                                            {{session('success')}}
-                                        </div>
-                                    @endif
-                                    @if(session('fail'))
-                                        <div class="alert alert-danger">
-                                            {{session('fail')}}
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <div class="panel panel-default">
-{{--                                    <div class="panel-heading">--}}
-{{--                                        {{ __('general.create') }}--}}
-{{--                                    </div>--}}
-
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-xs-12 form-group">
-                                                <label>Tên Phòng *</label>
-                                                <input type="text" class="form-control" name="title">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12 form-group">
-                                                <label>Mã Phòng Ban *</label>
-                                                <input type="text" class="form-control" name="title">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12 form-group">
-                                                <label>Mô tả </label>
-                                                <textarea rows="3" class="form-control"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <hr>
-                                        <button class="btn btn-info">{{ __('general.save') }}</button>
-                                        <a href="{{ route('admin.departments.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
+    <div class="body-content">
+        <div class="card">
+            <div class="card-header card-header-new">
+                {{ __('department.create') }}
             </div>
-            <!-- /.container-fluid -->
-    </section>
+
+            <div class="card-body">
+                <form method="POST" action="{{ route("admin.departments.store") }}" enctype="multipart/form-data">
+                    @csrf
+                    <input style="display: none" name="id" value="{{ isset($department->id) ? $department->id : '' }}">
+                    <div class="form-group">
+                        <label class="required" for="name">{{ __('department.department') }} <label class="content-required">*</label></label>
+                        <input class="form-control" type="text" name="name" id="name" value="{{ isset($department->name) ? $department->name : '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="required" for="description">{{ __('department.description') }}</label>
+                        <input class="form-control" type="text" name="description" id="description" value="{{ isset($department->description) ? $department->description : '' }}">
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-secondary" href="{{ route('admin.departments.index') }}" role="button">{{ __('general.back') }}</a>
+                        <button class="btn btn-danger" type="submit">{{ __('general.save') }}</button>
+                    </div>
+                </form>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul style="margin-bottom: 0px">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
 @stop

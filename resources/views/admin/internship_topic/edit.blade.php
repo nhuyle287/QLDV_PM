@@ -1,4 +1,14 @@
 @extends('layout.master')
+@section('title')
+    Thực tập sinh đang thực tập
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
     <!-- Main content -->
@@ -11,7 +21,7 @@
                             <h3 class="page-title"
                                 style="font-weight: bold;  font-size: 200%;">Sinh
                                 viên</h3>
-                            <form action="{{route('admin.internship_topic.store')}}" method="post"
+                            <form action="{{route('admin.internship-topic.store')}}" method="post"
                                   enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="internship_id"
@@ -300,7 +310,7 @@
                                                 </label>
                                                 <select class="form-control" name="status">
                                                     @foreach($status_internship as $status)
-                                                        <option disabled value="{{$status}}" @if($internship->internship_id && $status==$internship->status) selected @endif>{{ucfirst(array_search($status,$status_internship))}}</option>
+                                                        <option  value="{{$status}}" @if($internship->internship_id && $status==$internship->status) selected @endif>{{ucfirst(array_search($status,$status_internship))}}</option>
                                                     @endforeach
                                                 </select>
 
@@ -310,9 +320,11 @@
 
 
                                         <hr>
-                                        <button class="btn btn-info">{{ __('general.save') }}</button>
-                                        <a href="{{ route('admin.internship_topic.index') }}"
-                                           class="btn btn-default">{{ __('general.back') }}</a>
+                                        <div class="event_ float-right">
+                                            <button class="btn btn-default">{{ __('general.save') }}</button>
+                                            <a href="{{ route('admin.internship-topic.index') }}"
+                                               class="btn btn-default">{{ __('general.back') }}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

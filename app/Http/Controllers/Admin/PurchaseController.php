@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Business\PurchaseLogic;
-use App\Model\Purchar;
-use App\Model\Purchase;
+use App\Models\Purchar;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 
 class PurchaseController extends AdminController

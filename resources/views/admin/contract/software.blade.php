@@ -1,2080 +1,930 @@
 @extends('layout.master')
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-@section('css')
-    <style>
-        /*table, th, td {*/
-        /*    border: 1px solid black;*/
-
-        /*}*/
-        p {
-            color: #c2c7d0 !important;
-        }
-
-        .c42 {
-            margin: auto;
-        }
-
-        .c74 {
-            border-bottom-style: none !important;
-        }
-
-        .c42 p {
-            color: #000000 !important;
-        }
-
-        .c7 {
-            color: #000000;
-        }
-
-        button {
-            border: none;
-            background: #779cb7;
-            color: white;
-        }
-
-        input {
-            height: 30px;
-            background: #f4f6f9;
-            border: none;
-        }
-    </style>
+@section('title')
+    Hợp đồng
+@stop
+@section('head')
+    <link rel="stylesheet" href="{{ asset('../css/responsive.css') }}">
 @stop
 @section('content')
-    <div style="margin:auto;" class="content">
-        <html>
-        <head>
-            <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-            <style
-                type="text/css">@import url(https://themes.googleusercontent.com/fonts/css?kit=sDU-RIIs3Wq_4pUcDwWu-05zdwzqyXAFhQ3EpAK6bTA);
 
-                .lst-kix_list_4-1 > li {
-                    counter-increment: lst-ctn-kix_list_4-1
-                }
+    <section class="body-content">
+        <div class="card">
 
-                ol.lst-kix_list_3-1 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_3-2 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_3-1 > li {
-                    counter-increment: lst-ctn-kix_list_3-1
-                }
-
-                ol.lst-kix_list_3-3 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_5-1 > li {
-                    counter-increment: lst-ctn-kix_list_5-1
-                }
-
-                ol.lst-kix_list_7-0 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_2-1 > li {
-                    counter-increment: lst-ctn-kix_list_2-1
-                }
-
-                ol.lst-kix_list_3-0 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_1-1 > li {
-                    counter-increment: lst-ctn-kix_list_1-1
-                }
-
-                .lst-kix_list_6-1 > li {
-                    counter-increment: lst-ctn-kix_list_6-1
-                }
-
-                .lst-kix_list_7-1 > li {
-                    counter-increment: lst-ctn-kix_list_7-1
-                }
-
-                .lst-kix_list_3-0 > li:before {
-                    content: "" counter(lst-ctn-kix_list_3-0, decimal) " "
-                }
-
-                ol.lst-kix_list_3-1.start {
-                    counter-reset: lst-ctn-kix_list_3-1 0
-                }
-
-                ul.lst-kix_list_5-7 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_5-8 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_3-1 > li:before {
-                    content: "" counter(lst-ctn-kix_list_3-0, decimal) "." counter(lst-ctn-kix_list_3-1, decimal) ". "
-                }
-
-                .lst-kix_list_3-2 > li:before {
-                    content: "" counter(lst-ctn-kix_list_3-0, decimal) "." counter(lst-ctn-kix_list_3-1, decimal) "." counter(lst-ctn-kix_list_3-2, decimal) ". "
-                }
-
-                ul.lst-kix_list_5-5 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_5-6 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_8-1 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_4-0 > li {
-                    counter-increment: lst-ctn-kix_list_4-0
-                }
-
-                .lst-kix_list_8-2 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_5-0 > li {
-                    counter-increment: lst-ctn-kix_list_5-0
-                }
-
-                .lst-kix_list_6-0 > li {
-                    counter-increment: lst-ctn-kix_list_6-0
-                }
-
-                .lst-kix_list_7-0 > li {
-                    counter-increment: lst-ctn-kix_list_7-0
-                }
-
-                ul.lst-kix_list_1-3 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_3-5 > li:before {
-                    content: "\002022   "
-                }
-
-                ul.lst-kix_list_1-4 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_3-4 > li:before {
-                    content: "\002022   "
-                }
-
-                ul.lst-kix_list_1-2 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_5-3 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_7-1 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_1-7 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_3-3 > li:before {
-                    content: "(" counter(lst-ctn-kix_list_3-3, lower-latin) ") "
-                }
-
-                ul.lst-kix_list_5-4 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_1-8 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_8-0 > li:before {
-                    content: "-  "
-                }
-
-                ul.lst-kix_list_1-5 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_5-2 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_1-6 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_8-7 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_3-8 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_8-5 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_8-6 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_2-0 > li {
-                    counter-increment: lst-ctn-kix_list_2-0
-                }
-
-                .lst-kix_list_8-3 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_3-6 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_3-7 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_8-4 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_5-0.start {
-                    counter-reset: lst-ctn-kix_list_5-0 2
-                }
-
-                .lst-kix_list_3-2 > li {
-                    counter-increment: lst-ctn-kix_list_3-2
-                }
-
-                .lst-kix_list_8-8 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_5-0 > li:before {
-                    content: "" counter(lst-ctn-kix_list_5-0, decimal) " "
-                }
-
-                ol.lst-kix_list_6-0 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_6-1 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_2-0 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_2-1 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_4-8 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_5-3 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_4-7 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_5-2 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_5-1 > li:before {
-                    content: "" counter(lst-ctn-kix_list_5-0, decimal) "." counter(lst-ctn-kix_list_5-1, decimal) ". "
-                }
-
-                ul.lst-kix_list_4-8 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_5-7 > li:before {
-                    content: "\002022   "
-                }
-
-                ul.lst-kix_list_8-4 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_8-5 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_4-6 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_5-6 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_5-8 > li:before {
-                    content: "\002022   "
-                }
-
-                ul.lst-kix_list_8-2 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_4-1.start {
-                    counter-reset: lst-ctn-kix_list_4-1 0
-                }
-
-                ul.lst-kix_list_4-7 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_8-3 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_8-8 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_8-6 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_8-7 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_3-3.start {
-                    counter-reset: lst-ctn-kix_list_3-3 0
-                }
-
-                .lst-kix_list_5-4 > li:before {
-                    content: "\002022   "
-                }
-
-                ul.lst-kix_list_4-4 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_5-5 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_6-2 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_8-0 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_4-5 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_8-1 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_4-2 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_4-3 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_1-0.start {
-                    counter-reset: lst-ctn-kix_list_1-0 7
-                }
-
-                .lst-kix_list_6-1 > li:before {
-                    content: "" counter(lst-ctn-kix_list_6-0, decimal) "." counter(lst-ctn-kix_list_6-1, decimal) ". "
-                }
-
-                .lst-kix_list_6-3 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_7-1.start {
-                    counter-reset: lst-ctn-kix_list_7-1 0
-                }
-
-                .lst-kix_list_6-0 > li:before {
-                    content: "" counter(lst-ctn-kix_list_6-0, decimal) " "
-                }
-
-                .lst-kix_list_6-4 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_3-0 > li {
-                    counter-increment: lst-ctn-kix_list_3-0
-                }
-
-                .lst-kix_list_3-3 > li {
-                    counter-increment: lst-ctn-kix_list_3-3
-                }
-
-                ol.lst-kix_list_4-0.start {
-                    counter-reset: lst-ctn-kix_list_4-0 3
-                }
-
-                .lst-kix_list_6-2 > li:before {
-                    content: "" counter(lst-ctn-kix_list_6-2, lower-latin) ". "
-                }
-
-                ol.lst-kix_list_3-2.start {
-                    counter-reset: lst-ctn-kix_list_3-2 0
-                }
-
-                .lst-kix_list_6-8 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_6-5 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_6-7 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_7-0 > li:before {
-                    content: "" counter(lst-ctn-kix_list_7-0, decimal) " "
-                }
-
-                .lst-kix_list_6-2 > li {
-                    counter-increment: lst-ctn-kix_list_6-2
-                }
-
-                .lst-kix_list_6-6 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_5-0 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_2-6 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_2-7 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_5-1 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_7-4 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_7-6 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_1-0 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_2-4 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_2-5 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_2-8 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_6-2.start {
-                    counter-reset: lst-ctn-kix_list_6-2 0
-                }
-
-                ol.lst-kix_list_1-1 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_7-1 > li:before {
-                    content: "" counter(lst-ctn-kix_list_7-0, decimal) "." counter(lst-ctn-kix_list_7-1, decimal) ". "
-                }
-
-                .lst-kix_list_7-5 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_7-2 > li:before {
-                    content: "\0025fb   "
-                }
-
-                .lst-kix_list_7-3 > li:before {
-                    content: "\002022   "
-                }
-
-                ul.lst-kix_list_7-5 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_7-6 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_7-3 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_3-7 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_7-4 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_3-8 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_5-1.start {
-                    counter-reset: lst-ctn-kix_list_5-1 0
-                }
-
-                ul.lst-kix_list_7-7 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_7-8 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_3-0.start {
-                    counter-reset: lst-ctn-kix_list_3-0 4
-                }
-
-                .lst-kix_list_7-8 > li:before {
-                    content: "\002022   "
-                }
-
-                ul.lst-kix_list_3-5 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_7-2 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_3-6 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_7-7 > li:before {
-                    content: "\002022   "
-                }
-
-                ul.lst-kix_list_3-4 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_4-0 > li:before {
-                    content: "" counter(lst-ctn-kix_list_4-0, decimal) " "
-                }
-
-                .lst-kix_list_4-1 > li:before {
-                    content: "" counter(lst-ctn-kix_list_4-0, decimal) "." counter(lst-ctn-kix_list_4-1, decimal) ". "
-                }
-
-                .lst-kix_list_4-4 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_4-3 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_4-5 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_4-2 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_4-6 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_7-0.start {
-                    counter-reset: lst-ctn-kix_list_7-0 0
-                }
-
-                ol.lst-kix_list_1-1.start {
-                    counter-reset: lst-ctn-kix_list_1-1 0
-                }
-
-                ol.lst-kix_list_4-0 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_4-1 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_6-6 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_6-7 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_6-4 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_2-8 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_6-5 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_6-8 {
-                    list-style-type: none
-                }
-
-                ol.lst-kix_list_6-1.start {
-                    counter-reset: lst-ctn-kix_list_6-1 0
-                }
-
-                ul.lst-kix_list_2-2 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_1-0 > li:before {
-                    content: "" counter(lst-ctn-kix_list_1-0, decimal) " "
-                }
-
-                ul.lst-kix_list_2-3 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_2-6 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_6-3 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_1-1 > li:before {
-                    content: "" counter(lst-ctn-kix_list_1-0, decimal) "." counter(lst-ctn-kix_list_1-1, decimal) ". "
-                }
-
-                .lst-kix_list_1-2 > li:before {
-                    content: "\002022   "
-                }
-
-                ol.lst-kix_list_2-0.start {
-                    counter-reset: lst-ctn-kix_list_2-0 5
-                }
-
-                ul.lst-kix_list_2-7 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_2-4 {
-                    list-style-type: none
-                }
-
-                ul.lst-kix_list_2-5 {
-                    list-style-type: none
-                }
-
-                .lst-kix_list_1-3 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_1-4 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_1-0 > li {
-                    counter-increment: lst-ctn-kix_list_1-0
-                }
-
-                .lst-kix_list_1-7 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_1-5 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_1-6 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_2-0 > li:before {
-                    content: "" counter(lst-ctn-kix_list_2-0, decimal) " "
-                }
-
-                .lst-kix_list_2-1 > li:before {
-                    content: "" counter(lst-ctn-kix_list_2-0, decimal) "." counter(lst-ctn-kix_list_2-1, decimal) ". "
-                }
-
-                ol.lst-kix_list_2-1.start {
-                    counter-reset: lst-ctn-kix_list_2-1 0
-                }
-
-                ol.lst-kix_list_6-0.start {
-                    counter-reset: lst-ctn-kix_list_6-0 1
-                }
-
-                .lst-kix_list_1-8 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_2-2 > li:before {
-                    content: "\002022   "
-                }
-
-                .lst-kix_list_2-3 > li:before {
-                    content: "\002022   "
-                }
-
-                ol {
-                    margin: 0;
-                    padding: 0
-                }
-
-                table td, table th {
-                    padding: 0
-                }
-
-                .c71 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: middle;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 500.2pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c51 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 112.5pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c54 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 184.5pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c19 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 85.5pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c10 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 99pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c73 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 212pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c55 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: middle;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 162.4pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c58 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 140pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c36 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 13.5pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c6 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 396.5pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c13 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 126.5pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c12 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: middle;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 49.5pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c76 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 495.5pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c15 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 144pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c64 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: middle;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 139.1pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c8 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: middle;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 113.2pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c59 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: middle;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 387pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c22 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: top;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 72pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c43 {
-                    border-right-style: solid;
-                    padding: 0pt 5.8pt 0pt 5.8pt;
-                    border-bottom-color: #000000;
-                    border-top-width: 1pt;
-                    border-right-width: 1pt;
-                    border-left-color: #000000;
-                    vertical-align: middle;
-                    border-right-color: #000000;
-                    border-left-width: 1pt;
-                    border-top-style: solid;
-                    border-left-style: solid;
-                    border-bottom-width: 1pt;
-                    width: 36pt;
-                    border-top-color: #000000;
-                    border-bottom-style: solid
-                }
-
-                .c74 {
-                    margin-left: 108pt;
-                    padding-top: 0pt;
-                    border-bottom-color: #000000;
-                    border-bottom-width: 0.5pt;
-                    padding-bottom: 1pt;
-                    line-height: 1.5;
-                    border-bottom-style: solid;
-                    orphans: 2;
-                    widows: 2;
-                    text-align: left
-                }
-
-                .c30 {
-                    -webkit-text-decoration-skip: none;
-                    color: #000000;
-                    font-weight: 700;
-                    text-decoration: underline;
-                    vertical-align: baseline;
-                    text-decoration-skip-ink: none;
-                    font-size: 12pt;
-                    font-family: "Cambria";
-                    font-style: italic
-                }
-
-                .c14 {
-                    margin-left: 31.3pt;
-                    padding-top: 0pt;
-                    padding-left: 22.6pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: justify;
-                    margin-right: 25.4pt
-                }
-
-                .c29 {
-                    color: #000000;
-                    font-weight: 700;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 13pt;
-                    font-family: "Arial";
-                    font-style: normal
-                }
-
-                .c0 {
-                    color: #000000;
-                    font-weight: 700;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 13pt;
-                    font-family: "Cambria";
-                    font-style: normal
-                }
-
-                .c50 {
-                    color: #000000;
-                    font-weight: 700;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 10pt;
-                    font-family: "Cambria";
-                    font-style: normal
-                }
-
-                .c17 {
-                    color: #000000;
-                    font-weight: 400;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 11pt;
-                    font-family: "Cambria";
-                    font-style: normal
-                }
-
-                .c5 {
-                    color: #000000;
-                    font-weight: 400;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 10pt;
-                    font-family: "Cambria";
-                    font-style: normal
-                }
-
-                .c35 {
-                    color: #000000;
-                    font-weight: 700;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 12pt;
-                    font-family: "Cambria";
-                    font-style: normal
-                }
-
-                .c3 {
-                    color: #000000;
-                    font-weight: 400;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 13pt;
-                    font-family: "Cambria";
-                    font-style: normal
-                }
-
-                .c23 {
-                    margin-left: 35.9pt;
-                    padding-top: 0pt;
-                    padding-left: 18pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: justify;
-                    margin-right: 25.4pt
-                }
-
-                .c4 {
-                    margin-left: 31.3pt;
-                    padding-top: 0pt;
-                    padding-left: 22.6pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: justify;
-                    margin-right: 25.9pt
-                }
-
-                .c85 {
-                    font-weight: 700;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 11pt;
-                    font-family: "Cambria";
-                    font-style: normal
-                }
-
-                .c86 {
-                    font-weight: 400;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-size: 10pt;
-                    font-family: "Arial";
-                    font-style: normal
-                }
-
-                .c2 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    orphans: 2;
-                    widows: 2;
-                    text-align: justify
-                }
-
-                .c21 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.1500000000000001;
-                    orphans: 2;
-                    widows: 2;
-                    text-align: justify
-                }
-
-                .c69 {
-                    margin-left: 98.1pt;
-                    padding-top: 4.8pt;
-                    padding-left: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: justify
-                }
-
-                .c78 {
-                    padding-top: 0pt;
-                    text-indent: 32.3pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: center;
-                    margin-right: 84pt
-                }
-
-                .c92 {
-                    padding-top: 0pt;
-                    text-indent: 32.3pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: center;
-                    margin-right: -0.6pt
-                }
-
-                .c11 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.15;
-                    text-align: left;
-                    height: 11pt
-                }
-
-                .c18 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: justify;
-                    height: 11pt
-                }
-
-                .c60 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.0;
-                    text-align: left;
-                    height: 11pt
-                }
-
-                .c40 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 0.06;
-                    text-align: left;
-                    height: 11pt
-                }
-
-                .c9 {
-                    margin-left: 17.9pt;
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: justify
-                }
-
-                .c75 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: left
-                }
-
-                .c28 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.5;
-                    text-align: justify
-                }
-
-                .c46 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.1500000000000001;
-                    text-align: center
-                }
-
-                .c20 {
-                    color: #000000;
-                    text-decoration: none;
-                    vertical-align: baseline;
-                    font-style: italic
-                }
-
-                .c39 {
-                    padding-top: 0pt;
-                    padding-bottom: 0pt;
-                    line-height: 1.1500000000000001;
-                    text-align: justify
-                }
-
-                .c42 {
-                    margin-left: -0.3pt;
-                    border-spacing: 0;
-                    border-collapse: collapse;
-                    margin-right: auto
-                }
-
-                .c16 {
-                    font-size: 13pt;
-                    font-family: "Cambria";
-                    font-weight: 400;
-                    text-decoration: none
-                }
-
-                .c27 {
-                    font-size: 13pt;
-                    font-family: "Cambria";
-                    color: #000000;
-                    font-weight: 400
-                }
-
-                .c34 {
-                    font-size: 13pt;
-                    font-family: "Cambria";
-                    font-weight: 400
-                }
-
-                .c66 {
-                    background-color: #ffffff;
-                    max-width: 502.6pt;
-                    padding: 29pt 56.9pt 30pt 36pt
-                }
-
-                .c83 {
-                    margin-left: -5.8pt;
-                    text-indent: 5.8pt;
-                    margin-right: 28.9pt
-                }
-
-                .c62 {
-                    margin-left: 35.9pt;
-                    padding-left: 18pt;
-                    margin-right: 26.1pt
-                }
-
-                .c88 {
-                    font-weight: 400;
-                    font-size: 10pt;
-                    font-family: "Cambria"
-                }
-
-                .c7 {
-                    font-size: 13pt;
-                    font-family: "Cambria";
-                    font-weight: 700
-                }
-
-                .c45 {
-                    -webkit-text-decoration-skip: none;
-                    text-decoration: underline;
-                    text-decoration-skip-ink: none
-                }
-
-                .c77 {
-                    margin-left: 53.9pt;
-                    padding-left: 0pt;
-                    margin-right: 25.9pt
-                }
-
-                .c48 {
-                    margin-left: 71.9pt;
-                    padding-left: 0pt;
-                    margin-right: 25.6pt
-                }
-
-                .c68 {
-                    margin-left: 71.9pt;
-                    padding-left: 0pt;
-                    margin-right: 25.5pt
-                }
-
-                .c33 {
-                    margin-left: 54pt;
-                    text-indent: -54pt
-                }
-
-                .c47 {
-                    margin-left: 35.9pt;
-                    padding-left: 27pt
-                }
-
-                .c44 {
-                    margin-left: 35.9pt;
-                    padding-left: 29.9pt
-                }
-
-                .c65 {
-                    margin-left: 35.9pt;
-                    padding-left: 18pt
-                }
-
-                .c32 {
-                    margin-left: 50.3pt;
-                    padding-left: 0pt
-                }
-
-                .c38 {
-                    margin-left: 31.3pt;
-                    padding-left: 22.6pt
-                }
-
-                .c82 {
-                    margin-left: 53.9pt;
-                    padding-left: 0pt
-                }
-
-                .c84 {
-                    margin-left: 53.9pt;
-                    margin-right: 25.4pt
-                }
-
-                .c1 {
-                    padding: 0;
-                    margin: 0
-                }
-
-                .c87 {
-                    font-weight: 700;
-                    font-family: "Cambria"
-                }
-
-                .c70 {
-                    height: 21.1pt
-                }
-
-                .c49 {
-                    margin-left: 20.8pt
-                }
-
-                .c67 {
-                    height: 18.6pt
-                }
-
-                .c24 {
-                    height: 17.5pt
-                }
-
-                .c57 {
-                    margin-right: 25.8pt
-                }
-
-                .c91 {
-                    margin-left: 50.3pt
-                }
-
-                .c26 {
-                    height: 0pt
-                }
-
-                .c90 {
-                    margin-left: 89.7pt
-                }
-
-                .c61 {
-                    margin-right: 25.6pt
-                }
-
-                .c81 {
-                    color: #000000
-                }
-
-                .c63 {
-                    height: 21.9pt
-                }
-
-                .c89 {
-                    height: 19.8pt
-                }
-
-                .c41 {
-                    margin-right: 25.2pt
-                }
-
-                .c53 {
-                    height: 9.8pt
-                }
-
-                .c56 {
-                    height: 27.1pt
-                }
-
-                .c25 {
-                    height: 22.6pt
-                }
-
-                .c80 {
-                    margin-right: 25.5pt
-                }
-
-                .c79 {
-                    margin-right: 8.1pt
-                }
-
-                .c52 {
-                    height: 3.5pt
-                }
-
-                .c37 {
-                    margin-left: 56.7pt
-                }
-
-                .c31 {
-                    margin-right: 28.2pt
-                }
-
-                .c72 {
-                    height: 11pt
-                }
-
-                .title {
-                    padding-top: 24pt;
-                    color: #000000;
-                    font-weight: 700;
-                    font-size: 36pt;
-                    padding-bottom: 6pt;
-                    font-family: "Arial";
-                    line-height: 1.0;
-                    page-break-after: avoid;
-                    text-align: left
-                }
-
-                .subtitle {
-                    padding-top: 18pt;
-                    color: #666666;
-                    font-size: 24pt;
-                    padding-bottom: 4pt;
-                    font-family: "Georgia";
-                    line-height: 1.0;
-                    page-break-after: avoid;
-                    font-style: italic;
-                    text-align: left
-                }
-
-                li {
-                    color: #000000;
-                    font-size: 11pt;
-                    font-family: "Arial"
-                }
-
-                p {
-                    margin: 0;
-                    color: #000000;
-                    font-size: 11pt;
-                    font-family: "Arial"
-                }
-
-                h1 {
-                    padding-top: 0pt;
-                    -webkit-text-decoration-skip: none;
-                    color: #000000;
-                    font-weight: 700;
-                    text-decoration: underline;
-                    text-decoration-skip-ink: none;
-                    font-size: 10.5pt;
-                    padding-bottom: 0pt;
-                    font-family: "Arial";
-                    line-height: 1.0;
-                    text-align: left
-                }
-
-                h2 {
-                    padding-top: 18pt;
-                    color: #000000;
-                    font-weight: 700;
-                    font-size: 18pt;
-                    padding-bottom: 4pt;
-                    font-family: "Arial";
-                    line-height: 1.0;
-                    page-break-after: avoid;
-                    text-align: left
-                }
-
-                h3 {
-                    padding-top: 14pt;
-                    color: #000000;
-                    font-weight: 700;
-                    font-size: 14pt;
-                    padding-bottom: 4pt;
-                    font-family: "Arial";
-                    line-height: 1.0;
-                    page-break-after: avoid;
-                    text-align: left
-                }
-
-                h4 {
-                    padding-top: 12pt;
-                    color: #000000;
-                    font-weight: 700;
-                    font-size: 12pt;
-                    padding-bottom: 2pt;
-                    font-family: "Arial";
-                    line-height: 1.0;
-                    page-break-after: avoid;
-                    text-align: left
-                }
-
-                h5 {
-                    padding-top: 11pt;
-                    color: #000000;
-                    font-weight: 700;
-                    font-size: 11pt;
-                    padding-bottom: 2pt;
-                    font-family: "Arial";
-                    line-height: 1.0;
-                    page-break-after: avoid;
-                    text-align: left
-                }
-
-                h6 {
-                    padding-top: 10pt;
-                    color: #000000;
-                    font-weight: 700;
-                    font-size: 10pt;
-                    padding-bottom: 2pt;
-                    font-family: "Arial";
-                    line-height: 1.0;
-                    page-break-after: avoid;
-                    text-align: left
-                }</style>
-        </head>
-
-        <div style="height:120px;"><p class="c74">
-                 <span
-                     style="float: left;overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 89.73px; height: 101.20px;">
-                    <img alt="" src="images/image1.png"
-                         style="width: 89.73px; height: 101.20px; margin-left: -0.00px; margin-top: -0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                         title=""></span></p>
-
-            <span class="c5">&#272;c: 102B, T&#259;ng Nh&#417;n Ph&uacute;, Ph&#432;&#7901;ng T&#259;ng Nh&#417;n Ph&uacute; B, Qu&#7853;n 9, Tp HCM</span>
-            <span class="c5"><br>C&Ocirc;NG TY TNHH TH&#431;&#416;NG M&#7840;I D&#7882;CH V&#7908; HOA TECHNOLOGY</span>
-            <span class="c35"><br></span>
-            <p class="c75"><span class="c5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#272;i&#7879;n tho&#7841;i:&nbsp;</span><span
-                    class="c50">0988.196. 169 &nbsp;- Website: &nbsp;www.hoatech.vn &nbsp; - &nbsp; Email :&nbsp;</span><span
-                    class="c5">contact@hoatech.vn</span></p>
-            <p class="c60"><span class="c17"></span></p></div>
-        <p class="c46"><span
-                class="c0">C&#7896;NG H&Ograve;A X&Atilde; H&#7896;I CH&#7910; NGH&#296;A VI&#7878;T NAM</span></p>
-        <p class="c46"><span
-                class="c7">&#272;&#7897;c l&#7853;p &ndash; T&#7921; do &ndash; H&#7841;nh Ph&uacute;c</span></p>
-        <p class="c46"><span class="c3">---------o0o--------</span></p>
-        <p class="c46 c72"><span class="c29"></span></p>
-        <p class="c92">
-            <span class="c35">&nbsp; &nbsp; &nbsp;H&#7906;P &#272;&#7890;NG CUNG C&#7844;P D&#7882;CH V&#7908; L&#431;U TR&#7918; D&#7918; LI&#7878;U TR&Ecirc;N INTERNET</span>
-        </p>
-        <p class="c78">
-            <span class="c35">MA:&hellip;..</span></p>
-        <ul class="c1 lst-kix_list_8-0 start">
-            <li class="c28 c32"><span class="c20 c34">C&#259;n c&#7913; B&#7897; Lu&#7853;t D&acirc;n S&#7921; c&#7911;a n&#432;&#7899;c CHXHCNVN n&#259;m 2005;</span>
-            </li>
-            <li class="c28 c32"><span class="c20 c34">C&#259;n c&#7913; Lu&#7853;t Th&#432;&#417;ng m&#7841;i Vi&#7879;t Nam n&#259;m 2005;</span>
-            </li>
-            <li class="c28 c32"><span class="c20 c34">C&#259;n c&#7913; c&aacute;c v&#259;n b&#7843;n ph&aacute;p lu&#7853;t v&#7873; vi&#7877;n th&ocirc;ng;</span>
-            </li>
-            <li class="c28 c32"><span class="c20 c34">H&ocirc;m nay, ng&agrave;y &hellip; th&aacute;ng &hellip; n&#259;m &hellip;.., t&#7841;i c&ocirc;ng ty </span><span
-                    class="c20 c88">TNHH TH&#431;&#416;NG M&#7840;I D&#7882;CH V&#7908; HOA TECHNOLOGY</span><span
-                    class="c20 c34">&nbsp;ch&uacute;ng t&ocirc;i g&#7891;m c&oacute;:</span><span
-                    class="c0">&nbsp;</span></li>
-        </ul>
-        <p class="c18 c91"><span class="c0"></span></p><a id="t.6416bbd2cfdbb79d2e0714aedbd3f22009061874"></a><a
-            id="t.0"></a>
-
-        <form action="{{route("admin.contract.viewSW")}}" method="POST" enctype="multipart/form-data" id="form_dk">
-            {{--            <input type="hidden" name="id" value="{{isset($info->id) ? $info->id: ''}}">--}}
-            @csrf
-            <table style="width: 88%" class="c42">
-                <tr class="c26">
-                    <td class="c76" colspan="6" rowspan="1"><p class="c2">
-                            <strong>Bên A:</strong>
-                            <input style="width: 300px;" type="text" id="nameA" name="nameA">
-                            <span class="c3">&nbsp;</span>
-                            <span class="c35"></span></p></td>
-                </tr>
-                <tr class="c26">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28"><span class="c27">Ng&#432;&#7901;i &#273;&#7841;i di&#7879;n: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
-                        </p></td>
-                    <td class="c54" colspan="2" rowspan="1">
-                        <p class="c28">
-
-
-                            {{--                       Thông tin bên A--}}
-                            {{--                        tên--}}
-                            <span></span>
-                            <select onchange="selectName(this)" type="text"
-                                    class="form-control"
-                                    name="name"
-                                    value=" ">
-                                <option value=" ">Choose Name</option>
-                                @foreach($info as $ht)
-                                    <option value="{{$ht->name}}"
-                                            @if(isset($ht->id))
-                                            selected
-                                            @endif
-                                            data-email="{{$ht->email}}"
-                                            data-address="{{$ht->address}}"
-                                            data-phone="{{$ht->phone_number}}"
-                                    >{{$ht->name}}</option>
-                                @endforeach
-                            </select>
-                        <p class="help-block text-danger"></p>
-                        @if($errors->has('name'))
-                            <p class="help-block text-danger">
-                                {{ $errors->first('name') }}
-                            </p>
-                        @endif
-
-                        <p class="help-block text-danger"></p>
-
-
-                    </td>
-                    <td class="c19" colspan="2" rowspan="1"><p class="c28 c79"><span
-                                class="c27">Ch&#7913;c v&#7909;: </span></p></td>
-                    <td class="c13" colspan="1" rowspan="1"><p class="c28 c83">
-                            {{--                       chức vụ--}}
-                            {{--                        <span class="c7 c81">sinh viên</span>--}}
-                            <input type="text" id="position" name="position" value="">
-                        </p></td>
-                </tr>
-                <tr class="c24">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28">
-                            <span class="c27">&#272;&#7883;a ch&#7881;:</span></p></td>
-                    <td class="c6" colspan="5" rowspan="1"><p class="c28 c33">
-                            {{--địa chỉ--}}
-                            <input id="address" type="text" style="width: 500px;"
-                                   name="address" readonly
-                                   value="">
-                        <p class="help-block text-danger"></p>
-                        @if($errors->has('address'))
-                        </p>
-                        <p class="help-block text-danger">
-                            {{ $errors->first('address') }}
-                            @endif
-                        </p></td>
-                </tr>
-                <tr class="c53">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28"><span class="c27">&#272;i&#7879;n tho&#7841;i:</span>
-                        </p></td>
-                    <td class="c51" colspan="1" rowspan="1"><p class="c28">
-                            {{--số điện thoại--}}
-                            <input id="telephone" type="text"
-                                   name="telephone" readonly
-                                   value="">
-                        <p class="help-block text-danger"></p>
-                        @if($errors->has('telephone'))
-                            <p class="help-block text-danger">
-                                {{ $errors->first('telephone') }}
-                            </p>
-                            @endif
-                            </p></td>
-                    <td class="c15" colspan="2" rowspan="1"><p class="c2"><span
-                                class="c3">&nbsp; &nbsp;S&#7889; Fax:</span></p></td>
-                    <td class="c58" colspan="2" rowspan="1"><p class="c2">
-                            {{--số  fax--}}
-                            <input type="text" id="fax" name="fax" value="">
-
-                        </p></td>
-                </tr>
-                <tr class="c53">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28">
-                            <span class="c27">S&#7889; t&agrave;i kho&#7843;n: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
-                        </p></td>
-                    <td class="c51" colspan="1" rowspan="1"><p class="c2">
-                            {{--                       số tài khoản--}}
-                            {{--                        <span class="c0">số tài khoản</span>--}}
-                            <input type="text" id="account_number" name="account_number" value="">
-                        </p></td>
-                    <td class="c15" colspan="2" rowspan="1"><p class="c2"><span class="c3">M&#7903; t&#7841;i:</span>
-                        </p></td>
-                    <td class="c58" colspan="2" rowspan="1"><p class="c2">
-                            {{-- Mở tại--}}
-
-                            <input type="text" id="open_at" name="open_at" value="">
-                        </p></td>
-                </tr>
-                <tr class="c52">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c2"><span class="c3">M&atilde; s&#7889; thu&#7871;:</span><span
-                                class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p></td>
-                    <td class="c51" colspan="1" rowspan="1"><p class="c2">
-                            {{--số thuế--}}
-                            <input type="text" id="tax_number" name="tax_number" value="">
-                        </p></td>
-                    <td class="c22" colspan="1" rowspan="1"><p class="c2"><span class="c3">Email</span></p></td>
-                    <td class="c73" colspan="3" rowspan="1">
-                        <p class="c2 c72">
-                            {{-- địa chỉ email--}}
-                            <input id="email" type="text"
-                                   name="email" readonly
-                                   value="">
-                        <p class="help-block text-danger"></p>
-                        @if($errors->has('price'))
-                            <p class="help-block text-danger">
-                                {{ $errors->first('price') }}
-                            </p>
-                            @endif
-
-
-                            </p></td>
-                </tr>
-                <tr class="c70">
-                    <td class="c76" colspan="6" rowspan="1"><p class="c28 c79">
-
-
-                            <span class="c7">B&ecirc;n B: C&Ocirc;NG TY TNHH TH&#431;&#416;NG M&#7840;I D&#7882;CH V&#7908; HOA TECHNOLOGY</span>
-                        </p></td>
-                </tr>
-                <tr class="c89">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28"><span class="c34">Ng&#432;&#7901;i &#273;&#7841;i di&#7879;n:</span>
-                        </p></td>
-                    <td class="c54" colspan="2" rowspan="1"><p class="c28"><span
-                                class="c7">L&ecirc; Thanh Ho&agrave;</span></p></td>
-                    <td class="c19" colspan="2" rowspan="1"><p class="c28"><span
-                                class="c34">Ch&#7913;c v&#7909;: </span></p></td>
-                    <td class="c13" colspan="1" rowspan="1"><p class="c28"><span
-                                class="c7">Gi&aacute;m &#273;&#7889;c</span></p></td>
-                </tr>
-                <tr class="c26">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28"><span
-                                class="c34">&#272;&#7883;a ch&#7881;:</span></p></td>
-                    <td class="c6" colspan="5" rowspan="1"><p class="c28 c33"><span class="c7">102B T&#259;ng Nh&#417;n Ph&uacute;, Ph&#432;&#7901;ng T&#259;ng Nh&#417;n Ph&uacute;, Qu&#7853;n 9, TPHCM</span>
-                        </p></td>
-                </tr>
-                <tr class="c26">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28"><span class="c34">S&#7889; &#273;i&#7879;n tho&#7841;i:</span>
-                        </p></td>
-                    <td class="c51" colspan="1" rowspan="1"><p class="c28"><span class="c7">0988 196 169</span></p></td>
-                    <td class="c15" colspan="2" rowspan="1"><p class="c28"><span
-                                class="c3">&nbsp; &nbsp;S&#7889; Fax: </span></p></td>
-                    <td class="c58" colspan="2" rowspan="1"><p class="c18"><span class="c3"></span></p></td>
-                </tr>
-                <tr class="c26">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28"><span class="c34">S&#7889; t&agrave;i kho&#7843;n: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
-                        </p></td>
-                    <td class="c51" colspan="1" rowspan="1"><p class="c28"><span class="c7">130813888</span></p></td>
-                    <td class="c15" colspan="2" rowspan="1"><p class="c28"><span class="c34">&nbsp; &nbsp;M&#7903; t&#7841;i Ng&acirc;n h&agrave;ng:</span>
-                        </p></td>
-                    <td class="c58" colspan="2" rowspan="1"><p class="c28"><span class="c7">&Aacute; Ch&acirc;u ACB &ndash; Qu&#7853;n 9</span>
-                        </p></td>
-                </tr>
-                <tr class="c26">
-                    <td class="c10" colspan="1" rowspan="1"><p class="c28"><span class="c34">M&atilde; s&#7889; thu&#7871;:</span>
-                        </p></td>
-                    <td class="c51" colspan="1" rowspan="1"><p class="c28"><span class="c7">0313275605</span></p></td>
-                    <td class="c22" colspan="1" rowspan="1"><p class="c28"><span class="c34">Email</span></p></td>
-                    <td class="c73" colspan="3" rowspan="1"><p class="c28"><span class="c7">contact@hoatech.vn</span>
-                        </p></td>
-                </tr>
-            </table>
-
-
-
-            <h4 style="text-align: center"><b>CHI TIẾT HỢP ĐỒNG</b></h4>
-            <p class="c18 c31"><span class="c3"></span></p><a id="t.6e7bac4e419786072c86b10c973cea5a54a1dbe4"></a><a
-                id="t.1"></a>
-
-            <div class="tdhv">
-                <div style="margin-left: 20px;" class="row">
-
-                    <div class="form-group col-md-3">
-                        <div class="col-xs-12 form-group">
-                            <label>Tên hang hóa, dịch vụ *</label>
-                            <select onchange="selectSWare(this)" type="text"
-                                    class="form-control"
-                                    id="nameSW"
-                                    name="nameSW[]"
-                                    value=" ">
-                                <option value=" ">Chọn phần mềm</option>
-                                @foreach($software as $sw)
-                                    <option value="{{$sw->id}}"
-                                            @if(isset($sw->id))
-                                            selected
-                                            @endif
-                                            data-price="{{$sw->price}}"
-                                    >{{$sw->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <div class="col-xs-12 form-group">
-                            <label>Đơn giá(VNĐ) *</label>
-                            <input id="price" type="text"
-                                   name="price" readonly
-                                   value="">
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <div class="col-xs-12 form-group">
-                            <label>Số lượng *</label><br>
-                            <input id="quantity" type="text" name="quantity" data-id="quantity" value="">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group col-md-3">
-                        <label>Thành tiền(VNĐ) *</label>
-                        <div class="col-xs-12 form-group">
-                            <input id="total" type="text" name="total" readonly value="">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row event" STYLE="float: right" style="margin-bottom: 5px">
-                    <a id="bt_contract_sw" class="btn btn-default">Thêm</a>
-                </div>
+            <div class="card-header card-header-new">
+                Tạo hợp đồng thiết kế website
             </div>
+            <div class="card-body">
+                <form action="{{route("admin.contract.viewSW")}}" novalidate class="needs-validation" method="POST"
+                      enctype="multipart/form-data"
+                      id="form_dk">
+                    {{--            <input type="hidden" name="id" value="{{isset($info->id) ? $info->id: ''}}">--}}
+                    @csrf
+                    <input type="hidden" name="id" value="{{isset($contract->id) ? $contract->id: ''}}">
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Bên A<span class="aster">*</span></label>
+                                        <input type="text" id="nameStore" class="form-control" name="nameStore"
+                                               value="{{isset($contract->nameStore) ? old('nameStore', $contract->nameStore) : old('nameStore')}}"
+                                               readonly>
+                                        <p class="help-block text-danger"></p>
+
+                                        @if($errors->has('nameStore'))
+                                            <p class="help-block text-danger">
+                                                {{ $errors->first('nameStore') }}
+                                            </p>
+                                        @endif
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="col-xs-12 form-group">
+                                        <label>Người đại diện <span class="aster">*</span></label>
+                                        <select onchange="selectName(this)" type="text"
+                                                class="form-control"
+                                                name="name" required>
+                                            <option selected="selected" value="">Chọn tên</option>
+                                            @foreach($info as $ht)
+                                                <option value="{{$ht->name}}"
+                                                        {{--                                                            @if(isset($contract->id_customer) && $contract->id_customer === $ht->id)--}}
+                                                        {{--                                                            selected--}}
+                                                        {{--                                                            @endif--}}
+                                                        data-id_customer="{{$ht->id}}"
+                                                        data-email="{{$ht->email}}"
+                                                        data-address="{{$ht->address}}"
+                                                        data-phone="{{$ht->phone_number}}"
+                                                        data-a="{{$ht->nameStore}}"
+                                                        data-position="{{$ht->position}}"
+                                                        data-fax_number="{{$ht->fax_number}}"
+                                                        data-tax_number="{{$ht->tax_number}}"
+                                                        data-account_number="{{$ht->account_number}}"
+                                                        data-open_at="{{$ht->open_at}}"
+                                                >{{$ht->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Tên khách hàng không được trống.
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <input type="hidden" id="id_customer" class="form-control" readonly
+                                   name="id_customer" required
+                                   value="{{isset($contract->id_customer) ? old('id_customer', $contract->id_customer) : old('id_customer')}}"
+                            >
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Chức vụ<span class="aster">*</span></label>
+                                        <input type="text" id="position" class="form-control" readonly
+                                               name="position"
+                                               value="{{isset($contract->position) ? old('position', $contract->position) : old('position')}}"
+                                        >
+                                        <p class="help-block text-danger"></p>
+
+                                        @if($errors->has('position'))
+                                            <p class="help-block text-danger">
+                                                {{ $errors->first('position') }}
+                                            </p>
+                                        @endif
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Địa chỉ<span class="aster">*</span></label>
+                                        <input id="address" class="form-control" type="text" style="width: 100%;"
+                                               name="address" readonly
+                                               value="{{isset($contract->address) ? old('address', $contract->address) : old('address')}}">
+                                        <p class="help-block text-danger"></p>
+                                        @if($errors->has('address'))
+                                        </p>
+                                        <p class="help-block text-danger">
+                                            {{ $errors->first('address') }}
+                                            @endif
+                                        </p></td>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Số điện thoại<span class="aster">*</span></label>
+                                        <input id="telephone" class="form-control" type="text"
+                                               name="phone_number" readonly
+                                               value="{{isset($contract->phone_number) ? old('phone_number', $contract->phone_number) : old('phone_number')}}">
+                                        <p class="help-block text-danger"></p>
+                                        @if($errors->has('telephone'))
+                                            <p class="help-block text-danger">
+                                                {{ $errors->first('telephone') }}
+                                            </p>
+                                        @endif
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Số Fax<span class="aster">*</span></label>
+                                        <input type="text" class="form-control" id="fax_number" name="fax_number"
+                                               value="{{isset($contract->fax_number) ? old('fax_number', $contract->fax_number) : old('fax_number')}}"
+                                               readonly>
+                                        <p class="help-block text-danger"></p>
+                                        @if($errors->has('address'))
+                                        </p>
+                                        <p class="help-block text-danger">
+                                            {{ $errors->first('address') }}
+                                            @endif
+                                        </p></td>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Số tài khoản<span class="aster">*</span></label>
+                                        <input type="text" class="form-control" id="account_number"
+                                               name="account_number"
+                                               value="{{isset($contract->account_number) ? old('account_number', $contract->account_number) : old('account_number')}}"
+                                               readonly>
+                                        <p class="help-block text-danger"></p>
+                                        @if($errors->has('account_number'))
+                                            <p class="help-block text-danger">
+                                                {{ $errors->first('account_number') }}
+                                            </p>
+                                        @endif
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Mở tại<span class="aster">*</span></label>
+                                        <input type="text" class="form-control" id="open_at" name="open_at" readonly
+                                               value="{{isset($contract->open_at) ? old('open_at', $contract->open_at) : old('open_at')}}">
+                                        <p class="help-block text-danger"></p>
+                                        @if($errors->has('address'))
+                                        </p>
+                                        <p class="help-block text-danger">
+                                            {{ $errors->first('address') }}
+                                            @endif
+                                        </p></td>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Mã số thuế<span class="aster">*</span></label>
+                                        <input type="text" class="form-control" id="tax_number" name="tax_number"
+                                               value="{{isset($contract->tax_number) ? old('tax_number', $contract->tax_number) : old('tax_number')}}"
+                                               readonly>
+                                        <p class="help-block text-danger"></p>
+                                        @if($errors->has('account_number'))
+                                            <p class="help-block text-danger">
+                                                {{ $errors->first('account_number') }}
+                                            </p>
+                                        @endif
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <div class="form-group col-xs-12">
+                                        <label>Email<span class="aster">*</span></label>
+                                        <input id="email" type="text" class="form-control"
+                                               name="email" readonly
+                                               value="{{isset($contract->email) ?  old('email', $contract->email) : old('email')}}">
+                                        <p class="help-block text-danger"></p>
+                                        @if($errors->has('address'))
+                                        </p>
+                                        <p class="help-block text-danger">
+                                            {{ $errors->first('address') }}
+                                            @endif
+                                        </p></td>
+
+                                    </div>
+                                </div>
+                            </div>
 
 
-            <div class="">
-                <div class="content-content">
-                    <h4 style="text-align: center"><b>BẢNG HỢP ĐỒNG</b></h4>
-                    <table
-                        id="tb_hopdong" class="table table-hover tm-table-small ">
-                        <tr>
-                            <th scope="col">&nbsp;</th>
-                            <th scope="col">Tên hàng hóa, dịch vụ</th>
-                            <th scope="col">Đơn giá(VNĐ)</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Thành tiền(VNĐ)</th>
-                        </tr>
+                        </div>
+                    </div>
+                    <h4 style="text-align: center"><b>CHI TIẾT HỢP ĐỒNG</b></h4>
+                    <p class="c18 c31"><span class="c3"></span></p><a
+                        id="t.6e7bac4e419786072c86b10c973cea5a54a1dbe4"></a><a
+                        id="t.1"></a>
 
-                    </table>
-                </div>
+                    <div class="tdhv">
+                        <div style="margin-left: 20px;" class="row">
+                            <input type="hidden" id="id_website" class="form-control" readonly name="id_website"
+                                   value=""
+                                   style="margin-top: 5px; margin-left: 3px">
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Tên hàng hóa, dịch vụ *</label>
+                                    <select onchange="selectSWare(this)" type="text"
+                                            class="form-control"
+                                            id="nameSW"
+                                            name="nameSW" required
+                                    >
+                                        <option selected="selected" value="">Chọn phần mềm</option>
+                                        @foreach($website as $sw)
+                                            <option value="{{$sw->name}}"
+                                                    {{--                                            @if(isset($sw->id))--}}
+                                                    {{--                                            selected--}}
+                                                    {{--                                            @endif--}}
+                                                    data-price="{{$sw->price}}"
+                                                    data-id_website="{{$sw->id}}"
+                                            >{{$sw->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Tên phần mềm không được trống.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Đơn giá(VNĐ) *</label>
+                                    <input id="price" type="text" class="form-control"
+                                           name="price" readonly
+                                           value="" data-id="price">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Số lượng *</label><br>
+                                    <input id="quantity" type="text" required class="form-control" name="quantity"
+                                           data-id="quantity"
+                                           value="">
+                                    <div class="invalid-feedback">
+                                        Số lượng không được trống.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-3">
+                                <label>Thành tiền(VNĐ) *</label>
+                                <div class="col-xs-12 form-group">
+                                    <input id="total" type="text" class="form-control" name="total" readonly value="0">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {{--                <div class="row event" STYLE="float: right" style="margin-bottom: 5px">--}}
+                        {{--                    <a id="bt_contract_sw" class="btn btn-default">Thêm</a>--}}
+                        {{--                </div>--}}
+                    </div>
+                    <div style="margin-left: 20px;" class="row">
+                        <input type="hidden" id="id_hosting" class="form-control" readonly name="id_hosting"
+                               value=""
+                               style="margin-top: 5px; margin-left: 3px">
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Tên hosting *</label>
+                                <select onchange="selectNamehosting(this)" type="text"
+                                        class="form-control"
+                                        id="name_hosting"
+                                        name="name_hosting" required
+                                        value="" style="margin-top: 5px;">
+                                    <option selected="selected" value="">Chọn hosting</option>
+                                    @foreach($hosting as $hting)
+                                        <option value="{{$hting->capacity}}"
+                                                {{--                                            @if(isset($hting->id))--}}
+                                                {{--                                            selected--}}
+                                                {{--                                            @endif--}}
+                                                data-price_hosting="{{$hting->price}}"
+                                                data-id_hosting="{{$hting->id}}"
+
+                                        >{{$hting->capacity}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">
+                                    Tên hosting không được trống.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Đơn giá(VNĐ) *</label>
+                                <input type="text" id="price_hosting" class="form-control" readonly name="price_hosting"
+                                       value="" data-id="price_hosting"
+                                       style="margin-top: 5px; margin-left: 3px">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Số lượng *</label><br>
+                                <input id="quantity_hosting" type="text" data-id="quantity_hosting" class="form-control"
+                                       name="quantity_hosting" data-id="quantity" required
+                                       value="" style="margin-top: 5px; margin-left: 3px">
+                                <div class="invalid-feedback">
+                                    Số lượng không được trống.
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-md-3">
+                            <label>Thành tiền(VNĐ) *</label>
+                            <div class="col-xs-12 form-group">
+                                <input id="total_hosting" type="text" class="form-control" name="total_hosting" readonly
+                                       value="0" style="margin-top: 5px; margin-left: 3px">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+                        <div style="margin-left: 20px;" class="row">
+                            <input type="hidden" id="id_ssl" class="form-control" readonly name="id_ssl"
+                                   value=""
+                                   style="margin-top: 5px; margin-left: 3px">
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Tên SSL *</label>
+                                    <select onchange="selectNamessl(this)" type="text"
+                                            class="form-control"
+                                            name="name_ssl"
+                                            id="name_ssl" required
+                                            value="" style="margin-top: 5px;">
+                                        <option selected="selected" value="">Chọn SSL</option>
+                                        @foreach($ssl as $ss)
+                                            <option value="{{$ss->name}}"
+                                                    {{--                                            @if(isset($ss->id))--}}
+                                                    {{--                                            selected--}}
+                                                    {{--                                            @endif--}}
+                                                    data-price_ssl="{{$ss->price}}"
+                                                    data-id_ssl="{{$ss->id}}"
+                                            >{{$ss->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Tên SSL không được trống.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Đơn giá(VNĐ) *</label>
+                                    <input type="text" id="price_ssl" data-id="price_ssl" class="form-control" readonly
+                                           name="price_ssl"
+                                           value=""
+                                           style="margin-top: 5px; margin-left: 3px">
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Số lượng *</label><br>
+                                    <input id="quantity_ssl" type="text" data-id="quantity_ssl" class="form-control"
+                                           name="quantity_ssl" required
+                                           data-id="quantity"
+                                           value="" style="margin-top: 5px; margin-left: 3px">
+                                    <div class="invalid-feedback">
+                                        Số lượng không được trống.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-3">
+                                <label>Thành tiền(VNĐ) *</label>
+                                <div class="col-xs-12 form-group">
+                                    <input id="total_ssl" type="text" class="form-control" name="total_ssl" readonly
+                                           value="0"
+                                           style="margin-top: 5px; margin-left: 3px">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div>
+                        <div style="margin-left: 20px;" class="row">
+                            <input type="hidden" id="id_domain" class="form-control" readonly name="id_domain"
+                                   value=""
+                                   style="margin-top: 5px; margin-left: 3px">
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Tên miền *</label>
+                                    <select onchange="selectNamedomain(this)" type="text"
+                                            class="form-control"
+                                            id="name_domain" required
+                                            name="name_domain"
+                                            value="" style="margin-top: 5px;">
+                                        <option selected="selected" value="">Chọn tên miền</option>
+                                        @foreach($domain as $do)
+                                            <option value="{{$do->name}}"
+                                                    {{--                                            @if(isset($do->id))--}}
+                                                    {{--                                            selected--}}
+                                                    {{--                                            @endif--}}
+                                                    data-price_domain="{{$do->fee_register}}"
+                                                    data-price_remain="{{$do->fee_remain}}"
+                                                    data-id_domain="{{$do->id}}"
+
+                                            >{{$do->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Tên miền không được trống.
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="price_domain_remain" class="form-control" readonly
+                                   name="price_domain_remain"
+                                   value=""
+                                   style="margin-top: 5px; margin-left: 3px">
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Đơn giá(VNĐ) *</label>
+                                    <input type="text" id="price_domain" data-id="price_domain" class="form-control"
+                                           readonly
+                                           name="price_domain"
+                                           value=""
+                                           style="margin-top: 5px; margin-left: 3px">
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="col-xs-12 form-group">
+                                    <label>Số lượng *</label><br>
+                                    <input id="quantity_domain" data-id="quantity_domain" type="text"
+                                           class="form-control" required
+                                           name="quantity_domain"
+                                           data-id="quantity"
+                                           value="" style="margin-top: 5px; margin-left: 3px">
+                                    <div class="invalid-feedback">
+                                        Số lượng không được trống.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Thành tiền(VNĐ) *</label>
+                                <div class="col-xs-12 form-group">
+                                    <input id="total_domain" type="text" class="form-control" name="total_domain"
+                                           readonly
+                                           value="0" style="margin-top: 5px; margin-left: 3px">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div style="margin-left: 20px;" class="row">
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Tgian cung cấp thông tin *</label>
+
+                                    <input id="date_infor" class="form-control" required type="text" name="date_infor" value=""
+                                    >
+                                <div class="invalid-feedback">
+                                    Thời gian cung cấp thông tin không được trống.
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Tgian thiết kế demo *</label>
+
+                                    <input id="date_demo" required class="form-control" type="text" name="date_demo" value=""
+                                    >
+                                <div class="invalid-feedback">
+                                    Thời gian demo không được trống.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Tgian thiết kế lập trình *</label>
+
+                                    <input id="date_code" required class="form-control" type="text" name="date_code" value=""
+                                    >
+
+                                <div class="invalid-feedback">
+                                    Thời gian thiết kế không được trống.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Tgian nghiệm thu *</label>
+
+                                    <input id="date_test" required class="form-control" type="text" name="date_test" value=""
+                                    >
+
+                                <div class="invalid-feedback">
+                                    Thời gian nghiệm thu không được trống.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div style="margin-left: 20px;" class="row">
+{{--                        <div class="form-group col-md-3">--}}
+{{--                            <div class="col-xs-12 form-group">--}}
+{{--                                <label>Thuế 10%</label>--}}
+{{--                                <input readonly id="vat10" type="text" name="vat10" class="form-control">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Thời gian hoàn thành Website *</label>
+                                <input id="date_finish" class="form-control" required type="number" name="date_finish"
+                                       value=""
+                                >
+
+                                <div class="invalid-feedback">
+                                    Thời gian hoàn thành không được trống.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Thành tiền</label>
+                                <input readonly id="total_all" type="text" name="total_all" class="form-control"
+                                       value="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Mã khuyến mãi</label>
+                                <input id="promotion" type="text" name="promotion" class="form-control"
+                                       value="{{isset($contract->promotion) ?  old('promotion', $contract->promotion) : old('promotion')}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <div class="col-xs-12 form-group">
+                                <label>Số tiền khuyến mãi</label>
+
+                                <input id="discount" type="number" name="discount" class="form-control"
+                                       value="{{isset($contract->discount_price) ?  old('discount', $contract->discount_price) : old('discount')}}"
+                                >
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <hr>
+
+                    <button class="btn btn-default">{{ __('general.save') }}</button>
+                    <a href="{{ route('admin.contract.index') }}"
+                       class="btn btn-default">{{ __('general.back') }}</a>
+                </form>
             </div>
-            <button class="btn btn-info">{{ __('general.save') }}</button>
-        </form>
-        </html>
-    </div>
+        </div>
+
+    </section>
 @stop
 
-<script>
+@section('javascript')
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script>
+        window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="/docs/4.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous">
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation')
+
+                // Loop over them and prevent submission
+                Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            }, false)
+        }())
+    </script>
+
+    <script>
+    function selectNamessl(obj) {
+        var data_price_ssl = $(obj).find(':selected').data('price_ssl');
+        var price_ssl = document.getElementById('price_ssl');
+        price_ssl.value = data_price_ssl;
+        $('#name_ssl').on('change', function () {
+
+            var quantity = $('input[data-id="quantity_ssl"]').val();
+            total_ssl.value = data_price_ssl * parseInt(quantity);
+            calculatorTotal();
+        });
+        $('#quantity_ssl').keyup(function () {
+            var quantity = $('input[data-id="quantity_ssl"]').val();
+            total_ssl.value = data_price_ssl * parseInt(quantity);
+            calculatorTotal();
+        });
+        var data_id_ssl = $(obj).find(':selected').data('id_ssl');
+        var id_ssl = document.getElementById('id_ssl');
+        id_ssl.value = data_id_ssl;
+        calculatorTotal();
+    }
+
+    function selectNamedomain(obj) {
+        var data_price_domain = $(obj).find(':selected').data('price_domain');
+        var price_domain = document.getElementById('price_domain');
+        price_domain.value = data_price_domain;
+        $('#name_domain').on('change', function () {
+
+            var quantity = $('input[data-id="quantity_domain"]').val();
+            total_domain.value = data_price_domain * parseInt(quantity);
+            calculatorTotal();
+        });
+        $('#quantity_domain').keyup(function () {
+            var quantity = $('input[data-id="quantity_domain"]').val();
+            total_domain.value = data_price_domain * parseInt(quantity);
+            calculatorTotal();
+        });
+        var data_price_domain_remain = $(obj).find(':selected').data('price_remain');
+        var price_domain_remain = document.getElementById('price_domain_remain');
+        price_domain_remain.value = data_price_domain_remain;
+        var data_id_domain = $(obj).find(':selected').data('id_domain');
+        var id_domain = document.getElementById('id_domain');
+        id_domain.value = data_id_domain;
+        calculatorTotal();
+    }
+
+    function selectNamehosting(obj) {
+        var data_price_hosting = $(obj).find(':selected').data('price_hosting');
+        var price_hosting = document.getElementById('price_hosting');
+        price_hosting.value = data_price_hosting;
+        calculatorTotal();
+        $('#name_hosting').on('change', function () {
+
+            var quantity = $('input[data-id="quantity_hosting"]').val();
+
+            tien = data_price_hosting * parseInt(quantity);
+            total_hosting.value = tien;
+            $('#total_hosting').text(tien);
+            total_all.value = parseInt(total_all.value) + tien;
+            calculatorTotal();
+        });
+        $('#quantity_hosting').keyup(function () {
+            var quantity = $('input[data-id="quantity_hosting"]').val();
+            tien = data_price_hosting * parseInt(quantity);
+            total_hosting.value = tien;
+            $('#total_hosting').text(tien);
+            total_all.value = parseInt(total_all.value) + tien;
+            calculatorTotal();
+        });
+        var data_id_hosting = $(obj).find(':selected').data('id_hosting');
+        var id_hosting = document.getElementById('id_hosting');
+        id_hosting.value = data_id_hosting;
+    }
+
     function selectName(obj) {
-        var data_price = $(obj).find(':selected').data('email');
-        var data_capacity = $(obj).find(':selected').data('address');
-        var data_bandwith = $(obj).find(':selected').data('phone');
+        var data_email = $(obj).find(':selected').data('email');
+        var data_address = $(obj).find(':selected').data('address');
+        var data_phone = $(obj).find(':selected').data('phone');
+        var data_nameStore = $(obj).find(':selected').data('a');
+        var data_position = $(obj).find(':selected').data('position');
+        var data_fax_number = $(obj).find(':selected').data('fax_number');
+        var data_tax_number = $(obj).find(':selected').data('tax_number');
+        var data_account_number = $(obj).find(':selected').data('account_number');
+        var data_open_at = $(obj).find(':selected').data('open_at');
+        var data_id_customer = $(obj).find(':selected').data('id_customer');
+        var id_customer = document.getElementById('id_customer');
+        id_customer.value = data_id_customer;
 
         var email = document.getElementById('email');
         var address = document.getElementById('address');
         var telephone = document.getElementById('telephone');
+        var nameStore = document.getElementById('nameStore');
+        var position = document.getElementById('position');
+        var fax_number = document.getElementById('fax_number');
+        var account_number = document.getElementById('account_number');
+        var open_at = document.getElementById('open_at');
+        var tax_number = document.getElementById('tax_number');
 
-        email.value = data_price;
-        address.value = data_capacity;
-        telephone.value = data_bandwith;
-    };
+
+        email.value = data_email;
+        address.value = data_address;
+        telephone.value = data_phone;
+        nameStore.value = data_nameStore;
+        position.value = data_position;
+        fax_number.value = data_fax_number;
+        account_number.value = data_account_number;
+        open_at.value = data_open_at;
+        tax_number.value = data_tax_number;
+
+    }
+
 
     function selectSWare(obj) {
+
         var data_price = $(obj).find(':selected').data('price');
-        // var price = document.getElementById('price');
+
+        // var price = $('#price');
+        $('#price').val(data_price);
+        // price.value = data_price;
+        calculatorTotal();
+        $('#nameSW').on('change', function () {
+            var quantity = $('input[data-id="quantity"]').val();
+            tien = data_price * parseInt(quantity);
+            // total.value =tien;
+            $('#total').text(tien);
+            //   total_all.value= calculatorTotal();
+            calculatorTotal();
+        });
 
         $('#quantity').keyup(function () {
             var quantity = $('input[data-id="quantity"]').val();
-            total.value = data_price * parseInt(quantity);
-        });
-        price.value = data_price;
 
-    };
+            tien = data_price * parseInt(quantity);
+            total.value = tien;
+            $('#total').text(tien);
+            calculatorTotal();
+            //  total.value = data_price * parseInt(quantity);
+            // calculatorTotal();
+        });
+        var data_id_website = $(obj).find(':selected').data('id_website');
+        var id_website = document.getElementById('id_website');
+        id_website.value = data_id_website;
+    }
+
+    function calculatorTotal() {
+        let price_ssl = $('#total_ssl').val();
+        let price_hosting=$('#total_hosting').val();
+        let price_web=$('#total').val();
+        let price_domain=$('#total_domain').val();
+        let total_all = parseInt(price_ssl) + parseInt(price_hosting)+parseInt(price_web)+parseInt(price_domain);
+        $('#total_all').val(total_all);
+        $('#total_all').text(total_all);
+
+    }
+
+    function fomat_curent_VND(number) {
+        var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        })
+        var currentcy = formatter.format(number);
+        return currentcy;
+    }
 
     $(document).ready(function () {
-        var list_hopdong_phanmem = [];
-        var list = [];
+
+
+        // var list_hopdong_phanmem = [];
+        var list_function_home = [];
+        var list_function_product = [];
+        var list_function_different = [];
         var i = 1;
-        $('#bt_contract_sw').click(function () {
-            var tdhv = {
+        // var sum = 0;
+        // $('#bt_contract_sw').click(function () {
+        //     var tdhv = {
+        //         id: i,
+        //         tenhopdong: $('#nameSW option:selected').text(),
+        //         gia: $('#price').val(),
+        //         soluong: $('#quantity').val(),
+        //         thanhtien: $('#total').val(),
+        //     };
+        //     list_hopdong_phanmem.push(tdhv);
+        //
+        //
+        //     message = "<tr><td> " + "<input class='list_hopdong' type='hidden' name='list_hopdong[]' " +
+        //         "value='"
+        //         + tdhv.tenhopdong + ","
+        //         + tdhv.gia + ","
+        //         + tdhv.soluong + ","
+        //         + tdhv.thanhtien + "'>"
+        //         + tdhv.tenhopdong + "</td>" +
+        //         "<td>" + tdhv.gia + "</td>" +
+        //         "<td>" + tdhv.soluong + "</td>" +
+        //         "<td class='thanhtien'>" + tdhv.thanhtien + "</td><td><a class='remove' id =" + tdhv.id + "><i class='fa fa-trash'></i></a></td>" +
+        //         "</tr>";
+        //     $('#tb_hopdong').append(message);
+        //     i++;
+        //
+        //     sum += Number(tdhv.thanhtien);
+        //     console.log(sum);
+        //     $('#total_price').text(sum);
+        // })
+        //
+        //
+        // message = "<tr><th style='width: 80%'>Tổng tiền</th><th  id='total_price'></th></tr>";
+        // // $('#tb_hopdong').append(message);
+        // $('#tb_thanhtien').append(message);
+        //
+
+        $('#bt_function_home').click(function () {
+            var function_homes = {
                 id: i,
-                tenhopdong: $('#nameSW option:selected').text(),
-                gia: $('#price').val(),
-                soluong: $('#quantity').val(),
-                thanhtien: $('#total').val(),
+                // category_page:$('#category_page').val(),
+                function_home: $('#function_home').val()
             };
-            list_hopdong_phanmem.push(tdhv);
+            list_function_home.push(function_homes);
 
-
-
-            message = "<tr><td><a class='remove' id =" + tdhv.id + "><i class='fa fa-trash'></i></a></td>" +
-                "<td> " + "<input class='list_hopdong' type='hidden' name='list_hopdong[]' " +
+            message = "<tr><td> " + "<input class='list_function_home' type='hidden' name='list_function_homes[]' " +
                 "value='"
-                + tdhv.tenhopdong + ","
-                + tdhv.gia + ","
-                + tdhv.soluong + ","
-                + tdhv.thanhtien + "'>"
-                + tdhv.tenhopdong + "</td>" +
-                "<td>" + tdhv.gia + "</td>" +
-                "<td>" + tdhv.soluong + "</td>" +
-                "<td>" + tdhv.thanhtien + "</td></tr>";
-            $('#tb_hopdong').append(message);
+                + function_homes.function_home + "'>" + function_homes.function_home + "</td><td><a class='remove' id ='" + function_homes.id + "'><i class='fa fa-trash'></i></a></td></tr>";
+            $('#tb_function_home').append(message);
+
             i++;
         })
-        $("#tb_hopdong").on("click", ".remove", function () {
-            z = list_hopdong_phanmem.findIndex(obj => obj.id == $(this).attr("id"));
-            list_hopdong_phanmem.splice(z, 1);
+        $("#tb_function_home").on("click", ".remove", function () {
+            z = list_function_home.findIndex(obj => obj.id == $(this).attr("id"));
+            list_function_home.splice(z, 1);
             $(this).closest("tr").remove();
         });
+
+
+        $('#bt_function_product').click(function () {
+            var function_products = {
+                id: i,
+                function_product: $('#function_product').val()
+            };
+            list_function_product.push(function_products);
+
+            message = "<tr><td> " + "<input class='list_function_product' type='hidden' name='list_function_products[]' " +
+                "value='"
+                + function_products.function_product + "'>" + function_products.function_product + "</td><td><a class='remove' id =" + function_products.id + "><i class='fa fa-trash'></i></a></td>" +
+                "</tr>";
+            $('#tb_function_product').append(message);
+            i++;
+        })
+        $("#tb_function_product").on("click", ".remove", function () {
+            z = list_function_product.findIndex(obj => obj.id == $(this).attr("id"));
+            list_function_product.splice(z, 1);
+            $(this).closest("tr").remove();
+        });
+
+
+        $('#bt_function_different').click(function () {
+            var function_differents = {
+                id: i,
+                function_different: $('#function_different').val()
+            };
+            list_function_different.push(function_differents);
+
+            message = "<tr><td> " + "<input class='list_function_different' type='hidden' name='list_function_differents[]' " +
+                "value='"
+                + function_differents.function_different + "'>" + function_differents.function_different + "</td><td><a class='remove' id =" + function_differents.id + "><i class='fa fa-trash'></i></a></td>" +
+                "</tr>";
+            $('#tb_function_different').append(message);
+            i++;
+        })
+        $("#tb_function_different").on("click", ".remove", function () {
+            z = list_function_different.findIndex(obj => obj.id == $(this).attr("id"));
+            list_function_different.splice(z, 1);
+            $(this).closest("tr").remove();
+        });
+
+
+        // $("#tb_hopdong").on("click", ".remove", function () {
+        //     z = list_hopdong_phanmem.findIndex(obj => obj.id == $(this).attr("id"));
+        //     list_hopdong_phanmem.splice(z, 1);
+        //     $(this).closest("tr").remove();
+        // });
     });
 </script>
+@stop

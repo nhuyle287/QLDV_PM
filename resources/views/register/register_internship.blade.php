@@ -1,27 +1,8 @@
 @extends('layout.resgiter')
-@section('css')
+@section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{URL::asset('css/internship.css')}}"/>
-    <style>
-        .eventadd {
-            color: #fff;
-            background-color: #17a2b8;
-            border-color: #17a2b8;
-            box-shadow: none;
-        }
 
-        h4 {
-            color: white;
-            background: #518f92;
-            text-align: center;
-        }
-        .alert{
-            color: #fff;
-            background: #9e9e9eab;
-            border-color: #23923d42;
-            width: 100%
-        }
-    </style>
 @stop
 
 @section('content')
@@ -37,13 +18,19 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <div class="col-xs-12 form-group">
-                                            <h3 class="page-title"
-                                                style="font-weight: bold;">
-                                                Đăng Ký Thực Tập Sinh</h3>
-                                            <h5 style=" size: 10px; font-weight: bold ">CÔNG TY TNHH HI
-                                                TECH THIÊN QUÂN
-                                            </h5>
+                                        <div class="col-xs-12 form-group" style="display: flex">
+                                            <img alt=""
+                                                 src="https://www.hoatech.vn/wp-content/uploads/2015/06/005.png"
+                                                 style="width: 120px; height: 101.20px; margin-left: -0.00px; margin-top: -0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                                                 title="">
+                                            <div style="padding-left: 5px; margin-top: 20px;">
+                                                <h3 class="page-title"
+                                                    style="font-weight: bold;">
+                                                    Đăng Ký Thực Tập Sinh</h3>
+                                                <h5 style=" font-weight: bold ;font-size: 1rem">CÔNG TY TNHH TMDV HOA
+                                                    TECHNOLOGY
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -52,21 +39,16 @@
                                             <div class="infor-contact">
                                                 <div class="address info">
                                                     <i class="fa fa-home"></i>
-                                                    <span>1946 Thien Quan, FL 33020</span>
+                                                    <span>Lô 09, Tòa nhà 4S Riverside Garden, Đường số 17, Hiệp Bình Chánh, Thủ Đức, TPHCM</span>
                                                 </div>
                                                 <div class="phone info">
                                                     <i class="fa fa-phone"></i>
-                                                    <span><a style="color: #333;"
-                                                             href="tel:6692359779">6692359779</a></span>
-                                                </div>
-                                                <div class="email info">
-                                                    <i class="fa fa-envelope-square"></i>
-                                                    <span>contact@gmail.com</span>
+                                                    <span>0868856175</span> - <i class="fa fa-envelope-square" style="margin-left: 2px"></i> <span>contact@hoatech.vn</span>
                                                 </div>
                                                 <div class="website info">
                                                     <i class="fa fa-globe"></i>
-                                                    <span><a style="color: #333;" href="https://ceonail.com/"
-                                                             target="_blank">https://thienquan.com</a></span>
+                                                    <span><a style="color: #333;" href="https://www.hoatech.vn/"
+                                                             target="_blank">https://www.hoatech.vn/</a></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,7 +57,7 @@
                                 <br/>
                                 <h3 class="page-title"
                                     style="font-weight: bold;  font-size: 200%; text-align: center">
-                                   THÔNG TIN ỨNG TUYỂN</h3>
+                                    THÔNG TIN ỨNG TUYỂN</h3>
                                 <br/>
                                 <form method="POST" action="{{route('register.internship.register')}}"
                                       class="needs-validation" enctype="multipart/form-data" id="form_dk">
@@ -98,7 +80,7 @@
 
                                     <div class="panel panel-default">
 
-                                        <div class="panel-body" >
+                                        <div class="panel-body">
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <div class="col-xs-12 form-group">
@@ -725,7 +707,7 @@
                                                 </div>
 
                                             </div>
-
+                                            <p>Tôi xin cam đoan những thông tin trên là đúng</p>
 
                                             <hr>
                                             <button id="submit" class="btn btn-info">Nộp</button>
@@ -759,16 +741,16 @@
     </script>
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function() {
+        (function () {
             'use strict'
 
-            window.addEventListener('load', function() {
+            window.addEventListener('load', function () {
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('needs-validation')
 
                 // Loop over them and prevent submission
-                Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
+                Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault()
                             event.stopPropagation()
@@ -786,21 +768,21 @@
         $(document).ready(function () {
 
             var i = 1;
-            var list_tdhv=[]
+            var list_tdhv = []
             $('#bt').click(function () {
-               let tdhv={
-                    id : i,
-                    thoigian : $('#dateschool').val(),
-                    truong : $('#school').val(),
-                    chuyennganh : $('#major').val(),
-                    bangcap : $('#degree').val(),
-                    loai : $('#loai').val(),
-                    nameloai : $('#loai option:selected').text(),
-               };
+                let tdhv = {
+                    id: i,
+                    thoigian: $('#dateschool').val(),
+                    truong: $('#school').val(),
+                    chuyennganh: $('#major').val(),
+                    bangcap: $('#degree').val(),
+                    loai: $('#loai').val(),
+                    nameloai: $('#loai option:selected').text(),
+                };
                 list_tdhv.push(tdhv);
                 message = "<tr><td><a class='remove' id =" + tdhv.id + "><i class='fa fa-trash'></i></a></td><td> " +
                     "<input class='list_dateschool' type='hidden' name='list_dateschool[]' " +
-                    "value='"+ tdhv.thoigian + "," + tdhv.truong + "," + tdhv.chuyennganh + "," + tdhv.bangcap + "," + tdhv.nameloai + "'>"
+                    "value='" + tdhv.thoigian + "," + tdhv.truong + "," + tdhv.chuyennganh + "," + tdhv.bangcap + "," + tdhv.nameloai + "'>"
                     + tdhv.thoigian + "</td><td>" + tdhv.truong + "</td><td>" + tdhv.chuyennganh + "</td><td>" + tdhv.bangcap + "</td><td>" + tdhv.nameloai + "</td></tr>";
 
                 $('#tb_tdhv').append(message);
@@ -815,14 +797,14 @@
                 $(this).closest("tr").remove();
             });
 
-            var list_cc=[]
+            var list_cc = []
             $('#btcc').click(function () {
-                let chungchi={
-                    id : i,
-                    thoigian : $('#date_cc').val(),
-                    tenchungchi : $('#name_certificate').val(),
-                    noidaotao : $('#training_places').val(),
-                    diem : $('#score').val(),
+                let chungchi = {
+                    id: i,
+                    thoigian: $('#date_cc').val(),
+                    tenchungchi: $('#name_certificate').val(),
+                    noidaotao: $('#training_places').val(),
+                    diem: $('#score').val(),
                 }
                 list_cc.push(chungchi);
                 message = "<tr><td><a class='remove' id =" + chungchi.id + "><i class='fa fa-trash'></i></a></td><td>" +
@@ -837,21 +819,21 @@
                 listcc.splice(z, 1);
                 $(this).closest("tr").remove();
             });
-            var list_project=[]
+            var list_project = []
             $('#btda').click(function () {
-               let project={
-                   id : i,
-                   thoigian : $('#date_project').val(),
-                   tenduan : $('#name_project').val(),
-                   tencongty : $('#name_company').val(),
-                   noidung : $('#content_job').val(),
-               }
+                let project = {
+                    id: i,
+                    thoigian: $('#date_project').val(),
+                    tenduan: $('#name_project').val(),
+                    tencongty: $('#name_company').val(),
+                    noidung: $('#content_job').val(),
+                }
                 list_project.push(project);
-               console.log(list_project);
+                console.log(list_project);
                 message = "<tr><td><a class='remove' id =" + project.id + "><i class='fa fa-trash'></i></a></td><td>"
-               + "<input class='list_datesproject' type='hidden' name='list_datesproject[]' " +
-                "value='" + project.thoigian + "," + project.tenduan + "," + project.tencongty + "," + project.noidung + "'>"
-                + project.thoigian + "</td><td>" + project.tenduan + "</td><td>" + project.tencongty + "</td><td>" + project.noidung + "</td></tr>";
+                    + "<input class='list_datesproject' type='hidden' name='list_datesproject[]' " +
+                    "value='" + project.thoigian + "," + project.tenduan + "," + project.tencongty + "," + project.noidung + "'>"
+                    + project.thoigian + "</td><td>" + project.tenduan + "</td><td>" + project.tencongty + "</td><td>" + project.noidung + "</td></tr>";
                 $('#tb_ctda').append(message);
                 i++;
             })
@@ -876,8 +858,8 @@
                 list_nn.push(ngoaingu);
 
                 message = "<tr><td><a class='remove' id =" + ngoaingu.id + "><i class='fa fa-trash'></i></a></td><td>"
-                +"<input class='list_dateslanguage' type='hidden' name='list_dateslanguage[]' " +
-                "value='" + ngoaingu.ngoainguname + "," + ngoaingu.nghe + "," + ngoaingu.noi + "," + ngoaingu.doc +"," + ngoaingu.viet + "'>"
+                    + "<input class='list_dateslanguage' type='hidden' name='list_dateslanguage[]' " +
+                    "value='" + ngoaingu.ngoainguname + "," + ngoaingu.nghe + "," + ngoaingu.noi + "," + ngoaingu.doc + "," + ngoaingu.viet + "'>"
                     + ngoaingu.ngoainguname + "</td><td>" + ngoaingu.nghe + "</td><td>" + ngoaingu.noi + "</td><td>" + ngoaingu.doc + "</td><td>" + ngoaingu.viet + "</td></tr>";
                 $('#tb_ctnn').append(message);
                 i++;

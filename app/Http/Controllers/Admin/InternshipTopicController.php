@@ -2,41 +2,53 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Academic_Internships;
-use App\Model\Certificate_Internships;
-use App\Model\ConstantsModel;
-use App\Model\Customer;
-use App\Model\Internship;
-use App\Model\InternshipTopic;
-use App\Model\Languages_Internships;
-use App\Model\Project_Internships;
-use App\Model\Topic;
+use App\Models\Academic_Internships;
+use App\Models\Certificate_Internships;
+use App\Models\ConstantsModel;
+use App\Models\Customer;
+use App\Models\Internship;
+use App\Models\InternshipTopic;
+use App\Models\Languages_Internships;
+use App\Models\Project_Internships;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 class InternshipTopicController extends AdminController
 {
-    public function index()
+    public function index(Request $request)
     {
         $status_internship = ConstantsModel::STATUS_INTERNSHIP;
-        //paginate lấy tất cả đối tượng rồi phân trang theo constant.pagination trong config
-        // $internship = Internship::paginate(Config::get('constants.pagination'));
-        $internship_School = db::table('internships')
-            ->join('academic_internships', 'academic_internships.internship_id', '=', 'internships.internship_id')
-            ->join('academic_levels', 'academic_levels.academic_id', '=', 'academic_internships.academic_id')
-            ->join('internship_topic', 'internships.internship_id', '=', 'internship_topic.internship_id')
-            ->select('internships.internship_id', 'internships.name', 'internships.email', 'internships.phone', 'academic_levels.school', 'academic_levels.major', 'internships.date_create', 'internships.status')
-//
-            ->whereNull('internships.deleted_at')
-            ->whereNull('academic_internships.deleted_at')
-            ->whereNull('academic_levels.deleted_at')
-            ->whereNull('internship_topic.deleted_at')
-            ->paginate(Config::get('constants.pagination'));
+        $this->authorize('internship-topic-access');
+
+        $key = isset($request->key) ? $request->key : '';
+        $internship = new InternshipTopic();
+        $internship_School = $internship->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $internship_School = $internship->getAll($key, $request->amount);
+        }
         $internship_topic = db::table('internships')
             ->join('internship_topic', 'internships.internship_id', '=', 'internship_topic.internship_id')
             ->first();
         return view('admin.internship_topic.index', compact('internship_School', 'status_internship', 'internship_topic'));
+    }
+
+    public function searchRow(Request $request)
+    {
+        $internship = new InternshipTopic();
+        $internship_School = $internship->getAll($request->key, 10);
+
+        if (isset($request->amount)) {
+            $internship_School = $internship->getAll($request->key, $request->amount);
+        }
+        $status_internship = ConstantsModel::STATUS_INTERNSHIP;
+
+        $internship_topic = db::table('internships')
+            ->join('internship_topic', 'internships.internship_id', '=', 'internship_topic.internship_id')
+            ->first();
+        return view('admin.internship_topic.search-row', compact('internship_School', 'status_internship', 'internship_topic'));
     }
 
     public function insert()
@@ -71,6 +83,7 @@ class InternshipTopicController extends AdminController
 
     public function Update(Request $request)
     {
+//        dd($request->all());
         //tạo mới đối tượng khi không có request( request trả về null)
         $internship = new Internship();
 
@@ -121,7 +134,7 @@ class InternshipTopicController extends AdminController
 //                chỗ này anh trả về template kiểu json, với trạng thái là 0 tượng trưng cho false
 //                với 1 biến data là giá trị muốn trả về
 //                return response()->json(['data' => $internship, 'status' => 0]);
-                return redirect(route('admin.internship_topic.edit'))->with('loi', 'Bạn chỉ được chọn file có đuôi .jpg .png .jpeg');
+                return redirect(route('admin.internship-topic.edit'))->with('loi', 'Bạn chỉ được chọn file có đuôi .jpg .png .jpeg');
 
             }
             $file->move('images/internship', $name);
@@ -138,10 +151,10 @@ class InternshipTopicController extends AdminController
             $internship_topic->where('internship_id', $internship->internship_id)->update(['topic_id' => $request->id_topic]);
             //  return response()->json(['message' => 'Success', 'status' => 1]);
 
-            return redirect(route('admin.internship_topic.index'))->with('success', 'Success');
+            return redirect(route('admin.internship-topic.index'))->with('success', 'Success');
         } catch (\Exception $e) {
            //            return response()->json(['message' => 'Fail', 'status' => 0]);
-           return redirect(route('admin.internship_topic.index'))->with('fail', 'Fail');
+           return redirect(route('admin.internship-topic.index'))->with('fail', 'Fail');
 
         }
 
@@ -212,10 +225,50 @@ class InternshipTopicController extends AdminController
             $academic_internships->delete();
             $internships->delete();
 
-            return redirect()->route('admin.internship_topic.index')->with('success', 'Xóa Thành Công');
+            return redirect()->route('admin.internship-topic.index')->with('success', 'Xóa Thành Công');
         } catch (\Exception $e) {
             echo($e);
-            return redirect()->route('admin.internship_topic.index')->with('fail', 'Xóa Thất Bại');
+            return redirect()->route('admin.internship-topic.index')->with('fail', 'Xóa Thất Bại');
         }
     }
+
+    public function destroySelect(Request $request)
+    {
+        try {
+            $allVals = explode(',', $request->allValsDelete[0]);
+            if($allVals[0]!=="") {
+                foreach ($allVals as $item) {
+                    $internship_topic = InternshipTopic::where('internship_id', $item);
+                    $academic_internships = Academic_Internships::where('internship_id',$item);
+                    $certificate_internships = Certificate_Internships::where('internship_id', $item);
+                    $languages_internships = Languages_Internships::where('internship_id', $item);
+                    $project_internships = Project_Internships::where('internship_id', $item);
+                    $internships = Internship::where('internship_id',$item);
+
+
+                    if ($project_internships != null) {
+                        $project_internships->delete();
+                    }
+                    if ($certificate_internships != null) {
+                        $certificate_internships->delete();
+                    }
+                    if ($languages_internships != null) {
+                        $languages_internships->delete();
+                    }
+                    $internship_topic->delete();
+                    $academic_internships->delete();
+                    $internships->delete();
+                }
+                return redirect()->back()->with('success', __('general.delete_success'));
+            }
+            else{
+                return redirect()->back()->with('fail', 'Vui lòng chọn dòng cần xóa');
+            }
+
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('fail', __('general.delete_fail'));
+        }
+    }
+
+
 }

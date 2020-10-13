@@ -10,8 +10,10 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use http\Client\Curl\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
@@ -55,4 +57,7 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+
+//
+
 }

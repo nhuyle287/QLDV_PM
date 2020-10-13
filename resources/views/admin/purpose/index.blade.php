@@ -1,4 +1,11 @@
 @extends('layout.master')
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
     <div class="content">
         <h3 class="page-title">Mục đích sản phẩm</h3>

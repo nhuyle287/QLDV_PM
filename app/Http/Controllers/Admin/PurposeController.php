@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Model\Purpose;
+use App\Models\Purpose;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 

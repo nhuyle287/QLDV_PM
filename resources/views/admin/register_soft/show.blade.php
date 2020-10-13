@@ -1,5 +1,14 @@
 @extends('layout.master')
-
+@section('title')
+    Danh sách phần mềm đang sử dụng
+@stop
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
 
@@ -64,7 +73,7 @@
                     </div>
                     <!-- /.card -->
 
-                    <a href="{{ route('admin.register_softs.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
+                    <a href="{{ route('admin.list-services.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
 
 
                 </div>

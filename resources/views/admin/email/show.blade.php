@@ -1,5 +1,10 @@
 @extends('layout.master')
-
+@section('title')
+    Email
+@stop
+@section('head')
+    <link rel="stylesheet" href="css/event_.css">
+@stop
 @section('content')
 
     <section class="content">
@@ -52,10 +57,13 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
+                        <div class="event_">
+                            <a href="{{ route('admin.emails.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
+
+                        </div>
                     </div>
                     <!-- /.card -->
 
-                    <a href="{{ route('admin.emails.index') }}" class="btn btn-default">{{ __('general.back') }}</a>
 
 
                 </div>

@@ -4,7 +4,7 @@
 namespace App\Business;
 
 
-use App\Model\Permission;
+use App\Models\Permission;
 
 class PermissionLogic extends BaseLogic
 {

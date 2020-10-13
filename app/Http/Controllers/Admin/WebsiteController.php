@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Model\Website;
+use App\Models\Website;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -12,9 +12,28 @@ class WebsiteController extends AdminController
 {
     //
     public function index(){
-        $websites = Website::paginate(Config::get('constants.pagination'));
+        $this->authorize('domain-access');
+
+        $key = isset($request->key) ? $request->key : '';
+        $website = new Website();
+        $websites = $website->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $websites = $website->getAll($key, $request->amount);
+        }
         return view('admin.website.index',compact('websites'));
     }
+
+    public function searchRow(Request $request)
+    {
+        $website = new Website();
+        $websites = $website->getAll($request->key, 10);
+        if ($request->amount !== null) {
+            $websites = $website->getAll($request->key, $request->amount);
+        }
+        return view('admin.website.search-row',compact('websites'));
+    }
+
     public function show(Request $request){
         $website = Website::find($request->id);
         return view('admin.website.show', compact('website'));

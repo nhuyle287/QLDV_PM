@@ -4,7 +4,7 @@
 namespace App\Business;
 
 
-use App\Model\Purchase;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\Config;
 
 class PurchaseLogic extends BaseLogic

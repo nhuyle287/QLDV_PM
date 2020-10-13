@@ -1,3 +1,26 @@
+body {
+    font-family: "Roboto";
+}
+
+.eventadd {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    box-shadow: none;
+}
+
+h4 {
+    color: white;
+    background: #518f92;
+    text-align: center;
+}
+
+.alert {
+    color: #fff;
+    background: #9e9e9eab;
+    border-color: #23923d42;
+    width: 100%
+}
 select{
     display: block;
     width: 100%;

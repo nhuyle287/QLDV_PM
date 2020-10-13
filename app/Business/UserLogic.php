@@ -4,7 +4,7 @@
 namespace App\Business;
 
 
-use App\Model\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Config;
 
 class UserLogic extends BaseLogic
@@ -23,9 +23,9 @@ class UserLogic extends BaseLogic
     public function getListUser($search)
     {
         $query = $this->model
-            ->join('roles as r', 'r.id', 'users.id_role')
+            ->join('roles as r', 'r.id', 'users.role_id')
             ->leftJoin('department as d', 'd.id', 'users.id_department')
-            ->select('users.*', 'r.title as role_name', 'd.name as department_name')
+            ->select('users.*', 'r.name as role_name', 'd.name as department_name')
             ->whereNull('r.deleted_at')
             ->whereNull('d.deleted_at');
         if ($search) {

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Model\Hosting;
-use App\Model\Software;
+use App\Models\Hosting;
+use App\Models\Software;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
@@ -13,9 +13,28 @@ class SoftwareController extends AdminController
 {
     //
     public function index(){
-        $softwares = Software::paginate(Config::get('constants.pagination'));
+        $this->authorize('software-access');
+
+        $key = isset($request->key) ? $request->key : '';
+        $software = new Software();
+        $softwares = $software->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $softwares = $software->getAll($key, $request->amount);
+        }
         return view('admin.software.index',compact('softwares'));
     }
+
+    public function searchRow(Request $request)
+    {
+        $software = new Software();
+        $softwares = $software->getAll($request->key, 10);
+        if ($request->amount !== null) {
+            $softwares = $software->getAll($request->key, $request->amount);
+        }
+        return view('admin.software.search-row',compact('softwares'));
+    }
+
     public function show(Request $request){
         $software = Software::find($request->id);
         return view('admin.software.show', compact('software'));

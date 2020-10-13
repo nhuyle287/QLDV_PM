@@ -1,5 +1,11 @@
 @extends('layout.master')
-
+@section('css')
+    <style>
+        body {
+            font-family: "Roboto";
+        }
+    </style>
+@stop
 @section('content')
 
     <div class="content">

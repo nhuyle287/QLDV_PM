@@ -3,26 +3,45 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Customer;
-use App\Model\Domain;
-use App\Model\Product;
-use App\Model\Role;
+use App\Models\Customer;
+use App\Models\Domain;
+use App\Models\Product;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\all;
 
 class CustomerController extends AdminController
 {
     public function index(Request $request)
     {
-        //paginate : phan trang
+        $this->authorize('customer-access');
 
-        $customers = Customer::paginate(Config::get('constants.pagination'));
+        $key = isset($request->key) ? $request->key : '';
+        $customer = new Customer();
+        $customers = $customer->getAll($key, 10);
+
+        if (isset($request->amount)) {
+            $customers = $customer->getAll($key, $request->amount);
+        }
+
         return view('admin.customer.index', compact('customers'));
-        //compact di kem 1 bien, dung de lay du lieu load len index
+
+
     }
-    //thực hiện xác nhận edit + create
-    //Customer:: đối tượng trong Model
+
+    public function searchRow(Request $request)
+    {
+        $customer = new Customer();
+        $customers = $customer->getAll($request->key, 10);
+        if ($request->amount !== null) {
+            $customers = $customer->getAll($request->key, $request->amount);
+        }
+        return view('admin.customer.search-row', compact('customers'));
+    }
+
     public function entry(Request $request)
     {
 
@@ -42,6 +61,8 @@ class CustomerController extends AdminController
         //tạo mới đối tượng khi không có request( request trả về null)
         $cus = new Customer();
 
+        $auth=Auth::id();
+//        dd($auth);
 //trong trường hợp chỉnh sửa (trả về id của đối tượng muốn chỉnh sửa)
         if ($request->id) {
             $cus = Customer::find($request->id);
@@ -66,6 +87,7 @@ class CustomerController extends AdminController
         // chuyển đổi ngày tháng năm người dùng giống mysql trước khi đưa vào database
         //$request->birthday lấy name ngoài edit-add.blade.php
         $request['birthday'] = date('Y-m-d H:i:s', strtotime($request->birthday));
+        $request['id_staff']=$auth;
         $cus->fill($request->all());
         try {
 
@@ -89,6 +111,25 @@ class CustomerController extends AdminController
             return redirect()->route('admin.customers.index')->with('success', 'Thành công');
         } catch (\Exception $e) {
             return redirect()->route('admin.customers.index')->with('fail', 'Lỗi');
+        }
+    }
+    public function destroySelect(Request $request)
+    {
+        try {
+            $allVals = explode(',', $request->allValsDelete[0]);
+           if($allVals[0]!=="") {
+               foreach ($allVals as $item) {
+                   $cus = Customer::find($item);
+                   $cus->delete();
+               }
+               return redirect()->back()->with('success', __('general.delete_success'));
+           }
+           else{
+               return redirect()->back()->with('fail', 'Vui lòng chọn dòng cần xóa');
+           }
+
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('fail', __('general.delete_fail'));
         }
     }
 }

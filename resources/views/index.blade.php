@@ -1,4 +1,18 @@
 @extends('layout.master')
+@section('title')
+    Dashboard
+@stop
+@section('css')
+{{--    <script src="http://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>--}}
+{{--    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>--}}
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+@stop
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -18,6 +32,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

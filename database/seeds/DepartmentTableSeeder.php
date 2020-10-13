@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DepartmentTableSeeder extends Seeder
 {
@@ -11,22 +12,20 @@ class DepartmentTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('department')->insert(array(
-        array(
-            'name' => 'Nhân Sự',
-            'code' => 'NS',
-            'description' => 'Bộ phận nhân sự',
-        ),
-            array(
+        DB::table('departments')->truncate();
+        DB::table('departments')->insert([
+            [
+                'name' => 'Nhân Sự',
+                'code' => 'NS001',
+            ],
+            [
+                'name' => 'Kế Toán',
+                'code' => 'KT001',
+            ],
+            [
                 'name' => 'Kỹ Thuật',
-                'code' => 'KT',
-                'description' => 'Bộ phận kỹ thuật',
-            ),
-            array(
-                'name' => 'Kế toán',
-                'code' => 'KT',
-                'description' => 'Bộ phận kế toán',
-            ),
-        ));
+                'code' => 'KT002',
+            ],
+        ]);
     }
 }
