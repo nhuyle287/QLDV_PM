@@ -11,23 +11,7 @@
     @can('staff-view')
         <div class="body-content">
 
-            <div class="clearfix" style="margin-bottom: 15px">
-                @if(session('success'))
-                    <div class="alert-crud btn btn-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if(session('fail'))
-                    <div class="alert-crud btn btn-danger">
-                        {{ session('fail') }}
-                    </div>
-                @endif
-                @can('staff-create')
-                    <div style="float: left">
-                        <a href="{{ route('admin.staffs.create') }}" class="btn btn-success">{{ __('general.create') }}</a>
-                    </div>
-                @endcan
-            </div>
+
 
             <div class="card">
                 <div class="card-header card-header-new">
@@ -36,50 +20,91 @@
                 <div class="card-body">
                     <div class="clearfix">
                         <div style="float: left">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="showRow">{{ __('general.show') }}</label>
-                                </div>
+                            <div class="input-group mb-3 d-flex flex-nowrap">
+
+                                <label class="btn btn-default" for="showRow">{{ __('general.show') }}</label>
+
                                 <select class="custom-select" id="showRow">
-                                    <option value="10" {{ isset($_GET['amount']) ? ($_GET['amount'] === '10' ? 'selected' : '') : '' }}>10</option>
-                                    <option value="25" {{ isset($_GET['amount']) ? ($_GET['amount'] === '25' ? 'selected' : '') : '' }}>25</option>
-                                    <option value="50" {{ isset($_GET['amount']) ? ($_GET['amount'] === '50' ? 'selected' : '') : '' }}>50</option>
-                                    <option value="100" {{ isset($_GET['amount']) ? ($_GET['amount'] === '100' ? 'selected' : '') : '' }}>100</option>
+                                    <option
+                                        value="10" {{ isset($_GET['amount']) ? ($_GET['amount'] === '10' ? 'selected' : '') : '' }}>
+                                        10
+                                    </option>
+                                    <option
+                                        value="25" {{ isset($_GET['amount']) ? ($_GET['amount'] === '25' ? 'selected' : '') : '' }}>
+                                        25
+                                    </option>
+                                    <option
+                                        value="50" {{ isset($_GET['amount']) ? ($_GET['amount'] === '50' ? 'selected' : '') : '' }}>
+                                        50
+                                    </option>
+                                    <option
+                                        value="100" {{ isset($_GET['amount']) ? ($_GET['amount'] === '100' ? 'selected' : '') : '' }}>
+                                        100
+                                    </option>
                                 </select>
                                 @can('staff-delete')
-                                    <button id="btn-delete" style="margin-left: 5px" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                                        {{ __('general.delete') }}
-                                    </button>
+                                    <div>
+                                        <a id="btn-delete" style="margin-left: 0.25rem"
+                                           class="btn btn-warning"
+                                           data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fa fa-trash"> </i> Xóa
+                                        </a>
+                                    </div>
                                     <form action="{{ route('admin.staffs.destroy-select') }}" method="POST">
                                         @csrf
-                                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">{{ __('staff.staff') }}</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <h5 class="modal-title"
+                                                            id="exampleModalLabel">{{ __('staff.staff') }}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <input type="text" id="allValsDelete" name="allValsDelete[]" style="display: none">
-                                                        <p>{{ __('general.confirm_delete') }}</p>
+                                                        <input type="text" id="allValsDelete" name="allValsDelete[]"
+                                                               style="display: none">
+                                                        <p>{{ __('general.confirm_delete_all') }}</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('general.close') }}</button>
-                                                        <button type="submit" class="btn btn-danger">{{ __('general.delete') }}</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">{{ __('general.close') }}</button>
+                                                        <button type="submit"
+                                                                class="btn btn-danger">{{ __('general.delete') }}</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 @endcan
+                                <div class="clearfix" style="margin-left: 0.25rem; margin-bottom: 0">
+                                    @if(session('success'))
+                                        <div class="btn btn-success button_  float-right">
+                                            {{session('success')}}
+                                        </div>
+                                    @endif
+                                    @if(session('fail'))
+                                        <div class="btn btn-danger  button_ float-right">
+                                            {{session('fail')}}
+                                        </div>
+                                    @endif
+                                    @can('staff-create')
+                                        <div class="create float-left">
+                                            <a href="{{route('admin.staffs.create')}}" class="btn btn-success "><i
+                                                    class="fas fa-plus"></i> {{ __('general.create') }}</a>
+                                        </div>
+                                    @endcan
+                                </div>
                             </div>
+
                         </div>
                         <div class="clearfix" style="float: right">
-                            <div style="float: left">
-                                <a style="margin-right: 5px" class="btn btn-warning" href="#" role="button"><i class="fa fa-trash"></i></a>
-                            </div>
+{{--                            <div style="float: left">--}}
+{{--                                <a style="margin-right: 5px" class="btn btn-warning" href="#" role="button"><i class="fa fa-trash"></i></a>--}}
+{{--                            </div>--}}
                             @can('staff-search')
                                 <div style="float: right">
                                     <input id="search" class="form-control" type="search" placeholder="{{ __('general.search') }}" value="{{ isset($_GET['key']) ? $_GET['key'] : '' }}">

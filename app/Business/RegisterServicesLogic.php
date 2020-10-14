@@ -101,7 +101,7 @@ class RegisterServicesLogic extends BaseLogic
 
         }
         $query->orderBy('register_services.id', 'ASC');
-        return $query->paginate($request->amount);
+        return $query->get();
     }
 
 
@@ -205,8 +205,8 @@ class RegisterServicesLogic extends BaseLogic
             ->whereNull('w.deleted_at');
 
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
             }
             if (isset($request->page) && is_numeric($request->page)) {
                 $query->offset($request->page * Config::get('constants.pagination'));
@@ -231,17 +231,17 @@ class RegisterServicesLogic extends BaseLogic
             ->whereNull('c.deleted_at')
             ->whereNull('d.deleted_at')        ;
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('d.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('d.name', 'LIKE', '%' . $request->key . '%');
             }
             if (isset($request->page) && is_numeric($request->page)) {
                 $query->offset($request->page * Config::get('constants.pagination'));
             }
         }
         $query->orderBy('register_services.id', 'ASC');
-        return $query->paginate(Config::get('constants.pagination'));
+        return $query->get();
     }
     //hosting
     public function Searchhosting(Request $request)
@@ -257,17 +257,17 @@ class RegisterServicesLogic extends BaseLogic
             ->whereNull('c.deleted_at')
             ->whereNull('h.deleted_at')        ;
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('h.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('h.name', 'LIKE', '%' . $request->key . '%');
             }
             if (isset($request->page) && is_numeric($request->page)) {
                 $query->offset($request->page * Config::get('constants.pagination'));
             }
         }
         $query->orderBy('register_services.id', 'ASC');
-        return $query->paginate(Config::get('constants.pagination'));
+        return $query->get();
     }
     //vps
     public function Searchvps(Request $request)
@@ -283,17 +283,17 @@ class RegisterServicesLogic extends BaseLogic
             ->whereNull('c.deleted_at')
             ->whereNull('v.deleted_at')        ;
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('v.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('v.name', 'LIKE', '%' . $request->key . '%');
             }
             if (isset($request->page) && is_numeric($request->page)) {
                 $query->offset($request->page * Config::get('constants.pagination'));
             }
         }
         $query->orderBy('register_services.id', 'ASC');
-        return $query->paginate(Config::get('constants.pagination'));
+        return $query->get();
     }
     //ssl
     public function Searchssl(Request $request)
@@ -309,17 +309,17 @@ class RegisterServicesLogic extends BaseLogic
             ->whereNull('c.deleted_at')
             ->whereNull('s.deleted_at')        ;
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('s.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('s.name', 'LIKE', '%' . $request->key . '%');
             }
             if (isset($request->page) && is_numeric($request->page)) {
                 $query->offset($request->page * Config::get('constants.pagination'));
             }
         }
         $query->orderBy('register_services.id', 'ASC');
-        return $query->paginate(Config::get('constants.pagination'));
+        return $query->get();
     }
     //email
     public function Searchemail(Request $request)
@@ -335,17 +335,17 @@ class RegisterServicesLogic extends BaseLogic
             ->whereNull('c.deleted_at')
             ->whereNull('e.deleted_at')        ;
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('e.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('e.name', 'LIKE', '%' . $request->key . '%');
             }
             if (isset($request->page) && is_numeric($request->page)) {
                 $query->offset($request->page * Config::get('constants.pagination'));
             }
         }
         $query->orderBy('register_services.id', 'ASC');
-        return $query->paginate(Config::get('constants.pagination'));
+        return $query->get();
     }
     //website
     public function Searchwebsite(Request $request)
@@ -361,16 +361,16 @@ class RegisterServicesLogic extends BaseLogic
             ->whereNull('c.deleted_at')
             ->whereNull('w.deleted_at')        ;
         if ($request) {
-            if (isset($request->name)) {
-                $query->where('c.name', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->name . '%');
-                $query->orwhere('w.name', 'LIKE', '%' . $request->name . '%');
+            if (isset($request->key)) {
+                $query->where('c.name', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('c.phone_number', 'LIKE', '%' . $request->key . '%');
+                $query->orwhere('w.name', 'LIKE', '%' . $request->key . '%');
             }
             if (isset($request->page) && is_numeric($request->page)) {
                 $query->offset($request->page * Config::get('constants.pagination'));
             }
         }
         $query->orderBy('register_services.id', 'ASC');
-        return $query->paginate(Config::get('constants.pagination'));
+        return $query->get();
     }
 }

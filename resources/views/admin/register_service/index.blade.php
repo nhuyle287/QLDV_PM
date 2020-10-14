@@ -3,6 +3,7 @@
 @section('title')
     Danh sách dịch vụ đang sử dụng
 @stop
+
 @section('head')
     <link rel="stylesheet" href="css/responsive.css">
     {{--    <link rel="stylesheet" href="css/contract.css">--}}
@@ -115,40 +116,41 @@
                                            value="{{ isset($_GET['key']) ? $_GET['key'] : '' }}">
                                 </div>
                             @endcan
-                            <div style="margin:0.5rem 0.25rem" class="dropdown">
+                                <div style="margin:0.5rem 0.25rem" class="dropdown">
 
-                                <select onchange="selectContract(this)" style="margin-right: 8px;" id="contract"
-                                        class="btn btn-primary" name="filter_contract">
-                                    <option class="dropdown-item" style="background-color: white" value="">Lọc dịch
-                                        vụ/phần mềm
-                                    </option>
-                                    <option class="dropdown-item" style="background-color: white" value="0">Tất cả dịch
-                                        vụ/phần mềm
-                                    </option>
-                                    <option class="dropdown-item" style="background-color: white" value="1">Dịch vụ tên
-                                        miền
-                                    </option>
-                                    <option class="dropdown-item" style="background-color: white" value="2">Dịch vụ VPS
-                                    </option>
-                                    <option class="dropdown-item" style="background-color: white" value="3">Dịch vụ
-                                        SSL
-                                    </option>
-                                    <option class="dropdown-item" style="background-color: white" value="4">Dịch vụ
-                                        hosting
-                                    </option>
-                                    <option class="dropdown-item" style="background-color: white" value="5">Dịch vụ
-                                        Email
-                                    </option>
-                                    <option class="dropdown-item" style="background-color: white" value="6">Dịch vụ
-                                        Website
-                                    </option>
-                                    <option class="dropdown-item" style="background-color: white" value="7">Phần mềm
-                                    </option>
-                                </select>
+                                    <select  style="margin-right: 8px;" id="contract"
+                                             class="btn btn-primary" name="filter_contract">
+                                        <option class="dropdown-item" style="background-color: white" value="">Lọc dịch
+                                            vụ/phần mềm
+                                        </option>
+                                        <option class="dropdown-item" style="background-color: white" value="0">Tất cả dịch
+                                            vụ/phần mềm
+                                        </option>
+                                        <option class="dropdown-item" style="background-color: white" value="1">Dịch vụ tên
+                                            miền
+                                        </option>
+                                        <option class="dropdown-item" style="background-color: white" value="2">Dịch vụ VPS
+                                        </option>
+                                        <option class="dropdown-item" style="background-color: white" value="3">Dịch vụ
+                                            SSL
+                                        </option>
+                                        <option class="dropdown-item" style="background-color: white" value="4">Dịch vụ
+                                            hosting
+                                        </option>
+                                        <option class="dropdown-item" style="background-color: white" value="5">Dịch vụ
+                                            Email
+                                        </option>
+                                        <option class="dropdown-item" style="background-color: white" value="6">Dịch vụ
+                                            Website
+                                        </option>
+                                        <option class="dropdown-item" style="background-color: white" value="7">Phần mềm
+                                        </option>
+                                    </select>
 
-                            </div>
+                                </div>
                         </div>
                     </div>
+
                     <div class="background-popup" style="margin: 2rem 0 2rem 0">
 
                     </div>
@@ -165,7 +167,7 @@
                                         <th class="thstyleform">Ngày Bắt Đầu<p class="pstyleform1">Ngày Kết Thúc</p>
                                         </th>
                                         <th class="thstyleform">Trạng thái</th>
-                                        <th class="thstyleform">Chức năng</th>
+                                        <th class="thstyleform">&nbsp;</th>
                                     </tr>
                                     </thead>
                                     <tbody id="myTableBody">
@@ -416,7 +418,7 @@
                                                         </div>
                                                     </div>
                                                     @can('list-service-management-update')
-                                                        <a href="{{route('admin.admin.register-softs.edit', [$register_soft->id])}}"
+                                                        <a href="{{route('admin.register-softs.edit', [$register_soft->id])}}"
                                                            class="btn btn-xs btn-success">{{ __('general.edit') }}</a>
                                                     @endcan
                                                     @can('list-service-management-delete')
@@ -640,7 +642,7 @@
 
             $("#search").on('keyup', function () {
                 var key = $(this).val();
-                // var filter_contract=$('#contract').val();
+                var filter_contract=$('#contract').val();
                 // console.log(filter_contract);
                 $.ajaxSetup({
                     headers: {
@@ -652,8 +654,8 @@
                     url: '{{ route('admin.list-services.search-row') }}',
                     data: {
                         key: key,
-                        amount: {{ isset($_GET['amount']) ? $_GET['amount'] : 'null' }},
-                        // filter:filter_contract,
+                        {{--amount: {{ isset($_GET['amount']) ? $_GET['amount'] : 'null' }},--}}
+                        filter:filter_contract,
                     },
                     success: function (response) {
                         console.log(response);
@@ -675,7 +677,7 @@
                     type: 'POST',
                     url: '{{ route('admin.list-services.filter') }}',
                     data: {
-                        amount: {{ isset($_GET['amount']) ? $_GET['amount'] : 'null' }},
+                        {{--amount: {{ isset($_GET['amount']) ? $_GET['amount'] : 'null' }},--}}
                         filter: filter_contract,
                     },
                     success: function (response) {

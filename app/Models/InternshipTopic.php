@@ -32,7 +32,7 @@ class  InternshipTopic extends Model
             ->join('academic_internships', 'academic_internships.internship_id', '=', 'internships.internship_id')
             ->join('academic_levels', 'academic_levels.academic_id', '=', 'academic_internships.academic_id')
             ->join('internship_topic', 'internships.internship_id', '=', 'internship_topic.internship_id')
-            ->select('internships.internship_id', 'internships.name', 'internships.email', 'internships.phone', 'academic_levels.school', 'academic_levels.major', 'internships.date_create', 'internships.status')
+            ->select('internships.*','academic_levels.school', 'academic_levels.major')
             ->whereNull('internships.deleted_at')
             ->whereNull('academic_internships.deleted_at')
             ->whereNull('academic_levels.deleted_at')

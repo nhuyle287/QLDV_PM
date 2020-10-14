@@ -174,7 +174,10 @@
 
 
                                         <td>
-
+                                            <p style="text-align: center">
+                                                <img src="{{URL::asset("images/internship/{$internship->image}")}}"
+                                                     style="width: 50px" style="height: 10px" alt="error"/>
+                                            </p>
                                             <p class="list-item1">
                                                 {{$internship->name}}
                                             </p>

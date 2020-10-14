@@ -40,7 +40,7 @@ class RegisterSoftLogic extends BaseLogic
 
         }
         $query->orderBy('register_soft.id','ASC');
-        return $query->paginate($request->amount);
+        return $query->get();
     }
 
     public function getlistregistersoft($key, $paginate){

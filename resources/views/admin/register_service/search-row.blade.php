@@ -10,7 +10,7 @@
                 <th class="thstyleform">Ngày Bắt Đầu<p class="pstyleform1">Ngày Kết Thúc</p>
                 </th>
                 <th class="thstyleform">Trạng thái</th>
-                <th class="thstyleform">Chức năng</th>
+                <th class="thstyleform">&nbsp;</th>
             </tr>
             </thead>
             <tbody id="myTableBody">
@@ -261,7 +261,7 @@
                                 </div>
                             </div>
                             @can('list-service-management-update')
-                                <a href="{{route('admin.admin.register-softs.edit', [$register_soft->id])}}"
+                                <a href="{{route('admin.register-softs.edit', [$register_soft->id])}}"
                                    class="btn btn-xs btn-success">{{ __('general.edit') }}</a>
                             @endcan
                             @can('list-service-management-delete')

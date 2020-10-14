@@ -238,52 +238,53 @@
                                     <tr>
                                         <td colspan="9" class="text-center">{{ __('general.nodata') }}</td>
                                     </tr>
-                                @endforelse
+                                     {{--cập nhật tình trạng --}}
+                                     <div class="modal" id="myModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Cập nhật giao dịch</h4>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    <form action="{{route('admin.order.updatetssoft')}}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="id" id="id" value="">
+                                                        <div class="form-group">
 
-                                {{--cập nhật tình trạng --}}
-                                <div class="modal" id="myModal">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Cập nhật giao dịch</h4>
-                                            </div>
-                                            <!-- Modal body -->
-                                            <div class="modal-body">
-                                                <form action="{{route('admin.order.updatetssoft')}}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="id" id="id" value="">
-                                                    <div class="form-group">
+                                                            <select
+                                                                class="form-control" name="transaction" id="transaction">
+                                                                @foreach($transaction_soft as $transaction)
+                                                                    <option value="" selected disabled hidden>Cập nhật giao
+                                                                        dịch
+                                                                    </option>
+                                                                    <option value="{{$transaction}}"
 
-                                                        <select
-                                                            class="form-control" name="transaction" id="transaction">
-                                                            @foreach($transaction_soft as $transaction)
-                                                                <option value="" selected disabled hidden>Cập nhật giao
-                                                                    dịch
-                                                                </option>
-                                                                <option value="{{$transaction}}"
-                                                                        @if($register_soft->id && $transaction==$register_soft->transaction) selected @endif>
-                                                                    {{ucfirst(array_search($transaction,$transaction_soft))}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                                        {{ucfirst(array_search($transaction,$transaction_soft))}}</option>
+                                                                @endforeach
+                                                            </select>
 
-                                                    </div>
-                                                    <div class="form-group">
-                                                    </div>
-                                                    <button style="background: green;color: white;" type="submit"
-                                                            class="btn btn-default">Save
+                                                        </div>
+                                                        <div class="form-group">
+                                                        </div>
+                                                        <button style="background: green;color: white;" type="submit"
+                                                                class="btn btn-default">Save
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                        Close
                                                     </button>
-                                                </form>
-                                            </div>
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                                    Close
-                                                </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforelse
+
+
                                 </tbody>
                             </table>
                         </div>
