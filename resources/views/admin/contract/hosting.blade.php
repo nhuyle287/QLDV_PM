@@ -332,7 +332,7 @@
                     </div>
                     <hr>
 
-                    <button class="btn btn-default">{{ __('general.save') }}</button>
+                    <button class="btn btn-default">Xem trước</button>
                     <a href="{{ route('admin.contract.index') }}"
                        class="btn btn-default">{{ __('general.back') }}</a>
                 </form>
@@ -428,6 +428,9 @@
                 tien = data_price * parseInt(quantity);
                 // total.value =tien;
                 $('#total').text(tien);
+                vat10_=tien*10/100;
+                vat10.value=vat10_;
+                $('#vat10').text(vat10_)
                 calculatorTotal();
                 //   total_all.value= calculatorTotal();
                 // calculatorTotal();

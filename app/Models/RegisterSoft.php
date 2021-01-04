@@ -23,7 +23,7 @@ class RegisterSoft extends Model
 
     ];
     protected $table = 'register_soft';
-    protected $fillable = ['id','status','start_date', 'end_date','id_customer','notes','id_staff','address_domain','status','transaction','id_typesoftware','id_software'];
+    protected $fillable = ['id','status','start_date','code', 'end_date','id_customer','notes','id_staff','address_domain','status','transaction','id_typesoftware','id_software'];
     public function __construct()
     {
         parent::__construct();

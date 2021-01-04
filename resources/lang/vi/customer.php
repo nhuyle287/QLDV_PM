@@ -15,8 +15,10 @@ return [
     'password' => 'Mật khẩu',
     'note' => 'Ghi chú',
     'phone_number' => 'Số điện thoại',
-    'company' => 'Công ty',
-    'fax' => 'Số Fax',
+    'fax_number' => 'Số Fax',
     'account_number' => 'Số tài khoản',
-    'tax' => 'Số thuế',
+    'tax_number' => 'Số thuế',
+    'position'=>'Chức vụ',
+    'nameStore'=>'Công ty',
+'open_at'=>'Mở tại',
 ];

@@ -75,7 +75,7 @@
         table tr,
         table td,
         table th {
-            border: 1px dashed black;
+            border: 1px solid black;
             padding: 4px;
         }
         .service, .service td,  .service th {

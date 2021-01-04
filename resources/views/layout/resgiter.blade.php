@@ -79,7 +79,7 @@
 
     @yield('content')
 
-    @include('layout.footer')
+
 </div>
 @yield('javascript')
 

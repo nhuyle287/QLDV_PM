@@ -16,7 +16,7 @@ class CreateTableExpendituresTable extends Migration
         Schema::create('expenditures', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_staff');
-            $table->string('price')->nullable();
+            $table->float('price')->nullable();
             $table->string('description')->nullable();
             $table->string('receiver')->nullable();
             $table->string('address_receiver')->nullable();

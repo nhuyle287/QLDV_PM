@@ -4,11 +4,19 @@
 @stop
 @section('head')
     <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/loading.css">
 @stop
 @section('content')
-
+    <div class="loader">
+        <img src="images/loading1.gif" alt="loading"/>
+    </div>
+{{--    <div class="loading">--}}
+{{--        <div class="borderKT icon"></div>--}}
+{{--        <span  class="fas fa-circle-notch icon"></span>--}}
+{{--    </div>--}}
     <div class="page-container login">
         <div class="row justify-content-center login">
+
             <div class="login_box">
                 <div class="card">
                     <div class="card-header">{{ __('general.login') }}</div>
@@ -51,21 +59,23 @@
 
                             <div class="form-group row">
 
-                                    <button type="submit" class="btn btn-sm" id="login">
-                                        {{ __('general.login') }}
-                                    </button>
+                                <button type="submit" class="btn btn-sm" id="login">
+                                    {{ __('general.login') }}
+                                </button>
 
 
                             </div>
                         </form>
                         <br>
                         <br>
-                            <strong> <a href="/" class="singup" >Đăng ký tài khoản</a><span> / </span>
-                                <a href="#" class="reset_pass">Quên mật khẩu</a></strong>
+                        <strong> <a href="/" class="singup">Đăng ký tài khoản</a><span> / </span>
+                            <a href="#" class="reset_pass">Quên mật khẩu</a></strong>
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 @stop
+

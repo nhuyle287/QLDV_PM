@@ -4,8 +4,10 @@
 @stop
 @section('head')
     <link rel="stylesheet" href="css/responsive.css">
+
 @stop
 @section('content')
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @can('order-service-view')
         <div class="body-content">
@@ -121,7 +123,7 @@
                                         {{__('order.name_customer')}}
                                     </th>
                                     <th class="thstyleform">{{__('order.name_service')}}</th>
-                                    <th class="thstyleform">{{__('order.deal')}}</th>
+                                    <th class="thstyleform">&nbsp;</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -130,7 +132,7 @@
                                     <tr>
                                         <td class="thstyleform"><input type="checkbox" class="btn-check"
                                                                        value="{{ $register_service->id }}"></td>
-                                        <td class="thstyleform">{{$stt++}}</td>
+                                        <td class="thstyleform">{{$register_service->id}}</td>
                                         <td class="thstyleform">{{$register_service->customer_name}}
                                             <p class="pstyleform1">{{$register_service->customer_email}}</p></td>
                                         <td class="thstyleform">{{$register_service->domain_name}}
@@ -216,7 +218,7 @@
 
                                             @can('order-service-update')
                                                 @if($register_service->transaction === '1')
-                                                <button id="btnStatus" type="button" class="btn btn-sm btn-danger"
+                                                <button id="btnStatus" type="button" class="btn btn-sm btn-warning"
                                                         data-id="{{$register_service->id}}"
                                                         data-transaction="{{$register_service->transaction}}"
                                                         data-toggle="modal"
@@ -227,7 +229,7 @@
                                                                 data-id="{{$register_service->id}}"
                                                                 data-transaction="{{$register_service->transaction}}"
                                                                 data-toggle="modal"
-                                                                data-target="#myModal"> {{ucfirst(array_search($register_service->transaction,$transaction_services))}}</button>
+                                                                > {{ucfirst(array_search($register_service->transaction,$transaction_services))}}</button>
                                                     @endif
                                                     @if($register_service->transaction === '0')
                                                         <button id="btnStatus" type="button" class="btn btn-sm btn-secondary"
@@ -235,6 +237,13 @@
                                                                 data-transaction="{{$register_service->transaction}}"
                                                                 data-toggle="modal"
                                                                 data-target="#myModal"> {{ucfirst(array_search($register_service->transaction,$transaction_services))}}</button>
+                                                    @endif
+                                                    @if($register_service->transaction === '3')
+                                                        <button id="btnStatus" type="button" class="btn btn-sm btn-danger"
+                                                                data-id="{{$register_service->id}}"
+                                                                data-transaction="{{$register_service->transaction}}"
+                                                                data-toggle="modal"
+                                                        > {{ucfirst(array_search($register_service->transaction,$transaction_services))}}</button>
                                                     @endif
                                             @endcan
                                         </td>

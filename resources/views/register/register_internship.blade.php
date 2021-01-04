@@ -2,7 +2,12 @@
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{URL::asset('css/internship.css')}}"/>
-
+<style>
+    h3,h4,h5{
+        font-family: Roboto !important;
+        font-size: 1rem;
+    }
+</style>
 @stop
 
 @section('content')
@@ -56,11 +61,11 @@
                                 </div>
                                 <br/>
                                 <h3 class="page-title"
-                                    style="font-weight: bold;  font-size: 200%; text-align: center">
+                                    style="font-weight: bold; border-radius: 4px; font-size: 1.5rem;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);color: white; text-align: center; border: 1px solid #28a745">
                                     THÔNG TIN ỨNG TUYỂN</h3>
                                 <br/>
                                 <form method="POST" action="{{route('register.internship.register')}}"
-                                      class="needs-validation" enctype="multipart/form-data" id="form_dk">
+                                      class="needs-validation" enctype="multipart/form-data" id="form_dk" style="border: 1px solid #28a745;border-radius: 4px; padding: 0.5rem">
                                     <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token"/>
                                     <input type="hidden" name="id"
                                            value="{{isset($internship->id) ? $internship->id: ''}}">
@@ -112,7 +117,7 @@
                                                 </div>
 
                                             </div>
-                                            <h4 STYLE="text-align: center">THÔNG TIN CÁ NHÂN</h4>
+                                            <h4 STYLE="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">THÔNG TIN CÁ NHÂN</h4>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label>Image *</label>
@@ -323,8 +328,8 @@
 
                                                 </div>
                                             </div>
-                                            <h4 style="text-align: center"><b>TRÌNH ĐỘ HỌC VẤN</b></h4>
-                                            <h4 style="text-align: center"><b>BẰNG CẤP</b></h4>
+                                            <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">TRÌNH ĐỘ HỌC VẤN</h4>
+                                            <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">BẰNG CẤP</h4>
                                             <div class="tdhv">
                                                 <div class="row">
 
@@ -403,14 +408,14 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="row event" STYLE="float: right" style="margin-bottom: 5px">
+                                                <div class="row event" STYLE="float: right;margin-right: 0.5rem;margin-bottom: 5px">
                                                     <a id="bt" class="btn btn-primary eventadd" value="Create">Thêm</a>
                                                 </div>
                                             </div>
                                             <BR/> <br/>
                                             <div class="chitiettdhv">
                                                 <div class="content-content">
-
+                                                    <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">CHI TIẾT BẰNG CẤP</h4>
                                                     <table id="tb_tdhv" class="table table-hover tm-table-small ">
                                                         <tr>
                                                             <th scope="col"></th>
@@ -427,7 +432,7 @@
                                             </div>
 
 
-                                            <h4 style="text-align: center;">CHỨNG CHỈ</h4>
+                                            <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">CHỨNG CHỈ</h4>
                                             <div class="chungchi">
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
@@ -489,7 +494,7 @@
                                                 </div>
 
 
-                                                <div class="row event" STYLE="float: right">
+                                                <div class="row event" STYLE="float: right;margin-right: 0.5rem ">
                                                     <a id="btcc" class="btn btn-primary eventadd"
                                                        value="Create">Thêm</a>
                                                 </div>
@@ -499,7 +504,7 @@
 
                                             <div class="chitietcc">
                                                 <div class="content-content">
-                                                    <h4 style="text-align: center;"><b>CHI TIẾT CHỨNG CHỈ</b></h4>
+                                                    <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">CHI TIẾT CHỨNG CHỈ</h4>
                                                     <table id="tb_ctcc" class="table table-hover tm-table-small ">
                                                         <tr>
                                                             <th scope="col">&nbsp;</th>
@@ -516,7 +521,7 @@
                                             </div>
 
 
-                                            <h4 style="text-align: center;">DỰ ÁN ĐÃ THỰC HIỆN</h4>
+                                            <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">DỰ ÁN ĐÃ THỰC HIỆN</h4>
                                             <div class="chungchi">
                                                 <div class="row">
                                                     <div class="form-group col-md-3">
@@ -578,7 +583,7 @@
                                                 </div>
 
 
-                                                <div class="row event" STYLE="float: right">
+                                                <div class="row event" STYLE="float: right;margin-right: 0.5rem">
                                                     <a id="btda" class="btn btn-primary eventadd"
                                                        value="Create">Thêm</a>
                                                 </div>
@@ -588,7 +593,7 @@
 
                                             <div class="chitietcc">
                                                 <div class="content-content">
-                                                    <h4 style="text-align: center;"><b>CHI TIẾT DỰ ÁN</b></h4>
+                                                    <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">CHI TIẾT DỰ ÁN</h4>
                                                     <table id="tb_ctda" class="table table-hover tm-table-small ">
                                                         <tr>
                                                             <th scope="col">&nbsp;</th>
@@ -605,7 +610,7 @@
                                             </div>
 
 
-                                            <h4 style="text-align: center;">NGOẠI NGỮ</h4>
+                                            <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">NGOẠI NGỮ</h4>
                                             <div class="ngoaingu">
                                                 <div class="row">
                                                     <div class="form-group col-md-2">
@@ -681,7 +686,7 @@
                                                 </div>
 
 
-                                                <div class="row event" STYLE="float: right">
+                                                <div class="row event" STYLE="float: right;margin-right: 0.5rem">
                                                     <a id="btnn" class="btn btn-primary eventadd"
                                                        value="Create">Thêm</a>
                                                 </div>
@@ -692,7 +697,7 @@
                                             <br/>
                                             <div class="chitietnn">
                                                 <div class="content-content">
-                                                    <h4 style="text-align: center;"><b>CHI TIẾT NGOẠI NGỮ</b></h4>
+                                                    <h4 style="text-align: center;background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">CHI TIẾT NGOẠI NGỮ</h4>
                                                     <table id="tb_ctnn" class="table table-hover tm-table-small ">
                                                         <tr>
                                                             <th scope="col">&nbsp;</th>

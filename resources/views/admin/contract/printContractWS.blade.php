@@ -22,7 +22,7 @@
 
         .title {
             text-align: center;
-            margin-top: 0px !important;
+            margin-top: 1.5rem !important;
             padding-top: -50px!important;
         }
         .law {
@@ -74,7 +74,7 @@
         table tr,
         table td,
         table th {
-            border: 1px dashed black;
+            border: 1px solid black;
             padding: 5px;
         }
         .service, .service td,  .service th {
@@ -116,7 +116,7 @@
             <div class="head" style=" display:inline-block; margin-top: 30px !important;margin-bottom: 0 !important; padding-bottom: 0 !important;">
                 <span style="padding-bottom: 0 !important;">
                     <img alt=""
-                         src="https://www.hoatech.vn/wp-content/uploads/2015/06/005.png"
+                         src="{{asset('images/logo.png')}}"
                          style=" margin-left: 0; margin-top: 5px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                          title="logo">
                 </span>
@@ -160,7 +160,7 @@
                     có:</p>
                 <div class="infor_contract">
                     <div class="infor_custom">
-                        <table>
+                        <table cellspacing="0" cellpadding="3">
 
                                 <tr>
                                     <td colspan="6" rowspan="1">
@@ -329,7 +329,7 @@
                             <strong style="margin-bottom: 0 !important;">ĐIỀU 2: PHÍ DỊCH VỤ VÀ PHƯƠNG THỨC THANH TOÁN</strong>
                             <ol style="list-style-type: none;margin-top: 0 !important; text-align: justify">
                                 <li>2.1. Chi phí thiết kế website, hosting và tên miền bao gồm:
-                                    <table class="service">
+                                    <table class="service" cellspacing="0" cellpadding="3">
                                         <tr>
                                             <th>Nội dung</th>
                                             <th>Đơn giá (VNĐ)</th>
@@ -750,7 +750,7 @@
                         </ul>
                     </li>
                     <li><strong>III. YÊU CẦU VỀ CHỨC NĂNG</strong>
-                        <table class="function">
+                        <table class="function" cellspacing="0" cellpadding="3">
                             <tr>
                                 <th colspan="1">
                                     Loại trang
@@ -940,7 +940,7 @@
                                     {{$con->date_finish}}
 
                                 ngày kể từ ngày ký hợp đồng.</span></p>
-                        <table class="time">
+                        <table class="time" cellspacing="0" cellpadding="3">
                             <tr>
                                 <th>STT</th>
                                 <th>Nội dung công việc</th>

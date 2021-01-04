@@ -9,6 +9,9 @@
         th{
             text-align: center;
         }
+        .total_price:first-letter{
+            text-transform: capitalize;
+        }
     </style>
 @stop
 @section('content')

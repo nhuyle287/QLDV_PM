@@ -39,7 +39,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <div class="col-xs-12 form-group">
-                                        <label>Software Name <span class="aster">*</span></label>
+                                        <label>Tên phần mềm <span class="aster">*</span></label>
                                         <input type="text" class="form-control" name="name"
                                                value="{{isset($software->name) ? old('name', $software->name) : old('name')}}">
                                         <p class="help-block text-danger"></p>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <div class="col-xs-12 form-group">
-                                        <label>Price <span class="aster">*</span></label>
+                                        <label>Giá <span class="aster">*</span></label>
                                         <input type="text" class="form-control" name="price"
                                                value="{{isset($software->price) ? old('price', $software->price) : old('price')}}">
                                         <p class="help-block text-danger"></p>

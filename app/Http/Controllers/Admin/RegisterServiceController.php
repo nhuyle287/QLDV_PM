@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\DB;
 class RegisterServiceController extends AdminController
 {
     const UNDERLINE = '_';
+    const order = 'DH';
 
     public function index(Request $request)
     {
@@ -48,7 +49,7 @@ class RegisterServiceController extends AdminController
         $register_services = $logic_register_services->Search($request);
         $count = count($register_services);
 //
-    //    dd($register_services);
+//        dd($register_services);
         return view('admin.register_service.index', compact('register_services', 'register_softs', 'count'));
     }
 
@@ -437,11 +438,11 @@ class RegisterServiceController extends AdminController
                 $register_service_update = RegisterService::find($register_service_id);
                 $customer = Customer::find($register_service_update->id_customer);
                 $domain = Domain::find($register_service_update->id_domain);
-                $code = Helper::vnToString($domain->name) . "01";
+                $code ="DO";
 
                 if ($register_service_update) {
-                    $register_service_code =
-                        Helper::generateCodeById($customer->id) . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+                    $register_service_code =self::order . self::UNDERLINE  . $code . self::UNDERLINE. Helper::generateCodeById($register_service_id);
+
                     try {
                         $register_service_update->update([
                             'code' => $register_service_code,
@@ -466,11 +467,11 @@ class RegisterServiceController extends AdminController
                 $register_service_update = RegisterService::find($register_service_id);
                 $customer = Customer::find($register_service_update->id_customer);
                 $hosting = Hosting::find($register_service_update->id_hosting);
-                $code = Helper::vnToString($hosting->name) . "02";
+                $code ="HT";
 
                 if ($register_service_update) {
-                    $register_service_code =
-                        Helper::generateCodeById($customer->id) . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+                    $register_service_code =self::order . self::UNDERLINE  . $code . self::UNDERLINE .Helper::generateCodeById($register_service_id);
+
                     try {
                         $register_service_update->update([
                             'code' => $register_service_code,
@@ -498,11 +499,11 @@ class RegisterServiceController extends AdminController
                 $register_service_update = RegisterService::find($register_service_id);
                 $customer = Customer::find($register_service_update->id_customer);
                 $vps = VPS::find($register_service_update->id_vps);
-                $code = Helper::vnToString($vps->name) . "03";
+                $code =  "VPS";
 
                 if ($register_service_update) {
-                    $register_service_code =
-                        Helper::generateCodeById($customer->id) . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+                    $register_service_code =self::order . self::UNDERLINE . $code. self::UNDERLINE . Helper::generateCodeById($register_service_id) ;
+
                     try {
                         $register_service_update->update([
                             'code' => $register_service_code,
@@ -528,12 +529,12 @@ class RegisterServiceController extends AdminController
                 $register_service_update = RegisterService::find($register_service_id);
                 $customer = Customer::find($register_service_update->id_customer);
                 $email = Email::find($register_service_update->id_email);
-                $code = Helper::vnToString($email->name) . "04";
+                $code ="EML";
 
 
                 if ($register_service_update) {
-                    $register_service_code =
-                        Helper::generateCodeById($customer->id) . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+                    $register_service_code =self::order . self::UNDERLINE . $code. self::UNDERLINE . Helper::generateCodeById($register_service_id) ;
+
                     try {
                         $register_service_update->update([
                             'code' => $register_service_code,
@@ -560,11 +561,11 @@ class RegisterServiceController extends AdminController
                 $register_service_update = RegisterService::find($register_service_id);
                 $customer = Customer::find($register_service_update->id_customer);
                 $ssl = Ssl::find($register_service_update->id_ssl);
-                $code = Helper::vnToString($ssl->name) . "05";
+                $code = "SSL";
 
                 if ($register_service_update) {
-                    $register_service_code =
-                        Helper::generateCodeById($customer->id) . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+                    $register_service_code =self::order  . self::UNDERLINE . $code. self::UNDERLINE . Helper::generateCodeById($register_service_id);
+
                     try {
                         $register_service_update->update([
                             'code' => $register_service_code,
@@ -590,11 +591,11 @@ class RegisterServiceController extends AdminController
                 $register_service_update = RegisterService::find($register_service_id);
                 $customer = Customer::find($register_service_update->id_customer);
                 $website = Website::find($register_service_update->id_website);
-                $code = Helper::vnToString($website->name) . "06";
+                $code =  "WEB";
 
                 if ($register_service_update) {
-                    $register_service_code =
-                        Helper::generateCodeById($customer->id) . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+                    $register_service_code =self::order . self::UNDERLINE . $code. self::UNDERLINE . Helper::generateCodeById($register_service_id);
+
                     try {
                         $register_service_update->update([
                             'code' => $register_service_code,
@@ -648,35 +649,36 @@ class RegisterServiceController extends AdminController
     {
         $register_service = RegisterService::find($request->id);
 
-        $register_service->transaction = 1;
+        $transaction = 1;
 
-
-        if ($request->id_domain || $request->id_hosting || $request->id_vps || $request->id_email || $request->id_ssl || $request->id_website) {
-
-        } else {
-            $register_service->rules['id_domain'] = 'required';
-            $register_service->rules['id_hosting'] = 'required';
-            $register_service->rules['id_vps'] = 'required';
-            $register_service->rules['id_email'] = 'required';
-            $register_service->rules['id_ssl'] = 'required';
-            $register_service->rules['id_website'] = 'required';
-            $register_service->message['id_domain.required'] = 'Vui lòng chọn dịch vụ cần đăng ký !';
-        }
-        $validator = $this->validateInput($request->all(), $register_service->rules, $register_service->message);
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator);
-        }
-        $request['start_date'] = date('Y-m-d H:i:s', strtotime($request->start_date));
-        $request['end_date'] = date('Y-m-d H:i:s', strtotime($request->end_date));
-
-        $exist_date = date(strtotime($request->end_date)) - time();
+//
+//        if ($request->id_domain || $request->id_hosting || $request->id_vps || $request->id_email || $request->id_ssl || $request->id_website) {
+//
+//        } else {
+//            $register_service->rules['id_domain'] = 'required';
+//            $register_service->rules['id_hosting'] = 'required';
+//            $register_service->rules['id_vps'] = 'required';
+//            $register_service->rules['id_email'] = 'required';
+//            $register_service->rules['id_ssl'] = 'required';
+//            $register_service->rules['id_website'] = 'required';
+//            $register_service->message['id_domain.required'] = 'Vui lòng chọn dịch vụ cần đăng ký !';
+//        }
+//        $validator = $this->validateInput($request->all(), $register_service->rules, $register_service->message);
+//        if ($validator->fails()) {
+//            return redirect()->back()->withInput()->withErrors($validator);
+//        }
+        $end_date = $register_service->end_date;
+        $date_using = $request->date_using;
+        $month_ = '+' . $date_using . ' month';
+        $end_date_new = date('Y-m-d H:i:s', strtotime($month_, strtotime($end_date)));
+        $exist_date = date(strtotime($end_date_new)) - time();
 
         if ($exist_date < 0) {
             $years = floor(ABS($exist_date) / (365 * 60 * 60 * 24));
             $months = floor((ABS($exist_date) - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
             $days = floor((ABS($exist_date) - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
-            $request['exist_date'] = "Quá $days-$months-$years";
-            $register_service->status = 'Quá hạn';
+            $exist_date_new = "Quá $days-$months-$years";
+            $status = 'Quá hạn';
         } else {
             $years = floor($exist_date / (365 * 60 * 60 * 24));
             $months = floor(($exist_date - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
@@ -685,18 +687,17 @@ class RegisterServiceController extends AdminController
             if ($date < 30) {
                 $register_service->status = "Còn $date";
             } else {
-                $register_service->status = 'Đang hoạt động';
+                $status = 'Đang hoạt động';
             }
-            $request['exist_date'] = "Còn $days-$months-$years";
+            $exist_date_new = "Còn $days-$months-$years";
 
         }
-        $request['id_staff'] = Auth::id();
-        $register_service->fill($request->all());
 
 
         try {
 //            dd($register_service);
-            $register_service->save();
+            $register_service->update(['transaction' => $transaction, 'end_date' => $end_date_new, 'date_using' => $date_using,
+                'exist_date' => $exist_date_new, 'status' => $status]);
 
             $register_service_id = $register_service->id;
             $register_service_update = RegisterService::find($register_service_id);
@@ -748,8 +749,7 @@ class RegisterServiceController extends AdminController
             $customer = Customer::find($id_customer);
 
             if ($register_service_update) {
-                $register_service_code =
-                    Helper::generateCodeById($customer->id) . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+                $register_service_code = self::order . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
 
                 try {
                     $register_service_update->update([
@@ -761,13 +761,13 @@ class RegisterServiceController extends AdminController
 
 
                 } catch (\Exception $e) {
-                    return redirect(route('admin.register-services.index'))->with('fail', 'Thất Bại');
+                    return redirect(route('admin.list-services.index'))->with('fail', 'Thất Bại');
                 }
             }
 
             return redirect(route('admin.order.services'))->with('success', 'Thành Công');
         } catch (\Exception $e) {
-            return redirect(route('admin.order.services'))->with('fail', 'Thất Bại');
+            return redirect(route('admin.list-services.index'))->with('fail', 'Thất Bại');
         }
     }
 
@@ -888,8 +888,8 @@ class RegisterServiceController extends AdminController
             $customer = Customer::find($id_customer);
 
             if ($register_service_update) {
-                $register_service_code =
-                    Helper::generateCodeById($customer->id) . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+                $register_service_code =self::order . self::UNDERLINE . Helper::generateCodeById($register_service_id) . self::UNDERLINE . $code;
+
 
                 try {
                     $register_service_update->update([

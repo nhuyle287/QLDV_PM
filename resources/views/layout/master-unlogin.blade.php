@@ -4,8 +4,7 @@
 <body class="login-container">
 <!-- Main navbar -->
 <div class="navbar navbar-inverse bg-indigo"
-     style="background-image: none, linear-gradient(to top,rgba(29,88,154,0.75) 0px,
-     rgba(29,88,154,0.94) 10px,rgba(29,88,154,0.98) 20px,rgba(29,88,154,0.99) 30px,#1d589a 40px)">
+     style="background-image: linear-gradient(to top, rgb(22 ,138, 106), #28a745);">
     <div class="navbar-header">
         <a class="navbar-brand">
             {{--            <img src="{{asset('images/common/logo.png')}}" alt="">--}}

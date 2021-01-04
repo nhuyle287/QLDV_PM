@@ -14,7 +14,8 @@
                 Tạo hợp đồng tên miền
             </div>
             <div class="card-body">
-                <form action="{{route("admin.contract.reviewHosting")}}" novalidate class="needs-validation" method="POST"
+                <form action="{{route("admin.contract.reviewHosting")}}" novalidate class="needs-validation"
+                      method="POST"
                       enctype="multipart/form-data"
                       id="form_dk">
                     {{--            <input type="hidden" name="id" value="{{isset($info->id) ? $info->id: ''}}">--}}
@@ -253,14 +254,15 @@
                                     </select>
                                 </div>
                             </div>
-                            <input type="hidden" id="price_domain_remain"  class="form-control" readonly
+                            <input type="hidden" id="price_domain_remain" class="form-control" readonly
                                    name="price_domain_remain"
                                    value=""
                                    style="margin-top: 5px; margin-left: 3px">
                             <div class="form-group col-md-3">
                                 <div class="col-xs-12 form-group">
                                     <label>Đơn giá(VNĐ) *</label>
-                                    <input type="text" id="price_domain" data-id="price_domain" class="form-control" readonly
+                                    <input type="text" id="price_domain" data-id="price_domain" class="form-control"
+                                           readonly
                                            name="price_domain"
                                            value=""
                                            style="margin-top: 5px; margin-left: 3px">
@@ -270,7 +272,8 @@
                             <div class="form-group col-md-3">
                                 <div class="col-xs-12 form-group">
                                     <label>Số lượng *</label><br>
-                                    <input id="quantity_domain" data-id="quantity_domain" type="text" class="form-control"
+                                    <input id="quantity_domain" data-id="quantity_domain" type="text"
+                                           class="form-control"
                                            name="quantity_domain"
                                            data-id="quantity"
                                            value="" style="margin-top: 5px; margin-left: 3px">
@@ -279,7 +282,8 @@
                             <div class="form-group col-md-3">
                                 <label>Thành tiền(VNĐ) *</label>
                                 <div class="col-xs-12 form-group">
-                                    <input id="total_domain" type="text" class="form-control" name="total_domain" readonly
+                                    <input id="total_domain" type="text" class="form-control" name="total_domain"
+                                           readonly
                                            value="0" style="margin-top: 5px; margin-left: 3px">
                                 </div>
                             </div>
@@ -329,7 +333,7 @@
                     </div>
                     <hr>
 
-                    <button class="btn btn-default">{{ __('general.save') }}</button>
+                    <button class="btn btn-default">Xem trước</button>
                     <a href="{{ route('admin.contract.index') }}"
                        class="btn btn-default">{{ __('general.back') }}</a>
                 </form>
@@ -421,83 +425,38 @@
 
                 var quantity = $('input[data-id="quantity_domain"]').val();
                 total_domain.value = data_price_domain * parseInt(quantity);
-
+                tien=data_price_domain * parseInt(quantity);
+                total_domain.value = tien;
+                vat10_=tien*10/100;
+                vat10.value=vat10_;
+                // alert(vat10_);
+                $('#vat10').text(vat10_);
+                calculatorTotal();
             });
             $('#quantity_domain').keyup(function () {
                 var quantity = $('input[data-id="quantity_domain"]').val();
-                total_domain.value = data_price_domain * parseInt(quantity);
+                tien=data_price_domain * parseInt(quantity);
+                total_domain.value = tien;
+                vat10_=tien*10/100;
+                vat10.value=vat10_;
+                // alert(vat10_);
+                $('#vat10').text(vat10_);
+                calculatorTotal()
             });
             var data_price_domain_remain = $(obj).find(':selected').data('price_remain');
             var price_domain_remain = document.getElementById('price_domain_remain');
-            price_domain_remain.value=data_price_domain_remain;
+            price_domain_remain.value = data_price_domain_remain;
             var data_id_domain = $(obj).find(':selected').data('id_domain');
             var id_domain = document.getElementById('id_domain');
             id_domain.value = data_id_domain;
         }
 
-        // function selectSWare(obj) {
-        //
-        //     var data_price = $(obj).find(':selected').data('price');
-        //
-        //     // var price = $('#price');
-        //     $('#price').val(data_price);
-        //     // price.value = data_price;
-        //
-        //     $('#nameSW').on('change', function () {
-        //         var quantity = $('input[data-id="quantity"]').val();
-        //         tien = data_price * parseInt(quantity);
-        //         // total.value =tien;
-        //         $('#total').text(tien);
-        //         calculatorTotal();
-        //         //   total_all.value= calculatorTotal();
-        //         // calculatorTotal();
-        //     });
-        //
-        //     $('#quantity').keyup(function () {
-        //         var quantity = $('input[data-id="quantity"]').val();
-        //
-        //         tien = data_price * parseInt(quantity);
-        //         total.value = tien;
-        //         $('#total').text(tien);
-        //         vat10_=tien*10/100;
-        //         vat10.value=vat10_;
-        //         $('#vat10').text(vat10_)
-        //         calculatorTotal();
-        //         //  total.value = data_price * parseInt(quantity);
-        //         // calculatorTotal();
-        //     });
-        //     var data_id_vps = $(obj).find(':selected').data('id_vps');
-        //     var id_vps = document.getElementById('id_vps');
-        //     id_vps.value = data_id_vps;
-        // }
-
-        // function selectSWare(obj) {
-        //     var data_price = $(obj).find(':selected').data('price');
-        //     $('#price').val(data_price);
-        //     var quantity = $('#quantity').val();
-        //     tien = data_price * parseInt(quantity);
-        //     $('#total').val(tien);
-        //     var text_total = fomat_curent_VND(tien);
-        //     $('#total').text(text_total);
-        //     calculatorTotal();
-        //
-        //     console.log(total_all)
-        //     $('#quantity').keyup(function () {
-        //         var quantity = $('input[data-id="quantity"]').val();
-        //
-        //         tien = data_price * parseInt(quantity);
-        //         total.value = tien;
-        //         $('#total').text(tien);
-        //         calculatorTotal();
-        //     });
-        //     var data_id_website = $(obj).find(':selected').data('id_website');
-        //     var id_website = document.getElementById('id_website');
-        //     id_website.value = data_id_website;
-        // }
 
         function calculatorTotal() {
-            let price_vps = $('#total').val();
-            let vat=$('#vat10').val();
+
+            let price_vps = $('#total_domain').val();
+            let vat = $('#vat10').val();
+            // alert(vat)
             let total_all = parseInt(price_vps) + parseInt(vat);
             $('#total_all').val(total_all);
             $('#total_all').text(total_all);
@@ -513,150 +472,6 @@
             return currentcy;
         }
 
-        // $(document).ready(function () {
-        //     //tổng tiền web
-        //     let price = $('#price').val();
-        //     let quantity = $('#quantity').val();
-        //     var tien = parseInt(price) * parseInt(quantity);
-        //     console.log($('#price').val());
-        //     total.value = tien;
-        //     $('#total').text(tien);
-        //
-        //     //tổng tiền hosting
-        //     let price_hosting = $('#price_hosting').val();
-        //     let quantity_hosting = $('#quantity_hosting').val();
-        //     var total_price_hosting = parseInt(price_hosting) * parseInt(quantity_hosting);
-        //     $('#total_hosting').val(total_price_hosting);
-        //     $('#total_hosting').text(total_price_hosting);
-        //
-        //     //tổng tiền ssl
-        //     let price_ssl = $('#price_ssl').val();
-        //     let quantity_ssl = $('#quantity_ssl').val();
-        //     var total_price_ssl = parseInt(price_ssl) * parseInt(quantity_ssl);
-        //     $('#total_ssl').val(total_price_ssl);
-        //     $('#total_ssl').text(total_price_ssl);
-        //
-        //     //tổng tiền domain
-        //     let price_domain = $('#price_domain').val();
-        //     let quantity_domain = $('#quantity_domain').val();
-        //     var total_price_domain = parseInt(price_domain) * parseInt(quantity_domain);
-        //     $('#total_domain').val(total_price_domain);
-        //     $('#total_domain').text(total_price_domain);
-        //
-        //     let total_all = parseInt(tien) + parseInt(total_price_hosting) + parseInt(total_price_domain) + parseInt(total_price_ssl);
-        //     $('#total_all').val(total_all);
-        //     $('#total_all').text(total_all);
-        //     //     // var list_hopdong_phanmem = [];
-        //     //     var list_function_home = [];
-        //     //     var list_function_product = [];
-        //     //     var list_function_different = [];
-        //     //     var i = 1;
-        //     // var sum = 0;
-        //     // $('#bt_contract_sw').click(function () {
-        //     //     var tdhv = {
-        //     //         id: i,
-        //     //         tenhopdong: $('#nameSW option:selected').text(),
-        //     //         gia: $('#price').val(),
-        //     //         soluong: $('#quantity').val(),
-        //     //         thanhtien: $('#total').val(),
-        //     //     };
-        //     //     list_hopdong_phanmem.push(tdhv);
-        //     //
-        //     //
-        //     //     message = "<tr><td> " + "<input class='list_hopdong' type='hidden' name='list_hopdong[]' " +
-        //     //         "value='"
-        //     //         + tdhv.tenhopdong + ","
-        //     //         + tdhv.gia + ","
-        //     //         + tdhv.soluong + ","
-        //     //         + tdhv.thanhtien + "'>"
-        //     //         + tdhv.tenhopdong + "</td>" +
-        //     //         "<td>" + tdhv.gia + "</td>" +
-        //     //         "<td>" + tdhv.soluong + "</td>" +
-        //     //         "<td class='thanhtien'>" + tdhv.thanhtien + "</td><td><a class='remove' id =" + tdhv.id + "><i class='fa fa-trash'></i></a></td>" +
-        //     //         "</tr>";
-        //     //     $('#tb_hopdong').append(message);
-        //     //     i++;
-        //     //
-        //     //     sum += Number(tdhv.thanhtien);
-        //     //     console.log(sum);
-        //     //     $('#total_price').text(sum);
-        //     // })
-        //     //
-        //     //
-        //     // message = "<tr><th style='width: 80%'>Tổng tiền</th><th  id='total_price'></th></tr>";
-        //     // // $('#tb_hopdong').append(message);
-        //     // $('#tb_thanhtien').append(message);
-        //     //
-        //
-        //     // $('#bt_function_home').click(function () {
-        //     //     var function_homes = {
-        //     //         id: i,
-        //     //         // category_page:$('#category_page').val(),
-        //     //         function_home: $('#function_home').val()
-        //     //     };
-        //     //     list_function_home.push(function_homes);
-        //     //
-        //     //     message = "<tr><td> " + "<input class='list_function_home' type='hidden' name='list_function_homes[]' " +
-        //     //         "value='"
-        //     //         + function_homes.function_home + "'>" + function_homes.function_home + "</td><td><a class='remove' id ='" + function_homes.id + "'><i class='fa fa-trash'></i></a></td></tr>";
-        //     //     $('#tb_function_home').append(message);
-        //     //
-        //     //     i++;
-        //     // })
-        //     // $("#tb_function_home").on("click", ".remove", function () {
-        //     //     z = list_function_home.findIndex(obj => obj.id == $(this).attr("id"));
-        //     //     list_function_home.splice(z, 1);
-        //     //     $(this).closest("tr").remove();
-        //     // });
-        //     //
-        //     //
-        //     // $('#bt_function_product').click(function () {
-        //     //     var function_products = {
-        //     //         id: i,
-        //     //         function_product: $('#function_product').val()
-        //     //     };
-        //     //     list_function_product.push(function_products);
-        //     //
-        //     //     message = "<tr><td> " + "<input class='list_function_product' type='hidden' name='list_function_products[]' " +
-        //     //         "value='"
-        //     //         + function_products.function_product + "'>" + function_products.function_product + "</td><td><a class='remove' id =" + function_products.id + "><i class='fa fa-trash'></i></a></td>" +
-        //     //         "</tr>";
-        //     //     $('#tb_function_product').append(message);
-        //     //     i++;
-        //     // })
-        //     // $("#tb_function_product").on("click", ".remove", function () {
-        //     //     z = list_function_product.findIndex(obj => obj.id == $(this).attr("id"));
-        //     //     list_function_product.splice(z, 1);
-        //     //     $(this).closest("tr").remove();
-        //     // });
-        //     //
-        //     //
-        //     // $('#bt_function_different').click(function () {
-        //     //     var function_differents = {
-        //     //         id: i,
-        //     //         function_different: $('#function_different').val()
-        //     //     };
-        //     //     list_function_different.push(function_differents);
-        //     //
-        //     //     message = "<tr><td> " + "<input class='list_function_different' type='hidden' name='list_function_differents[]' " +
-        //     //         "value='"
-        //     //         + function_differents.function_different + "'>" + function_differents.function_different + "</td><td><a class='remove' id =" + function_differents.id + "><i class='fa fa-trash'></i></a></td>" +
-        //     //         "</tr>";
-        //     //     $('#tb_function_different').append(message);
-        //     //     i++;
-        //     // })
-        //     // $("#tb_function_different").on("click", ".remove", function () {
-        //     //     z = list_function_different.findIndex(obj => obj.id == $(this).attr("id"));
-        //     //     list_function_different.splice(z, 1);
-        //     //     $(this).closest("tr").remove();
-        //     // });
-        //
-        //
-        //     // $("#tb_hopdong").on("click", ".remove", function () {
-        //     //     z = list_hopdong_phanmem.findIndex(obj => obj.id == $(this).attr("id"));
-        //     //     list_hopdong_phanmem.splice(z, 1);
-        //     //     $(this).closest("tr").remove();
-        //     // });
-        // });
+
     </script>
 @stop

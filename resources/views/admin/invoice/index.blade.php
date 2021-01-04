@@ -11,6 +11,7 @@
     </style>
 @stop
 @section('content')
+
     <div class="content">
         <h1 class="titleheader">Quản Lý Sổ Quỹ</h1>
         <div class="row">

@@ -4,6 +4,7 @@
 @stop
 @section('head')
     <link rel="stylesheet" href="{{ asset('../css/responsive.css') }}">
+
 @stop
 @section('content')
 

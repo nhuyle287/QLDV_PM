@@ -30,6 +30,19 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- Main content -->
+    <div class="clearfix" style="margin-left: 0.25rem; margin-bottom: 0">
+        @if(session('success'))
+            <div class="btn btn-success button_  float-right">
+                {{session('success')}}
+            </div>
+        @endif
+        @if(session('fail'))
+            <div class="btn btn-danger  button_ float-right">
+                {{session('fail')}}
+            </div>
+        @endif
+
+    </div>
     <section class="content">
         <div class="container-fluid">
 

@@ -187,7 +187,7 @@
                                                                     <div class="infor">
                                                                         <p><strong
                                                                             >Đơn
-                                                                                vị:</strong><span>CÔNG TY TNHH HI TECH THIÊN QUÂN</span>
+                                                                                vị:</strong><span>CÔNG TY TNHH TMDV HOA TECHNOLOGY</span>
                                                                         </p>
                                                                         <strong>Địa chỉ: </strong><span>Lô 09, Tòa nhà 4S Riverside Garden, Đường số 17, Hiệp Bình Chánh, Thủ Đức, TPHCM</span>
                                                                     </div>

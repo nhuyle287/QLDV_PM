@@ -28,17 +28,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
          $schedule->command('update:existdate')->everyMinute();
-//         $schedule->call(function (){
-//             $registersevice=RegisterService::all();
-//             foreach ($registersevice as $i){
-//                 $end_date= Carbon::parse( $i->end_date);
-//                 $now=Carbon::now();
-//                 $a=$end_date->diff($now);
-//                 $i->exist_date=$a->d;
-//                 $i->save();
+        $schedule->command('remind_expried:update')->everyMinute();
+//            ->dailyAt('08:00');
 //
-//             }
-//         })->everyMinute();
     }
 
     /**

@@ -22,8 +22,8 @@
 
         .title {
             text-align: center;
-            margin-top: 0px !important;
-            padding-top: -50px !important;
+            margin-top: 1.5rem !important;
+            padding-top: -50px!important;
         }
 
         .law {
@@ -70,13 +70,15 @@
 
         table {
             width: 100%;
+            margin: 0;
         }
 
         table tr,
         table td,
         table th {
-            border: 1px dashed black;
+            border: 1px solid black;
             padding: 5px;
+            margin: 0;
         }
 
         .service, .service td, .service th {
@@ -104,6 +106,7 @@
         .time td,
         .time th {
             border: 1px solid slategrey;
+            margin: 0;
         }
 
         p, ul {
@@ -121,7 +124,8 @@
                  style=" display:inline-block; margin-top: 30px !important;margin-bottom: 0 !important; padding-bottom: 0 !important;">
                 <span style="padding-bottom: 0 !important;">
                     <img alt=""
-                         src="https://www.hoatech.vn/wp-content/uploads/2015/06/005.png"
+                         src="{{asset('images/logo.png')}}"
+{{--                         src="https://www.hoatech.vn/wp-content/uploads/2015/06/005.png"--}}
                          style=" margin-left: 0; margin-top: 5px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                          title="logo">
                 </span>
@@ -137,7 +141,7 @@
                 </span>
             </div>
             <div class="title">
-                <p style="margin-bottom: 0 !important;"><strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong></p>
+                <p style="margin-bottom: 0 !important;margin-top: 1rem"><strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong></p>
                 <p style="margin-bottom: 0 !important;"><strong> Độc lập - Tự do - Hạnh phúc</strong></p>
                 <p style="margin-bottom: 0 !important;">***********</p>
                 <p style="margin-bottom: 0 !important;"><strong>HỢP ĐỒNG CUNG CẤP TÊN MIỀN</strong></p>
@@ -163,7 +167,7 @@
                 có:</p>
             <div class="infor_contract">
                 <div class="infor_custom">
-                    <table>
+                    <table cellspacing="0" cellpadding="3">
 
                         <tr>
                             <td colspan="6" rowspan="1">
@@ -310,7 +314,7 @@
 
                         </ol>
                         <p style="page-break-after:always;"></p>
-                        <table class="service">
+                        <table class="service" cellspacing="0" cellpadding="3">
                             <tr>
                                 <th>Nội dung</th>
                                 <th>Đơn giá (VNĐ)</th>

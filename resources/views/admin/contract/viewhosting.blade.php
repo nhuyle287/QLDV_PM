@@ -75,7 +75,7 @@
         table tr,
         table td,
         table th {
-            border: 1px dashed black;
+            border: 1px solid black;
         }
 
         .register {
@@ -112,7 +112,8 @@
             <div class="head">
                     <span>
                  <img alt=""
-                      src="https://www.hoatech.vn/wp-content/uploads/2015/06/005.png"
+                      src="{{asset('images/logo.png')}}"
+{{--                      src="https://www.hoatech.vn/wp-content/uploads/2015/06/005.png"--}}
                       style=" margin-left: 0; margin-top: 5px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                       title="logo HoaTech">
                   </span>

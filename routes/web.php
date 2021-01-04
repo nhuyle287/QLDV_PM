@@ -220,6 +220,8 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
         Route::get('/{id}/edit', 'EmailController@entry')->name('admin.emails.edit');
         Route::post('/store', 'EmailController@store')->name('admin.emails.store');
         Route::post('/destroy', 'EmailController@destroy')->name('admin.emails.destroy');
+
+
     });
     //ssl management
     Route::prefix('/ssls')->group(function(): void{
@@ -287,6 +289,7 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
         Route::GET('/{id}/extend', 'RegisterSoftController@extend')->name('admin.register-softs.extend');
         Route::post('/storeextend', 'RegisterSoftController@storeextend')->name('admin.register-softs.storeextend');
 
+
     });
     //softwares management
     Route::prefix('/softwares')->group(function(): void{
@@ -320,6 +323,7 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
         Route::post('/updatetservices', 'OrderController@updatetservices')->name('admin.order.updatetservices');
         Route::post('/destroy-select', 'OrderController@destroySelect')->name('admin.order.destroy-select');
         Route::post('/', 'OrderController@searchRow')->name('admin.order.search-row');
+        route::get('sendmail','OrderController@sendmail')->name('admin.order.sendmail');
 //        Route::get('/order', 'OrderController@index')->name('admin.order.index');
     });
     //invoice management
@@ -336,7 +340,6 @@ Route::namespace('Admin')->prefix('/admin')->group(function (): void {
         Route::get('/addreceipts', 'InvoiceController@addreceipts')->name('admin.invoices.addreceipts');
         Route::post('/receiptsstore', 'InvoiceController@receiptsstore')->name('admin.invoices.receiptsstore');
         Route::post('/destroy-select', 'InvoiceController@destroySelect')->name('admin.invoices.destroy-select');
-
 
 
 

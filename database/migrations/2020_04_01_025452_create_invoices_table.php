@@ -17,9 +17,9 @@ class CreateInvoicesTable extends Migration
             $table->increments('id');
 
             $table->string('code')->nullable();
-            $table->string('price')->nullable();
+            $table->float('price')->nullable();
             $table->string('VAT_price')->nullable();
-            $table->string('total')->nullable();
+            $table->double('total')->nullable();
             $table->integer('id_staff')->nullable();
             $table->integer('id_customer')->nullable();
             $table->integer('id_register_service')->nullable();

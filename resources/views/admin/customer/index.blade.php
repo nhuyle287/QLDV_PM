@@ -173,7 +173,7 @@
                                                                     <td>{{ $cus->address }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>{{ __('customer.phone') }}</td>
+                                                                    <td>{{ __('customer.phone_number') }}</td>
                                                                     <td>{{ $cus->phone_number }}</td>
                                                                 </tr>
                                                                 <tr>

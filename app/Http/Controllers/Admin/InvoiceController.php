@@ -4,18 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Business\RegisterServicesLogic;
 use App\Business\InvoiceLogic;
-use App\Business\RegisterSoftLogic;
-use App\charts\SampleChart;
+use App\Charts\SampleChart;
 use App\Models\ConstantsModel;
 use App\Models\Customer;
 use App\Models\Expenditure;
 use App\Models\Invoice;
-use App\Models\Receipt;
-use App\Models\payment;
+use App\Charts;
+use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends AdminController
@@ -46,15 +43,23 @@ class InvoiceController extends AdminController
             , $newvl->totalprice(4), $newvl->totalprice(5), $newvl->totalprice(6)
             , $newvl->totalprice(7), $newvl->totalprice(8), $newvl->totalprice(9)
             , $newvl->totalprice(10), $newvl->totalprice(11), $newvl->totalprice(12)];
+        $value_revenue = [$newvl->totalrevenue(1), $newvl->totalrevenue(2), $newvl->totalrevenue(3)
+            , $newvl->totalrevenue(4), $newvl->totalrevenue(5), $newvl->totalrevenue(6)
+            , $newvl->totalrevenue(7), $newvl->totalrevenue(8), $newvl->totalrevenue(9)
+            , $newvl->totalrevenue(10), $newvl->totalrevenue(11), $newvl->totalrevenue(12)];
+        $value_expenditure = [$newvl->totalexpenditure(1), $newvl->totalexpenditure(2), $newvl->totalexpenditure(3)
+            , $newvl->totalexpenditure(4), $newvl->totalexpenditure(5), $newvl->totalexpenditure(6)
+            , $newvl->totalexpenditure(7), $newvl->totalexpenditure(8), $newvl->totalexpenditure(9)
+            , $newvl->totalexpenditure(10), $newvl->totalexpenditure(11), $newvl->totalexpenditure(12)];
         $total_ = Invoice::sum('total');
-        $expenditure=Expenditure::sum('price');
-        $labels = Invoice::pluck('created_at');
-//        $labels=date('d-m-y',strtotime($labels));explode(" ",created_at)
+        $expenditure = Expenditure::sum('price');
+        $labels = Invoice::pluck('created_at');//
         $chart = new SampleChart();
         $chart->labels(['Tháng1', 'Tháng2', 'Tháng3', 'Tháng4', 'Tháng5', 'Tháng6', 'Tháng7', 'Tháng8', 'Tháng9', 'Tháng10', 'Tháng11', 'Tháng12']);
-//        $chart->labels($labels);
-        $chart->dataset('Quỹ', 'line', $values)->color("rgb(0,128,128)");
-        return view('admin.invoice.receipts', compact('register_services', 'transaction_soft', 'chart', 'total_','expenditure'));
+        $chart->dataset('Thu', 'bar', $values)->backgroundcolor("rgb(0,128,128)");
+        $chart->dataset('Chi', 'bar', $value_expenditure)->backgroundcolor("#ffc107");
+        $chart->dataset('Doanh thu', 'bar', $value_revenue)->backgroundcolor("#dc3545");
+        return view('admin.invoice.receipts', compact('register_services', 'transaction_soft', 'chart', 'total_', 'expenditure'));
     }
 
     public function searchRow(Request $request)
@@ -71,15 +76,23 @@ class InvoiceController extends AdminController
             , $newvl->totalprice(4), $newvl->totalprice(5), $newvl->totalprice(6)
             , $newvl->totalprice(7), $newvl->totalprice(8), $newvl->totalprice(9)
             , $newvl->totalprice(10), $newvl->totalprice(11), $newvl->totalprice(12)];
+        $value_revenue = [$newvl->totalrevenue(1), $newvl->totalrevenue(2), $newvl->totalrevenue(3)
+            , $newvl->totalrevenue(4), $newvl->totalrevenue(5), $newvl->totalrevenue(6)
+            , $newvl->totalrevenue(7), $newvl->totalrevenue(8), $newvl->totalrevenue(9)
+            , $newvl->totalrevenue(10), $newvl->totalrevenue(11), $newvl->totalrevenue(12)];
+        $value_expenditure = [$newvl->totalexpenditure(1), $newvl->totalexpenditure(2), $newvl->totalexpenditure(3)
+            , $newvl->totalexpenditure(4), $newvl->totalexpenditure(5), $newvl->totalexpenditure(6)
+            , $newvl->totalexpenditure(7), $newvl->totalexpenditure(8), $newvl->totalexpenditure(9)
+            , $newvl->totalexpenditure(10), $newvl->totalexpenditure(11), $newvl->totalexpenditure(12)];
         $total_ = Invoice::sum('total');
-        $expenditure=Expenditure::sum('price');
-        $labels = Invoice::pluck('created_at');
-//        $labels=date('d-m-y',strtotime($labels));explode(" ",created_at)
+        $expenditure = Expenditure::sum('price');
+        $labels = Invoice::pluck('created_at');//
         $chart = new SampleChart();
         $chart->labels(['Tháng1', 'Tháng2', 'Tháng3', 'Tháng4', 'Tháng5', 'Tháng6', 'Tháng7', 'Tháng8', 'Tháng9', 'Tháng10', 'Tháng11', 'Tháng12']);
-//        $chart->labels($labels);
-        $chart->dataset('Quỹ', 'line', $values)->color("rgb(0,128,128)");
-        return view('admin.invoice.search-row', compact('register_services','transaction_soft', 'chart', 'total_','expenditure'));
+        $chart->dataset('Thu', 'bar', $values)->backgroundcolor("rgb(0,128,128)");
+        $chart->dataset('Chi', 'bar', $value_expenditure)->backgroundcolor("#ffc107");
+        $chart->dataset('Doanh thu', 'bar', $value_revenue)->backgroundcolor("#dc3545");
+        return view('admin.invoice.search-row', compact('register_services', 'transaction_soft', 'chart', 'total_', 'expenditure'));
     }
 
     public function addreceipts()

@@ -3,7 +3,7 @@
     Vai trò
 @stop
 @section('css')
-    <link rel="stylesheet" href="{{ asset('../css/responsive.css') }}">
+    <link rel="stylesheet" href="css/responsive.css">
 @endsection
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">

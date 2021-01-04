@@ -20,14 +20,7 @@ class XDetailAcademicInternshipTableSeeder extends Seeder
                 'internship_id' => 2,
                 'academic_id' => 2,
             ),
-            array(
-                'internship_id' => 3,
-                'academic_id' => 3,
-            ),
-            array(
-                'internship_id' => 4,
-                'academic_id' => 4,
-            ),
+
         ));
     }
 }

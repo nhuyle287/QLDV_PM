@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('css')
-    <link rel="stylesheet" href="{{ asset('../css/default.css') }}">
+    <link rel="stylesheet" href="css/responsive.css">
 @endsection
 @section('content')
     <div class="body-content">

@@ -36,6 +36,7 @@ class ConstantsModel extends Model
         'Mới' => 0,
         'Gia hạn' => 1,
         'Đã thanh toán' => 2,
+        'Hủy'=>3,
     ];
 
 }

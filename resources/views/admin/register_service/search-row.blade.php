@@ -30,12 +30,13 @@
                         </td>
 
                         <td class="thstyleform">{{ date('d-m-Y', strtotime($register_service->start_date))}}
-                            <p class="pstyleform1">{{date('d-m-Y',strtotime($register_service->end_date))}}</p></td>
+                            <p class="pstyleform1">{{date('d-m-Y',strtotime($register_service->end_date))}}</p>
+                        </td>
 
-                        <td class="thstyleform"
-                            @if($register_service->status=='Quá hạn') style="color: red; "
-                            @else @if($register_service->status=='Đang hoạt động') style=""
-                            @else style="color: #0040FF" @endif @endif>{{$register_service->status}}
+                        <td class="thstyleform">
+                            <p @if($register_service->status=='Quá hạn') style="background-color: red; color: white;border: 1px solid red; border-radius: 4px ;font-size: 0.85rem"
+                               @else @if($register_service->status=='Đang hoạt động') style="background-color:#007bff;color: white; border: 1px solid #007bff; border-radius: 4px ;font-size: 0.85rem"
+                               @else style="background-color: orange;color: white;border: 1px solid orange; border-radius: 4px;font-size: 0.85rem" @endif @endif>{{$register_service->status}}</p>
 
                         </td>
                         <td class="thstyleform">
@@ -108,11 +109,11 @@
                                     </div>
                                 </div>
                             </div>
-                            @can('list-service-management-update')
+                            @can('order-service-update')
                                 <a href="{{route('admin.list-services.edit', [$register_service->id])}}"
                                    class="btn btn-xs btn-success">{{ __('general.edit') }}</a>
                             @endcan
-                            @can('list-service-management-delete')
+                            @can('order-service-delete')
                                 <button type="button" class="btn btn-xs btn-danger"
                                         data-toggle="modal"
                                         data-target="#deleteItemModal{{ $register_service->id }}">
@@ -155,10 +156,76 @@
                                     </div>
                                 </form>
                             @endcan
-                            @if($register_service->status == 'Quá hạn')
-                                <a href="{{route('admin.list-services.extend', $register_service->id)}}
-                                    " class="btn btn-xs btn-info">Gia hạn</a>
+                            @if($register_service->end_date<date('Y-m-d',strtotime ( '+8 day' , strtotime ( now() ))))
+
+                                <a class="btn btn-xs btn-warning" style="margin-top: 0.5rem"
+                                   data-toggle="modal"
+                                   data-target="#extendserviceItemModal{{  $register_service->id}}">Gia
+                                    hạn</a>
+                                <form action="{{ route('admin.list-services.storeextend') }}"
+                                      method="POST">
+                                    @csrf
+                                    <div class="modal fade"
+                                         id="extendserviceItemModal{{ $register_service->id }}"
+                                         tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title"
+                                                        id="exampleModalLabel">Gian hạn</h5>
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="id"
+                                                           value="{{$register_service->id }}"/>
+
+                                                    <div class="col-xs-12 form-group"
+                                                         style="display: flex">
+                                                        <label class="registerservice1"
+                                                               style="width: 40%">Thời gian sử
+                                                            dụng <span
+                                                                class="aster">*</span></label>
+
+                                                        <select
+                                                            class="js-example-basic-single form-control"
+                                                            name="date_using"
+                                                            style="width: 60%">
+
+                                                            <option value="12" selected>12
+                                                                tháng
+                                                            </option>
+                                                            <option value="24">24 tháng</option>
+                                                            <option value="36">36 tháng</option>
+                                                            <option value="48">48 tháng</option>
+                                                            <option value="60">60 tháng</option>
+                                                            <option value="72">72 tháng</option>
+                                                        </select>
+
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-secondary"
+                                                            data-dismiss="modal">{{ __('general.close') }}</button>
+                                                    <button type="submit"
+                                                            class="btn btn-danger">{{ __('general.save') }}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
                             @endif
+
                         </td>
                         <?php $i++?>
                     </tr>
@@ -177,19 +244,21 @@
                         </td>
                         <td class="thstyleform">{{$register_soft->software}}</td>
                         <td class="thstyleform">{{ date('d-m-Y', strtotime($register_soft->start_date))}}
-                            <p class="pstyleform1">{{date('d-m-Y',strtotime($register_soft->end_date))}}</p></td>
+                            <p class="pstyleform1">{{date('d-m-Y',strtotime($register_soft->end_date))}}</p>
+                        </td>
                         @if($register_soft->end_date<now())
-                            <td class="thstyleform" style="color: red">Quá hạn</td>
+                            <td class="thstyleform"><p style="background-color: red; color: white;border: 1px solid red; border-radius: 4px ;font-size: 0.85rem">Quá hạn</p></td>
                         @else
-                            <td class="thstyleform">Đang hoạt động</td>
+
+                            <td class="thstyleform "><p style="background-color:#007bff;color: white; border: 1px solid #007bff; border-radius: 4px ;font-size: 0.85rem">Đang hoạt động</p></td>
                         @endif
                         <td class="thstyleform">
                             <button type="button" class="btn btn-xs btn-info"
                                     data-toggle="modal"
-                                    data-target="#viewModal1{{ $register_soft->id }}">
+                                    data-target="#viewsoftModal{{ $register_soft->id }}">
                                 {{ __('general.view') }}
                             </button>
-                            <div class="modal fade" id="viewModal1{{ $register_soft->id }}"
+                            <div class="modal fade" id="viewsoftModal{{ $register_soft->id }}"
                                  tabindex="-1"
                                  role="dialog" aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
@@ -230,10 +299,7 @@
                                                     <th>Gói Phần Mềm</th>
                                                     <td>{{$register_soft->software}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <th>Giá Phần Mềm</th>
-                                                    <td>{{$register_soft->price}} </td>
-                                                </tr>
+
                                                 <tr>
 
                                                     <th>Ngày bắt đầu</th>
@@ -260,21 +326,21 @@
                                     </div>
                                 </div>
                             </div>
-                            @can('list-service-management-update')
+                            @can('order-service-update')
                                 <a href="{{route('admin.register-softs.edit', [$register_soft->id])}}"
                                    class="btn btn-xs btn-success">{{ __('general.edit') }}</a>
                             @endcan
-                            @can('list-service-management-delete')
+                            @can('order-service-delete')
                                 <button type="button" class="btn btn-xs btn-danger"
                                         data-toggle="modal"
-                                        data-target="#deleteItemModal{{ $register_soft->id }}">
+                                        data-target="#deletesoftItemModal{{ $register_soft->id }}">
                                     {{ __('general.delete') }}
                                 </button>
                                 <form action="{{ route('admin.register-softs.destroy') }}"
                                       method="POST">
                                     @csrf
                                     <div class="modal fade"
-                                         id="deleteItemModal{{ $register_soft->id }}"
+                                         id="deletesoftItemModal{{ $register_soft->id }}"
                                          tabindex="-1" role="dialog"
                                          aria-labelledby="exampleModalLabel"
                                          aria-hidden="true">
@@ -307,9 +373,73 @@
                                     </div>
                                 </form>
                             @endcan
-                            @if($register_soft->end_date<now())
-                                <a href="{{route('admin.register-softs.extend', $register_soft->id)}}
-                                    " class="btn btn-xs btn-info">Gia hạn</a>
+                            @if($register_soft->end_date<date('Y-m-d',strtotime ( '+8 day' , strtotime ( now() ))))
+
+                                <a class="btn btn-xs btn-warning" style="margin-top: 0.5rem"
+                                   data-toggle="modal"
+                                   data-target="#extendItemModal{{  $register_soft->id}}">Gia
+                                    hạn</a>
+                                <form action="{{ route('admin.register-softs.storeextend') }}"
+                                      method="POST">
+                                    @csrf
+                                    <div class="modal fade"
+                                         id="extendItemModal{{ $register_soft->id }}"
+                                         tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title"
+                                                        id="exampleModalLabel">Gian hạn</h5>
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="id"
+                                                           value="{{$register_soft->id }}"/>
+
+                                                    <div class="col-xs-12 form-group"
+                                                         style="display: flex">
+                                                        <label class="registerservice1"
+                                                               style="width: 40%">Thời gian sử
+                                                            dụng <span
+                                                                class="aster">*</span></label>
+
+                                                        <select
+                                                            class="js-example-basic-single form-control"
+                                                            name="date_using"
+                                                            style="width: 60%">
+
+                                                            <option value="12" selected>12
+                                                                tháng
+                                                            </option>
+                                                            <option value="24">24 tháng</option>
+                                                            <option value="36">36 tháng</option>
+                                                            <option value="48">48 tháng</option>
+                                                            <option value="60">60 tháng</option>
+                                                            <option value="72">72 tháng</option>
+                                                        </select>
+
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-secondary"
+                                                            data-dismiss="modal">{{ __('general.close') }}</button>
+                                                    <button type="submit"
+                                                            class="btn btn-danger">{{ __('general.save') }}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
 
                             @endif
 

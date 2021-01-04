@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Business\RegisterSoftLogic;
+use App\Helpers\Helper;
 use App\Models\ConstantsModel;
 use App\Models\Customer;
 use App\Models\RegisterService;
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisterSoftController extends AdminController
 {
+    const UNDERLINE = '_';
+    const orders = 'DH';
+
     public function index(){
         $logic_register_soft=new RegisterSoftLogic();
         $register_softs=$logic_register_soft->getlistregistersoft();
@@ -108,15 +112,32 @@ class RegisterSoftController extends AdminController
         $register_soft->id_software=$request->id_software;
         $register_soft->status=$request->status;
         $register_soft->address_domain=$request->address_domain;
-        $request->id_staff=Auth::id();
+        $register_soft->id_staff=Auth::id();
         try {
 
             $register_soft->save();
-            return redirect(route('admin.order.software'))->with('success', 'Success');
+            $register_soft_id = $register_soft->id;
+            $register_soft_update = RegisterSoft::find($register_soft_id);
+            $code="ST";
+
+            if ($register_soft_update) {
+                $register_soft_code =self::orders . self::UNDERLINE  . $code . self::UNDERLINE. Helper::generateCodeById($register_soft_id);
+
+                try {
+                    $register_soft_update->update([
+                        'code' => $register_soft_code,
+                    ]);
+//                    dd($register_soft_code);
+                    return redirect(route('admin.order.software'))->with('success', 'Thành công');
+                } catch (\Exception $e) {
+                    return redirect(route('admin.order.software'))->with('fail', 'Thất Bại');
+                }
+            }
+
         } catch (\Exception $e) {
 //            dd($e);
 //            return redirect(route('admin.register_softs.index'))->with('fail', 'Fail'.$e); lấy lỗi sai ra dùng $e
-            return redirect(route('admin.order.software'))->with('fail', 'Fail');
+            return redirect(route('admin.order.software'))->with('fail', 'Thất bại');
         }
 
     }
@@ -132,30 +153,28 @@ class RegisterSoftController extends AdminController
     }
 
     public function storeextend(Request $request){
+//        dd($request->all());
         $register_soft=new RegisterSoft();
         if($request->id){
             $register_soft=RegisterSoft::find($request->id);
         }
-        $validator=$this->validateInput(($request->all()),$register_soft->rules,$register_soft->message);
-        if ($validator->fails()){
-            return redirect()->back()->withInput()->withErrors($validator);
-        }
-//dd($request->all());
+//        $validator=$this->validateInput(($request->all()),$register_soft->rules,$register_soft->message);
+//        if ($validator->fails()){
+//            return redirect()->back()->withInput()->withErrors($validator);
+//        }
 
-        $start_date = date('Y-m-d H:i:s', strtotime($request->start_date));
+//dd($register_soft->end_date);
+        $end_date=$register_soft->end_date;
         $date_using = $request->date_using;
         $month_ = '+' . $date_using . ' month';
-        $end_date = date('Y-m-d H:i:s', strtotime($month_, strtotime($start_date)));
-        $request['start_date'] = $start_date;
-        $request['end_date'] = $end_date;
-//        dd($request->end_date);
-        $register_soft->fill($request->all());
-        $register_soft->transaction=0;
-        $register_soft->date_using=$date_using;
-        $request->id_staff=Auth::id();
+//        dd(date('Y-m-d H:i:s', strtotime('+26 month', strtotime($end_date))));
+        $end_date_new = date('Y-m-d H:i:s', strtotime($month_, strtotime($end_date)));
+        $transaction=1;
+        $id_staff=Auth::id();
         try {
 
-            $register_soft->save();
+            $register_soft->where('id',$request->id)->update(['id_staff'=>$id_staff,'status'=>'Chính thức','transaction'=>$transaction,
+                'end_date'=>$end_date_new,'date_using'=>$date_using]);
             return redirect(route('admin.order.software'))->with('success', 'Success');
         } catch (\Exception $e) {
 //            return redirect(route('admin.register_softs.index'))->with('fail', 'Fail'.$e); lấy lỗi sai ra dùng $e

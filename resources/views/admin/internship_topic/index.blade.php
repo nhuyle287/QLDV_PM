@@ -202,8 +202,8 @@
                                         <td>
                                             <span>{{ucfirst(array_search($internship->status,\App\Models\ConstantsModel::STATUS_INTERNSHIP))}}</span>
                                         </td>
-                                        <td>{{$internship->date_create}}</td>
-                                        <td>{{$internship_topic->start_date}}</td>
+                                        <td>{{date('d-m-Y', strtotime($internship->date_create))}}</td>
+                                        <td> {{date('d-m-Y', strtotime($internship_topic->start_date))}}</td>
 
                                         <td class="test">
                                             <a onclick="show({{$internship->internship_id}})"

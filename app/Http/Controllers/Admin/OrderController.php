@@ -8,6 +8,9 @@ use App\Business\RegisterServicesLogic;
 use App\Business\RegisterSoftLogic;
 
 use App\Helpers\Helper;
+use App\Mail\OrderMails;
+use App\Mail\OrderSoft;
+use App\Mail\OrderSoftTrial;
 use App\Models\ConstantsModel;
 use App\Models\Customer;
 use App\Models\Invoice;
@@ -16,6 +19,8 @@ use App\Models\RegisterService;
 use App\Models\RegisterSoft;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Nexmo\Numbers\Number;
 
 
 class OrderController extends AdminController
@@ -32,7 +37,8 @@ class OrderController extends AdminController
         $key = isset($request->key) ? $request->key : '';
         $register_services = $logic_register_services->getListRegisterServices($key, 10);
         if (isset($request->amount)) {
-            $register_services = $logic_register_services->getListRegisterServices($key, $request->amount);        }
+            $register_services = $logic_register_services->getListRegisterServices($key, $request->amount);
+        }
 
         return view('admin.order.index_services', compact('register_services', 'transaction_services'));
     }
@@ -47,18 +53,18 @@ class OrderController extends AdminController
         }
         return view('admin.order.service_row', compact('register_services', 'transaction_services'));
     }
+
     public function destroySelect(Request $request)
     {
         try {
             $allVals = explode(',', $request->allValsDelete[0]);
-            if($allVals[0]!=="") {
+            if ($allVals[0] !== "") {
                 foreach ($allVals as $item) {
                     $register_service = RegisterService::find($item);
                     $register_service->delete();
                 }
                 return redirect()->back()->with('success', __('general.delete_success'));
-            }
-            else{
+            } else {
                 return redirect()->back()->with('fail', 'Vui lòng chọn dòng cần xóa');
             }
 
@@ -66,19 +72,21 @@ class OrderController extends AdminController
             return redirect()->back()->with('fail', __('general.delete_fail'));
         }
     }
+
 // cập nhật transaction
     public function updatetservices(Request $request)
     {
         //$update = RegisterService::find($request->id);
-
-        $update = RegisterService::
-        leftJoin('domains as d', 'd.id', 'register_services.id_domain')
+        $giahan = 0;
+        $service = RegisterService::
+        join('customers as c', 'c.id', '=', 'register_services.id_customer')
+            ->leftJoin('domains as d', 'd.id', 'register_services.id_domain')
             ->leftJoin('hostings as h', 'h.id', 'register_services.id_hosting')
             ->leftJoin('vpss as v', 'v.id', 'register_services.id_vps')
             ->leftJoin('emails as e', 'e.id', 'register_services.id_email')
             ->leftJoin('ssls as s', 's.id', 'register_services.id_ssl')
             ->leftJoin('websites as w', 'w.id', 'register_services.id_website')
-            ->select('register_services.*',
+            ->select('register_services.*', 'c.name as customer_name', 'c.email', 'c.phone_number', 'c.address',
                 'w.name as website_name', 'w.type_website as website_type',
                 's.name as ssl_name',
                 'e.name as email_name',
@@ -94,93 +102,108 @@ class OrderController extends AdminController
                 'd.fee_register as domain_fee_register',
                 'd.fee_remain as domain_fee_remain',
                 'd.fee_tranformation as domain_fee_tranformation')
-            ->findOrFail($request->id);
-//        $update->start_date=now();
-        $update->update($request->all());
-        $exist_date = date(strtotime($update->end_date)) - date(strtotime($update->start_date));
+            ->findOrFail($request->id);//        $update->start_date=now();
+        ;
+        $exist_date = date(strtotime($service->end_date)) - date(strtotime($service->start_date));
         $years = floor($exist_date / (365 * 60 * 60 * 24));
-        if ($update->transaction == 2) {
-            $invoice = new Invoice();
-            $invoice->id_register_service = $update->id;
-            $invoice->id_customer = $update->id_customer;
-            $invoice->id_staff=Auth::id();
-            $invoice->price = $update->softwares_price;
+        $transaction = $request->transaction;
+//        dd($transaction);
+        $invoice = new Invoice();
+        if ($request->transaction == 2) {
+            $service->update(['transaction' => $transaction]);
+
+            $invoice->id_register_service = $service->id;
+            $invoice->id_customer = $service->id_customer;
+            $invoice->id_staff = Auth::id();
             $invoice->date = now();
             $invoice->VAT_price = '10%';
             $invoice->description = "Đã thanh toán";
-
-            if ($years > 1) {
-                if ($update->id_hosting !== null && $update->id_website === null) {
-                    $total= $update->hosting_price * (int)$years;
-                    $invoice->price=$total;
-                    $invoice->order_type = "thu tiền dịch vụ $update->hosting_name";
+            $year_using = $service->date_using / 12;
+            if ($year_using > 1) {
+                if ($service->id_hosting !== null && $service->id_website === null) {
+                    $total = (float)$service->hosting_price * $year_using;
+                    $invoice->price = $total;
+                    $invoice->order_type = "Thu tiền dịch vụ $service->hosting_name";
                     $invoice->total = $total + $total * 10 / 100;
-                } elseif ($update->id_vps !== null && $update->id_website === null) {
-                    $total=$update->vps_price * (int)$years;
+                } elseif ($service->id_vps !== null && $service->id_website === null) {
+                    $total = (float)$service->vps_price * $year_using;
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->vps_name";
-                } elseif ($update->id_email !== null && $update->id_website === null) {
-                    $total=$update->email_price * (int)$years;
+                    $invoice->order_type = "Thu tiền dịch vụ $service->vps_name";
+                } elseif ($service->id_email !== null && $service->id_website === null) {
+                    $total = (float)$service->email_price * $year_using;
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->email_name";
-                } elseif ($update->id_ssl !== null && $update->id_website === null) {
-                    $total=$update->ssl_price * (int)$years;
+                    $invoice->order_type = "Thu tiền dịch vụ $service->email_name";
+                } elseif ($service->id_ssl !== null && $service->id_website === null) {
+                    $total = (float)$service->ssl_price * $year_using;
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->ssl_name";
-                } elseif ($update->id_domain !== null && $update->id_website === null) {
-                    $total=$update->domain_fee_register + $update->domain_fee_remain * ((int)$years - 1);
+                    $invoice->order_type = "Thu tiền dịch vụ $service->ssl_name";
+                } elseif ($service->id_domain !== null && $service->id_website === null) {
+                    if ($service->transaction == 1) {
+                        $giahan = 1;
+                        $total = (float)$service->domain_fee_register * ($year_using);
+                    } else {
+                        $total = (float)$service->domain_fee_remain * ($year_using);
+                    }
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->domain_name";
+                    $invoice->order_type = "Thu tiền dịch vụ $service->domain_name";
                 } else {
-                    $total=$update->website_price * (int)$years;
+                    $total = (float)$service->website_price * $year_using;
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->website_name";
+                    $invoice->order_type = "Thu tiền dịch vụ $service->website_name";
                 }
 
             } else {
-                if ($update->id_hosting !== null && $update->id_website === null) {
-                    $total= $update->hosting_price;
-                    $invoice->price=$total;
-                    $invoice->order_type = "thu tiền dịch vụ $update->hosting_name";
+                if ($service->id_hosting !== null && $service->id_website === null) {
+                    $total = (float)$service->hosting_price;
+                    $invoice->price = $total;
+                    $invoice->order_type = "Thu tiền dịch vụ $service->hosting_name";
                     $invoice->total = $total + $total * 10 / 100;
-                } elseif ($update->id_vps !== null && $update->id_website === null) {
-                    $total=$update->vps_price;
+                } elseif ($service->id_vps !== null && $service->id_website === null) {
+                    $total = (float)$service->vps_price;
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->vps_name";
-                } elseif ($update->id_email !== null && $update->id_website === null) {
-                    $total=$update->email_price;
+                    $invoice->order_type = "Thu tiền dịch vụ $service->vps_name";
+                } elseif ($service->id_email !== null && $service->id_website === null) {
+                    $total = (float)$service->email_price;
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->email_name";
-                } elseif ($update->id_ssl !== null && $update->id_website === null) {
-                    $total=$update->ssl_price;
+                    $invoice->order_type = "Thu tiền dịch vụ $service->email_name";
+                } elseif ($service->id_ssl !== null && $service->id_website === null) {
+                    $total = (float)$service->ssl_price;
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->ssl_name";
-                } elseif ($update->id_domain !== null && $update->id_website === null) {
-                    $total=$update->domain_fee_register ;
+                    $invoice->order_type = "Thu tiền dịch vụ $service->ssl_name";
+                } elseif ($service->id_domain !== null && $service->id_website === null) {
+                    if ($service->transaction == 1) {
+                        $total = (float)$service->domain_fee_register;
+                    } else {
+                        $total = (float)$service->domain_fee_remain;
+                    }
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->domain_name";
+                    $invoice->order_type = "Thu tiền dịch vụ $service->domain_name";
                 } else {
-                    $total=$update->website_price;
+                    $total = (float)$service->website_price;
                     $invoice->price = $total;
                     $invoice->total = $total + $total * 10 / 100;
-                    $invoice->order_type = "thu tiền dịch vụ $update->website_name";
+                    $invoice->order_type = "Thu tiền dịch vụ $service->website_name";
                 }
 
             }
         }
 
+//        dd($invoice);
+
 //            dd($ten);
 //            $invoice->order_type = "thu tiền dịch vụ $ten";
         $invoice->save();
+        $extend = $giahan;
+        Mail::to($service->email)->send(new OrderMails($service, $extend));
         $sw = RegisterService::find($request->id);
         $customer = Customer::find($sw->id_customer);
         $code_bill = Helper::generateCodeById($invoice->id_register_service) . self::UNDERLINE . 'SV';
@@ -200,9 +223,6 @@ class OrderController extends AdminController
 
         return back();
     }
-
-
-
 
 
     public function software(Request $request)
@@ -236,14 +256,13 @@ class OrderController extends AdminController
     {
         try {
             $allVals = explode(',', $request->allValsDelete[0]);
-            if($allVals[0]!=="") {
+            if ($allVals[0] !== "") {
                 foreach ($allVals as $item) {
                     $register_soft = RegisterSoft::find($item);
                     $register_soft->delete();
                 }
                 return redirect()->back()->with('success', __('general.delete_success'));
-            }
-            else{
+            } else {
                 return redirect()->back()->with('fail', 'Vui lòng chọn dòng cần xóa');
             }
 
@@ -255,42 +274,52 @@ class OrderController extends AdminController
     public function updatetssoft(Request $request)
     {
 
-        $update = RegisterSoft::
-        join('softwares as sw', 'sw.id', 'register_soft.id_software')
+        $service = RegisterSoft::
+        join('customers as c', 'c.id', '=', 'register_soft.id_customer')
+            ->join('softwares as sw', 'sw.id', 'register_soft.id_software')
             ->join('typesoftwares as ts', 'ts.id', 'register_soft.id_typesoftware')
             ->join('users as u', 'u.id', 'register_soft.id_staff')
-            ->select('register_soft.*', 'sw.name as software',
+            ->select('register_soft.*', 'sw.name as software', 'c.name as customer_name',
+                'c.email', 'c.phone_number', 'c.address',
                 'ts.name as typesoftware', 'u.name as staff_name',
                 'sw.price as softwares_price')
             ->find($request->id);
-//        $update->start_date=now();
+//        $service->start_date=now();
 //        dd($request->all());
-        $update->update(['transaction' => $request->transaction]);
-        $exist_date = date(strtotime($update->end_date)) - date(strtotime($update->start_date));
+        $service->update(['transaction' => $request->transaction]);
+        $exist_date = date(strtotime($service->end_date)) - date(strtotime($service->start_date));
         $years = floor($exist_date / (365 * 60 * 60 * 24));
         $months = floor(($exist_date - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
         $days = floor(($exist_date - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
         $date = floor($exist_date / (60 * 60 * 24));
 //        dd($date);
-        if ($update->transaction == 2 && $date > 15) {
+        $giahan=0;
+        if($service->transaction==1)
+        {
+            $giahan=1;
+        }
+//        dd($service);
+        if ($request->transaction == 2 && $date > 15) {
 
             $invoice = new Invoice();
-            $invoice->id_register_soft = $update->id;
-            $invoice->id_staff=Auth::id();
-            $invoice->id_customer = $update->id_customer;
-            $invoice->price = $update->softwares_price;
+            $invoice->id_register_soft = $service->id;
+            $invoice->id_staff = Auth::id();
+            $invoice->id_customer = $service->id_customer;
+            $invoice->price = (float)$service->softwares_price;
             $invoice->date = now();
             $invoice->VAT_price = '10%';
-            if ($years > 1) {
-                $total = (int)$update->softwares_price * (int)$years;
+            if (($service->date_using / 12) > 1) {
+                $total = (float)$service->softwares_price * ($service->date_using / 12);
             } else {
-                $total = (int)$update->softwares_price;
+                $total = (float)$service->softwares_price;
             }
-            $invoice->total = $total + $total * 10 / 100;
+            $invoice->total = $total;
             $invoice->description = "Đã thanh toán";
-            $ten = $update->software;
-            $invoice->order_type = "thu tiền phần mềm $ten";
+            $ten = $service->software;
+            $invoice->order_type = "Thu tiền phần mềm $ten";
             $invoice->save();
+            $extend = $giahan;
+            Mail::to($service->email)->send(new OrderSoft($service, $extend));
             $sw = RegisterSoft::find($request->id);
             $customer = Customer::find($sw->id_customer);
             $code_bill = Helper::generateCodeById($invoice->id_register_soft) . self::UNDERLINE . 'SW';
@@ -308,10 +337,36 @@ class OrderController extends AdminController
                 }
             }
         }
-
+        else {
+            $extend = $giahan;
+            Mail::to($service->email)->send(new OrderSoftTrial($service, $extend));
+            return redirect(route('admin.order.software'))->with('success', 'Thành Công');
+        }
 
         return back();
     }
 
+
+    public function sendmail(Request $request)
+    {
+        $service = RegisterSoft::
+        join('customers as c', 'c.id', '=', 'register_soft.id_customer')
+            ->join('softwares as sw', 'sw.id', 'register_soft.id_software')
+            ->join('typesoftwares as ts', 'ts.id', 'register_soft.id_typesoftware')
+            ->join('users as u', 'u.id', 'register_soft.id_staff')
+            ->select('register_soft.*', 'sw.name as software', 'c.name as customer_name',
+                'c.email', 'c.phone_number', 'c.address',
+                'ts.name as typesoftware', 'u.name as staff_name',
+                'sw.price as softwares_price')
+            ->find(11);
+        $giahan=0;
+//        dd($service);
+        if($service->transaction==1)
+        {
+            $giahan=1;
+        }
+        $extend = $giahan;
+        Mail::to($service->email)->send(new OrderSoft($service, $extend));
+    }
 
 }

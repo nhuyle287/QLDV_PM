@@ -106,7 +106,7 @@
                                             <div class="form-group col-md-6">
                                                 <div class="col-xs-12 form-group">
                                                     <label style="margin-top: 20px;" class="registerservice1">Loại phần mềm <span class="aster">*</span></label>
-                                                    <select class="js-example-basic-single form-control" name="id_typesoftware">
+                                                    <select class="js-example-basic-single form-control" name="id_typesoftware" readonly>
                                                         @foreach($type_software as $i)
 
                                                             <option value="{{$i->id}}"
@@ -226,7 +226,7 @@
                                         </div>
                                         <hr>
                                         <button class="btn btn-info">{{ __('general.save') }}</button>
-                                        <a href="{{ route('admin.list-softs.index') }}"
+                                        <a href="{{ route('admin.list-services.index') }}"
                                            class="btn btn-default">{{ __('general.back') }}</a>
                                     </div>
                                 </div>

@@ -17,12 +17,31 @@ class InvoiceLogic extends BaseLogic
     {
         return Invoice::class;
     }
-    public function totalprice($start){
-        $query=$this->model->whereMonth('invoices.created_at','=',$start)->sum('invoices.total') ;
-        $expenditure=Expenditure::whereMonth('expenditures.created_at','=',$start)->sum('expenditures.price') ;
-        $query=$query-$expenditure;
+
+    public function totalprice($start)
+    {
+        $query = $this->model->whereMonth('invoices.created_at', '=', $start)->sum('invoices.total');
+        $expenditure = Expenditure::whereMonth('expenditures.created_at', '=', $start)->sum('expenditures.price');
+
         return $query;
     }
+
+    public function totalrevenue($start)
+    {
+        $query = $this->model->whereMonth('invoices.created_at', '=', $start)->sum('invoices.total');
+        $expenditure = Expenditure::whereMonth('expenditures.created_at', '=', $start)->sum('expenditures.price');
+        $query = $query - $expenditure;
+        return $query;
+    }
+
+    public function totalexpenditure($start)
+    {
+//        $query=$this->model->whereMonth('invoices.created_at','=',$start)->sum('invoices.total') ;
+        $expenditure = Expenditure::whereMonth('expenditures.created_at', '=', $start)->sum('expenditures.price');
+
+        return $expenditure;
+    }
+
     public function getListInvoice()
     {
         $query = $this->model
@@ -82,8 +101,6 @@ class InvoiceLogic extends BaseLogic
     }
 
 //get phiếu thu
-
-
 
 
     //
